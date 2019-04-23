@@ -1,17 +1,56 @@
 ﻿using Core.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace Core
 {
     public class GameLogic
     {
-        public List<Player> Players { get; set; }
+        public Players Players { get; set; }
+        public NightVisitLogic NightVisitLogic;
+        public IEnumerable<XElement> Roles { get; set; }
 
+   
+
+        public GameLogic(String DataDirectory)
+        {
+
+            Players = new Players();
+            NightVisitLogic = new NightVisitLogic(Players.PlayersList);
+
+            Roles = XElement.Load(Path.Combine(DataDirectory, "Roles.Xml")).Descendants("role");
+        }
+
+
+        public Role GetRole(string Role)
+        {
+            if (Roles.Any(x => x.Element("name").Value.Trim().ToLower() == Role.Trim().ToLower())) {
+                var RoleData = Roles.Where(x => x.Element("name").Value.Trim().ToLower() == Role.Trim().ToLower()).First();
+
+                return new Role {
+                    Name = RoleData.Element("name").Value,
+                    NightPriority = Convert.ToInt32(RoleData.Element("night_priority").Value),
+                    FirstNightPriority = Convert.ToInt32(RoleData.Element("first_night_priority").Value),
+                    Team = (Team)Enum.Parse(typeof(Team), RoleData.Element("team").Value),
+                    Type = (RoleType)Enum.Parse(typeof(RoleType), RoleData.Element("type").Value),
+                    RoleText = RoleData.Element("role_text").Value
+                };
+            }
+            else
+            {
+                throw new FileNotFoundException("Cannot find Role: "+Role);
+            }
+        }
+
+        
+       
         public GameResult CheckForWin()
         {
-            if (Players.Where(x => x.Role.Type == RoleType.Demon).Count() == 0)
+            if (Players.PlayersList.Where(x => x.Role.Type == RoleType.Demon).Count() == 0)
             {
                 return new GameResult
                 {
@@ -20,7 +59,7 @@ namespace Core
                     WonBy = Team.Good
                 };
 
-            } else if (Players.Where(x => x.IsAlive).Count() <= 2)
+            } else if (Players.PlayersList.Where(x => x.IsAlive).Count() <= 2)
             {
                 return new GameResult {
                     GameWon = true,

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<roles>
+  <role>
+    <name>Chef</name>
+    <night_priority>-1</night_priority>
+    <first_night_priority>70</first_night_priority>
+    <role_text>You start knowing how many pairs of evil players are neighboring each other.</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+  <role>
+    <name>Empath</name>
+    <night_priority>70</night_priority>
+    <first_night_priority>80</first_night_priority>
+    <role_text>Each night, you learn how many of your 2 alive neighbors are evil</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+  <role>
+    <name>Fortune Teller</name>
+    <night_priority>80</night_priority>
+    <first_night_priority>90</first_night_priority>
+    <role_text>Each night, chose 2 players: you learn if either id a Demon. There is 1 good player that registers falsely to you.</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+  <role>
+    <name>Investigator</name>
+    <night_priority>-1</night_priority>
+    <first_night_priority>60</first_night_priority>
+    <role_text>You start knowing that 1 of 2 players is a particular Minion</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+  <role>
+    <name>Librarian</name>
+    <night_priority>-1</night_priority>
+    <first_night_priority>50</first_night_priority>
+    <role_text>You start knowing that 1 of 2 players is a particular Outsider. (Or that zero are in play)</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+  <role>
+    <name>Drunk</name>
+    <night_priority>-1</night_priority>
+    <first_night_priority>-1</first_night_priority>
+    <role_text>You do not know you are the Drunk. You think you are a Townsfolk, but your ability malfunctions.</role_text>
+    <team>Good</team>
+    <type>Outsider</type>
+  </role>
+  <role>
+    <name>Scarlet Woman</name>
+    <night_priority>40</night_priority>
+    <first_night_priority>-1</first_night_priority>
+    <role_text>If there are 5 or more players alive and the Demon dies, you become the Demon. (Travelers do not count)</role_text>
+    <team>Evil</team>
+    <type>Minion</type>
+  </role>
+  <role>
+    <name>Imp</name>
+    <night_priority>50</night_priority>
+    <first_night_priority>-1</first_night_priority>
+    <role_text>Each night (execept the first), choose a player; they die. If you chose yourself you die and a Minion becomes the Imp</role_text>
+    <team>Evil</team>
+    <type>Demon</type>
+  </role>
+</roles>
