@@ -8,7 +8,7 @@ namespace BotS
     class Program
     {
         private static readonly string Resources = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Resources\");
-        private static readonly Core.GameLogic GameLogic = new Core.GameLogic(Resources);
+        private static readonly Core.GameLogic GameLogic = new Core.GameLogic();
 
         static void Main(string[] args)
         {
@@ -112,11 +112,8 @@ namespace BotS
                     default:
                         break;
                 }
-                
-
-
                 Console.Clear();
-            }            
+            }
         }
 
     }

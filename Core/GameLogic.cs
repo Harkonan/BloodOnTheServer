@@ -16,13 +16,13 @@ namespace Core
 
    
 
-        public GameLogic(String DataDirectory)
+        public GameLogic()
         {
-
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Core.Data.Roles.xml");
             Players = new Players();
             NightVisitLogic = new NightVisitLogic(Players.PlayersList);
 
-            Roles = XElement.Load(Path.Combine(DataDirectory, "Roles.Xml")).Descendants("role");
+            Roles = XElement.Load(stream).Descendants("role");
         }
 
 
