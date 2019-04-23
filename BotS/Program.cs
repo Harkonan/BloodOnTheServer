@@ -92,6 +92,9 @@ namespace BotS
                 }
 
                 Console.WriteLine("");
+                Console.WriteLine("Was a Player Executed Today?");
+
+                Console.WriteLine("");
                 Console.WriteLine("Tonights Visits");
                 GameLogic.NightVisitLogic.AddNightReminders();
                 foreach (var Player in GameLogic.Players.GetPlayersWithNightVisits().OrderBy(x => x.Role.NightPriority))
