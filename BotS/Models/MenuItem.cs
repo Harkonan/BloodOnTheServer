@@ -9,7 +9,5 @@ namespace BotS.Models
         public int SeclectorValue { get; set; }
         public string Display { get; set; }
         public string ReturnValue { get; set; }
-
-
     }
 }

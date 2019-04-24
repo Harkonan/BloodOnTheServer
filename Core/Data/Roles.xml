@@ -1,6 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <roles>
   <role>
+    <name>Washerwoman</name>
+    <night_priority>-1</night_priority>
+    <first_night_priority>40</first_night_priority>
+    <role_text>You start knowing 1 of 2 players is a particular Townsfolk.</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+  <role>
+    <name>Librarian</name>
+    <night_priority>-1</night_priority>
+    <first_night_priority>50</first_night_priority>
+    <role_text>You start knowing that 1 of 2 players is a particular Outsider. (Or that zero are in play)</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+  <role>
+    <name>Investigator</name>
+    <night_priority>-1</night_priority>
+    <first_night_priority>60</first_night_priority>
+    <role_text>You start knowing that 1 of 2 players is a particular Minion</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+  <role>
     <name>Chef</name>
     <night_priority>-1</night_priority>
     <first_night_priority>70</first_night_priority>
@@ -25,20 +49,69 @@
     <type>Townsfolk</type>
   </role>
   <role>
-    <name>Investigator</name>
-    <night_priority>-1</night_priority>
-    <first_night_priority>60</first_night_priority>
-    <role_text>You start knowing that 1 of 2 players is a particular Minion</role_text>
+    <name>Undertaker</name>
+    <first_night_priority>-1</first_night_priority>
+    <night_priority>100</night_priority>
+    <role_text>Each night, you learn which character died by execution today.</role_text>
     <team>Good</team>
     <type>Townsfolk</type>
   </role>
   <role>
-    <name>Librarian</name>
-    <night_priority>-1</night_priority>
-    <first_night_priority>50</first_night_priority>
-    <role_text>You start knowing that 1 of 2 players is a particular Outsider. (Or that zero are in play)</role_text>
+    <name>Monk</name>
+    <first_night_priority>-1</first_night_priority>
+    <night_priority>30</night_priority>
+    <role_text>Each night (Execept the first), choose a player (not yourself): they are safe from the Demon tonight.</role_text>
     <team>Good</team>
     <type>Townsfolk</type>
+  </role>
+  <role>
+    <name>Ravenkeeper</name>
+    <first_night_priority>-1</first_night_priority>
+    <night_priority>60</night_priority>
+    <role_text>If you die at night, you are woken to choose a player: you learn their character.</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+  <role>
+    <name>Virgin</name>
+    <first_night_priority>-1</first_night_priority>
+    <night_priority>-1</night_priority>
+    <role_text>The 1st time you are nominated, if the nominator is a Townsfolk, they are executed immediately.</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+  <role>
+    <name>Slayer</name>
+    <first_night_priority>-1</first_night_priority>
+    <night_priority>-1</night_priority>
+    <role_text>Once per game, during the day, publicly choose a player: if they are the Demon, they die.</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+  <role>
+    <name>Soldier</name>
+    <first_night_priority>-1</first_night_priority>
+    <night_priority>-1</night_priority>
+    <role_text>You are safe from the Demon.</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+  <role>
+    <name>Mayor</name>
+    <first_night_priority>-1</first_night_priority>
+    <night_priority>-1</night_priority>
+    <role_text>If no execution occurs while only 3 players live, you win. If you die at night, another player might die instead.</role_text>
+    <team>Good</team>
+    <type>Townsfolk</type>
+  </role>
+
+  <role>
+    <name>Butler</name>
+    <night_priority>90</night_priority>
+    <first_night_priority>90</first_night_priority>
+    <role_text>Each night, choose a player (not yourself): tomorrow, you may only vote when they are, even if drunk or poisoned.</role_text>
+    <team>Good</team>
+    <type>Outsider</type>
   </role>
   <role>
     <name>Drunk</name>
@@ -49,6 +122,39 @@
     <type>Outsider</type>
   </role>
   <role>
+    <name>Recluse</name>
+    <night_priority>-1</night_priority>
+    <first_night_priority>-1</first_night_priority>
+    <role_text>You might register as evil and as a Minion or Demon, even if dead.</role_text>
+    <team>Good</team>
+    <type>Outsider</type>
+  </role>
+  <role>
+    <name>Saint</name>
+    <night_priority>-1</night_priority>
+    <first_night_priority>-1</first_night_priority>
+    <role_text>If you die by execution, you lose.</role_text>
+    <team>Good</team>
+    <type>Outsider</type>
+  </role>
+
+  <role>
+    <name>Poisoner</name>
+    <night_priority>40</night_priority>
+    <first_night_priority>20</first_night_priority>
+    <role_text>If there are 5 or more players alive and the Demon dies, you become the Demon. (Travelers do not count)</role_text>
+    <team>Evil</team>
+    <type>Minion</type>
+  </role>
+  <role>
+    <name>Spy</name>
+    <night_priority>110</night_priority>
+    <first_night_priority>120</first_night_priority>
+    <role_text>Each night, you see the Grimoire. You might register as good and as a Townsfolk or Outsider, even if dead.</role_text>
+    <team>Evil</team>
+    <type>Minion</type>
+  </role>
+  <role>
     <name>Scarlet Woman</name>
     <night_priority>40</night_priority>
     <first_night_priority>-1</first_night_priority>
@@ -56,6 +162,15 @@
     <team>Evil</team>
     <type>Minion</type>
   </role>
+  <role>
+    <name>Baron</name>
+    <night_priority>-1</night_priority>
+    <first_night_priority>-1</first_night_priority>
+    <role_text>There are extra Outsiders in play. [+2 Outsiders]</role_text>
+    <team>Evil</team>
+    <type>Minion</type>
+  </role>
+  
   <role>
     <name>Imp</name>
     <night_priority>50</night_priority>

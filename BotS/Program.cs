@@ -35,7 +35,7 @@ namespace BotS
                 }
             }
 
-            GameLogic.NightVisitLogic.AddFirstNightReminders();
+            GameLogic.NightVisitLogic.AddFirstNightVisits();
             ScreenLogic.DrawFirstNightScreen();
             //Wipe reminders to start next night
             GameLogic.NightVisitLogic.ClearNightVisits();
@@ -57,7 +57,7 @@ namespace BotS
 
             while (looper)
             {
-                GameLogic.NightVisitLogic.AddNightReminders();
+                GameLogic.NightVisitLogic.AddNightVisits();
                 ScreenLogic.DrawDayScreen(DayNumber);
                 Console.WriteLine("");
                 Console.WriteLine("Was a Player Executed Today? (Y/N)");

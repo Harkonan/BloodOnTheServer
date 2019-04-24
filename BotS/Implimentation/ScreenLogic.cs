@@ -63,7 +63,7 @@ namespace BotS.Implimentation
         {
             Console.WriteLine("");
             Console.WriteLine("Tonights Visits");
-            Program.GameLogic.NightVisitLogic.AddNightReminders();
+            Program.GameLogic.NightVisitLogic.AddNightVisits();
             foreach (var Player in Program.GameLogic.Players.GetPlayersWithNightVisits().OrderBy(x => x.Role.NightPriority))
             {
                 Console.WriteLine(" ({0}) {1}: {2}", Player.Role.Name, Player.Name, Player.Role.RoleText);
