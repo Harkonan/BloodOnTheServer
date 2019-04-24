@@ -70,6 +70,8 @@ namespace Core
                     WonBy = Team.Good
                 };
 
+            } else if (false) {
+                //TODO: Mayor win clause
             } else if (Players.PlayersList.Where(x => x.IsAlive).Count() <= 2)
             {
                 return new GameResult {
