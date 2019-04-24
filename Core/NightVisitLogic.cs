@@ -36,6 +36,12 @@ namespace Core
             SetFirstNightVisit("Spy");
         }
 
+        public void RefreshNightVisits()
+        {
+            ClearNightVisits();
+            AddNightVisits();
+        }
+
         public void AddNightVisits()
         {
             SetStandardNightVisit("Poisoner");

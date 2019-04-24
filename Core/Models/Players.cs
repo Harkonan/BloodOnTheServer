@@ -24,15 +24,13 @@ namespace Core.Models
 
         public void KillPlayer(CauseOfDeath _CauseOfDeath)
         {
-            if ((Role.Name != "Soldier" || (Role.IsDrunk || Role.IsPoisoned)) && _CauseOfDeath == CauseOfDeath.Demon)
-            {
-                IsAlive = false;
-                CauseOfDeath = _CauseOfDeath;
-            }
+            IsAlive = false;
+            CauseOfDeath = _CauseOfDeath;
         }
     }
 
-    public class Players {
+    public class Players
+    {
         public List<Player> PlayersList { get; set; }
 
         public Players()
@@ -42,7 +40,7 @@ namespace Core.Models
 
         public bool KillPlayer(string PlayerName, CauseOfDeath _CauseOfDeath)
         {
-            if(PlayersList.Any(x => x.Name == PlayerName))
+            if (PlayersList.Any(x => x.Name == PlayerName))
             {
                 var Player = PlayersList.Where(x => x.Name == PlayerName).First();
                 Player.IsAlive = false;

@@ -57,8 +57,7 @@ namespace Core
             }
         }
 
-        
-       
+      
         public GameResult CheckForWin()
         {
             if (Players.PlayersList.Where(x => x.Role.Type == RoleType.Demon).Count() == 0)

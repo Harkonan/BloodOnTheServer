@@ -1,5 +1,6 @@
 ﻿using BotS.Models;
 using Core;
+using Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace BotS.Implimentation
             Console.WriteLine("Setting up before the first night:");
 
             //Get roles you need to set up before the first night & all roles that need visiting on the first night
-            
+
             foreach (var Player in Program.GameLogic.Players.GetPlayersWithNightVisitsToPreSetup().OrderBy(x => x.Role.FirstNightPriority))
             {
                 Console.WriteLine(" ({0}) {1}: {2}", Player.Role.Name, Player.Name, Player.Role.RoleText);
@@ -34,8 +35,8 @@ namespace BotS.Implimentation
 
             Console.WriteLine("");
             Console.WriteLine("Press any key when first night is complete");
-            Console.ReadKey(false); 
-            
+            Console.ReadKey(false);
+
             Console.Clear();
         }
 
@@ -51,7 +52,7 @@ namespace BotS.Implimentation
                     VoteStatus = (Player.HasVote ? "[Has Vote]" : "");
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
-                
+
                 Console.WriteLine(" - ({0}) {1} {2}", Player.Name, Player.Role.Name, VoteStatus);
                 Console.ResetColor();
             }
@@ -64,14 +65,18 @@ namespace BotS.Implimentation
             Console.WriteLine("Day {0}", _DayNumber);
 
             Console.WriteLine("");
+            Console.WriteLine("Players:");
+            DrawPlayerList();
+
+            Console.WriteLine("");
             Console.WriteLine("Tonights Setup");
-            
+
             foreach (var Player in Program.GameLogic.Players.GetPlayersWithNightVisitsToPreSetup().OrderBy(x => x.Role.NightPriority))
             {
                 Console.WriteLine(" ({0}) {1}: {2}", Player.Role.Name, Player.Name, Player.Role.RoleText);
             }
 
-            
+
         }
 
         public void DrawNightScreen()
@@ -86,19 +91,59 @@ namespace BotS.Implimentation
 
         }
 
+        public void DrawKillScreen(CauseOfDeath? _CauseOfDeath)
+        {
+            Console.Clear();
+            CauseOfDeath CauseOfDeath;
+            if (_CauseOfDeath == null)
+            {
+                Console.WriteLine("Select Cause of Death: ");
+                var KillTypeMenu = Enum.GetValues(typeof(CauseOfDeath)).Cast<CauseOfDeath>().Select(x => new MenuItem { Display = x.ToString(), ReturnValue = x.ToString() });
+                CauseOfDeath = (CauseOfDeath)Enum.Parse(typeof(CauseOfDeath), DrawMenu(KillTypeMenu));
+            }
+            else
+            {
+                CauseOfDeath = _CauseOfDeath ?? CauseOfDeath.Execution;
+            }
+            
+            Console.WriteLine("");
+            Console.WriteLine("Select which player you wish to kill by {0}", _CauseOfDeath.ToString());
+            var KillablePlayers = Program.GameLogic.Players.PlayersList.Where(x => x.IsAlive).Select(x => new MenuItem()
+            {
+                Display = " (" + x.Role.Name + ") " + x.Name,
+                ReturnValue = x.Id.ToString()
+            });
+            var retunredValue = DrawMenu(KillablePlayers);
+            var KilledPlayer = Program.GameLogic.Players.PlayersList.Where(x => x.Id.ToString() == retunredValue).First();
+
+            KilledPlayer.KillPlayer(CauseOfDeath);           
+
+            Console.Clear();
+        }
+
         public string DrawMenu(IEnumerable<MenuItem> InputValues)
         {
-            int i = 1;
-            InputValues = InputValues.Select(x => { x.SeclectorValue = i++; return x; });
+            var Values = InputValues.ToList();
 
-            Console.WriteLine("Select an Item Below");
-            foreach (var item in InputValues)
+            char PlayerInput;
+            for (int i = 0; i < Values.Count(); i++)
             {
-                Console.WriteLine("{0} - {1}", item.SeclectorValue, item.Display);
+                Values[i].SeclectorValue = i + 1;
             }
-            var PlayerInput = Console.ReadKey(false).KeyChar;
 
-            return "";
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Select an Item Below");
+                foreach (var item in Values)
+                {
+                    Console.WriteLine("{0} - {1}", item.SeclectorValue, item.Display);
+                }
+                PlayerInput = Console.ReadKey(true).KeyChar;
+
+            } while (!Values.Any(x => x.SeclectorValue.ToString() == PlayerInput.ToString()));
+
+            return Values.Where(x => x.SeclectorValue.ToString() == PlayerInput.ToString()).First().ReturnValue;
         }
     }
 }

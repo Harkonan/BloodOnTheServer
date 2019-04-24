@@ -3,14 +3,15 @@ using System.IO;
 using System.Reflection;
 using System.Linq;
 using BotS.Implimentation;
+using Core.Models;
 
 namespace BotS
 {
     class Program
     {
         private static readonly string Resources = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Resources\");
-        public static readonly Core.GameLogic GameLogic = new Core.GameLogic();
-        private static readonly ScreenLogic ScreenLogic = new ScreenLogic();
+        internal static readonly Core.GameLogic GameLogic = new Core.GameLogic();
+        internal static readonly ScreenLogic ScreenLogic = new ScreenLogic();
 
         static void Main(string[] args)
         {
@@ -65,11 +66,13 @@ namespace BotS
                 switch (Console.ReadKey(false).Key)
                 {
                     case ConsoleKey.Y:
-                        Actions.KillPlayer();
+                        ScreenLogic.DrawKillScreen(CauseOfDeath.Execution);
+                        GameLogic.NightVisitLogic.RefreshNightVisits();
                         break;
                     default:
                         break;
                 }
+
                 Console.Clear();
 
                 ScreenLogic.DrawNightScreen();
