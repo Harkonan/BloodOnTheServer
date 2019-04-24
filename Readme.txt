@@ -11,3 +11,4 @@ To do:
 	- add scarlet woman checks
 	- add imp suicide check
  - build toop to cycle day and nights
+ Test
