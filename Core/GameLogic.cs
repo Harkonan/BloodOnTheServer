@@ -26,11 +26,21 @@ namespace Core
         }
 
 
+        /// <summary>
+        /// Looks in the XML file to see if there is a Role that matches the string inputed.
+        /// if it finds a match, it returns a Role Item with that matching roles data.
+        /// </summary>
+        /// <param name="Role"></param>
+        /// <returns>Role</returns>
         public Role GetRole(string Role)
         {
-            if (Roles.Any(x => x.Element("name").Value.Trim().ToLower() == Role.Trim().ToLower())) {
+            var RoleExists = Roles.Any(x => x.Element("name").Value.Trim().ToLower() == Role.Trim().ToLower());
+            if (RoleExists) {
+
+                //Select the role from the Roles XML data by mathcing its name
                 var RoleData = Roles.Where(x => x.Element("name").Value.Trim().ToLower() == Role.Trim().ToLower()).First();
 
+                //conver the role into a Role Object converting it to the correct format where needed
                 return new Role {
                     Name = RoleData.Element("name").Value,
                     NightPriority = Convert.ToInt32(RoleData.Element("night_priority").Value),
@@ -42,6 +52,7 @@ namespace Core
             }
             else
             {
+                //if we cannot find a role, throw an error (this needs to be made user friendly)
                 throw new FileNotFoundException("Cannot find Role: "+Role);
             }
         }
