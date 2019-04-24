@@ -12,13 +12,8 @@ namespace BotS.Implimentation
     {
         public void DrawFirstNightScreen()
         {
-            //List players & roles
-            Console.WriteLine("Player & Role List:");
-            foreach (var Player in Program.GameLogic.Players.PlayersList)
-            {
-                Console.WriteLine(" ({0}) {1}", Player.Role.Name, Player.Name);
-            }
 
+            DrawPlayerList();
             Console.WriteLine("");
             Console.WriteLine("Setting up before the first night:");
 
@@ -43,6 +38,26 @@ namespace BotS.Implimentation
             
             Console.Clear();
         }
+
+        public void DrawPlayerList()
+        {
+            //List players & roles
+            Console.WriteLine("Player & Role List:");
+            foreach (var Player in Program.GameLogic.Players.PlayersList)
+            {
+                string VoteStatus = "";
+                if (!Player.IsAlive)
+                {
+                    VoteStatus = (Player.HasVote ? "[Has Vote]" : "");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                
+                Console.WriteLine(" - ({0}) {1} {2}", Player.Name, Player.Role.Name, VoteStatus);
+                Console.ResetColor();
+            }
+        }
+
+
 
         public void DrawDayScreen(int _DayNumber)
         {

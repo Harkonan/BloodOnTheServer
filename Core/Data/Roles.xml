@@ -140,8 +140,8 @@
 
   <role>
     <name>Poisoner</name>
-    <night_priority>40</night_priority>
-    <first_night_priority>20</first_night_priority>
+    <night_priority>20</night_priority>
+    <first_night_priority>30</first_night_priority>
     <role_text>If there are 5 or more players alive and the Demon dies, you become the Demon. (Travelers do not count)</role_text>
     <team>Evil</team>
     <type>Minion</type>

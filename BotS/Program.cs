@@ -34,6 +34,7 @@ namespace BotS
 
                 }
             }
+            GameLogic.Players.PlayersList.Where(x => x.Name == "Ex").First().KillPlayer(Core.Models.CauseOfDeath.Demon);
 
             GameLogic.NightVisitLogic.AddFirstNightVisits();
             ScreenLogic.DrawFirstNightScreen();

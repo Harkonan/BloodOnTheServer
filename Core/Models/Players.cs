@@ -21,6 +21,15 @@ namespace Core.Models
             HasVote = true;
             CauseOfDeath = CauseOfDeath.NotDead;
         }
+
+        public void KillPlayer(CauseOfDeath _CauseOfDeath)
+        {
+            if ((Role.Name != "Soldier" || (Role.IsDrunk || Role.IsPoisoned)) && _CauseOfDeath == CauseOfDeath.Demon)
+            {
+                IsAlive = false;
+                CauseOfDeath = _CauseOfDeath;
+            }
+        }
     }
 
     public class Players {

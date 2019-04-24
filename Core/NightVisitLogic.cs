@@ -26,7 +26,7 @@ namespace Core
         public void AddFirstNightVisits()
         {
             SetFirstNightVisit("Poisoner");
-            SetFirstNightVisit("Washwoman", true);
+            SetFirstNightVisit("Washerwoman", true);
             SetFirstNightVisit("Librarian", true);
             SetFirstNightVisit("Investigator", true);
             SetFirstNightVisit("Chef");
