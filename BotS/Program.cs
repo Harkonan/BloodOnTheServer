@@ -51,8 +51,6 @@ namespace BotS
 
         }
 
-        
-
         private static void DayNightLoop()
         {
             bool looper = true;
@@ -70,7 +68,6 @@ namespace BotS
                     ScreenLogic.DrawKillScreen(CauseOfDeath.Execution);
                     GameLogic.NightVisitLogic.RefreshNightVisits();
                     ScreenLogic.DrawDayScreen(DayNumber);
-
                 }
                 else
                 {
@@ -83,8 +80,34 @@ namespace BotS
                 //Move into night phase
                 ScreenLogic.DrawNightScreen();
 
+
                 Console.WriteLine("");
-                Console.WriteLine("Continue to Next Turn? (Y/N)");
+                Console.WriteLine("Has a player been killed? (Y/N)");
+                var Key = Console.ReadKey(false).Key;
+                if (Key == ConsoleKey.Y)
+                {
+                    ScreenLogic.DrawKillScreen();
+                    GameLogic.NightVisitLogic.RefreshNightVisits();
+                    ScreenLogic.DrawNightScreen();
+
+                    while (Key == ConsoleKey.Y)
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Has another player been killed? (Y/N)");
+                        Key = Console.ReadKey(false).Key;
+                        if (Key == ConsoleKey.Y)
+                        {
+                            ScreenLogic.DrawKillScreen();
+                            GameLogic.NightVisitLogic.RefreshNightVisits();
+                            ScreenLogic.DrawNightScreen();
+                        }
+                    }
+                }
+               
+                Console.Clear();
+                ScreenLogic.DrawNightScreen();
+                Console.WriteLine("");
+                Console.WriteLine("Press any key to continue to next day");
                 if (Console.ReadKey(false).Key == ConsoleKey.N)
                 {
                     looper = false;

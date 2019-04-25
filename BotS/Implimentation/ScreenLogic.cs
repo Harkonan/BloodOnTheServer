@@ -91,7 +91,7 @@ namespace BotS.Implimentation
 
         }
 
-        public void DrawKillScreen(CauseOfDeath? _CauseOfDeath)
+        public void DrawKillScreen(CauseOfDeath? _CauseOfDeath = null)
         {
             Console.Clear();
             CauseOfDeath CauseOfDeath;
@@ -125,7 +125,7 @@ namespace BotS.Implimentation
         {
             var Values = InputValues.ToList();
 
-            char PlayerInput;
+            string PlayerInput;
             for (int i = 0; i < Values.Count(); i++)
             {
                 Values[i].SeclectorValue = i + 1;
@@ -139,7 +139,7 @@ namespace BotS.Implimentation
                 {
                     Console.WriteLine("{0} - {1}", item.SeclectorValue, item.Display);
                 }
-                PlayerInput = Console.ReadKey(true).KeyChar;
+                PlayerInput = Console.ReadLine();
 
             } while (!Values.Any(x => x.SeclectorValue.ToString() == PlayerInput.ToString()));
 
