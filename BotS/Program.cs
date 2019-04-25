@@ -79,7 +79,9 @@ namespace BotS
                     Console.Clear();
                     ScreenLogic.DrawDayScreen(DayNumber);
                 }
-
+                
+                Console.WriteLine("Press any Key to move to night Phase");
+                Console.ReadKey();
                 Console.Clear();
 
                 //Move into night phase
