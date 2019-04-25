@@ -61,31 +61,29 @@ namespace Core
         }
 
       
-        public GameResult CheckForWin()
-        {
-            if (Players.PlayersList.Where(x => x.Role.Type == RoleType.Demon).Count() == 0)
-            {
-                return new GameResult
-                {
-                    GameWon = true,
-                    WinText = "Demon has been killed",
-                    WonBy = Team.Good
-                };
+        //public GameResult CheckForWin()
+        //{
+        //    if (Players.PlayersList.Where(x => x.Role.Type == RoleType.Demon).Count() == 0)
+        //    {
+        //        return new GameResult
+        //        {
+        //            GameWon = true,
+        //            WinText = "Demon has been killed",
+        //            WonBy = Team.Good
+        //        };
 
-            } else if (false) {
-                //TODO: Mayor win clause
-            } else if (Players.PlayersList.Where(x => x.IsAlive).Count() <= 2)
-            {
-                return new GameResult {
-                    GameWon = true,
-                    WinText = "Only 2 players left alive",
-                    WonBy = Team.Evil
-                };
-            }
+        //    } else if (false) {
+        //        //TODO: Mayor win clause
+        //    } else if (Players.PlayersList.Where(x => x.IsAlive).Count() <= 2)
+        //    {
+        //        return new GameResult {
+        //            GameWon = true,
+        //            WinText = "Only 2 players left alive",
+        //            WonBy = Team.Evil
+        //        };
+        //    }
 
-            return new GameResult { GameWon = false };
-        }
-
-
+        //    return new GameResult { GameWon = false };
+        //}
     }
 }

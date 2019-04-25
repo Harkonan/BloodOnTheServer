@@ -15,9 +15,7 @@ namespace BotS
 
         static void Main(string[] args)
         {
-            
-            Console.WriteLine("Starting Demo Game");
-            Console.WriteLine("");
+            ScreenLogic.DrawTitle("Starting Demo Game");
             
 
             //load the demo game values from the csv then create players & roles based on this file

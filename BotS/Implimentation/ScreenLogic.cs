@@ -13,25 +13,34 @@ namespace BotS.Implimentation
     {
         public void DrawFirstNightScreen()
         {
-
+            DrawTitle("Player & Role List:");
             DrawPlayerList();
-            Console.WriteLine("");
-            Console.WriteLine("Setting up before the first night:");
+
 
             //Get roles you need to set up before the first night & all roles that need visiting on the first night
-
-            foreach (var Player in Program.GameLogic.Players.GetPlayersWithNightVisitsToPreSetup().OrderBy(x => x.Role.FirstNightPriority))
+            var FirstNightSetup = Program.GameLogic.Players.GetPlayersWithNightVisitsToPreSetup().OrderBy(x => x.Role.FirstNightPriority);
+            if (FirstNightSetup.Count() > 0)
             {
-                Console.WriteLine(" ({0}) {1}: {2}", Player.Role.Name, Player.Name, Player.Role.RoleText);
+                DrawTitle("Setting up before the first night");
+
+                foreach (var Player in FirstNightSetup)
+                {
+                    DrawPlayerDescription(Player);
+                }
             }
 
 
-            Console.WriteLine("");
-            Console.WriteLine("First night visits:");
-            foreach (var Player in Program.GameLogic.Players.GetPlayersWithNightVisits().OrderBy(x => x.Role.FirstNightPriority))
+            var FirstNightVisits = Program.GameLogic.Players.GetPlayersWithNightVisits().OrderBy(x => x.Role.FirstNightPriority);
+            if (FirstNightVisits.Count() > 0)
             {
-                Console.WriteLine(" ({0}) {1}: {2}", Player.Role.Name, Player.Name, Player.Role.RoleText);
+                DrawTitle("First night visits");
+                foreach (var Player in FirstNightVisits)
+                {
+                    DrawPlayerDescription(Player);
+                }
             }
+
+            
 
             Console.WriteLine("");
             Console.WriteLine("Press any key when first night is complete");
@@ -43,29 +52,35 @@ namespace BotS.Implimentation
         public void DrawPlayerList()
         {
             //List players & roles
-            Console.WriteLine("Player & Role List:");
             foreach (var Player in Program.GameLogic.Players.PlayersList)
             {
                 string DeathStatus = "";
                 if (!Player.IsAlive)
                 {
                     DeathStatus = "[D]";
-                    Console.ForegroundColor = ConsoleColor.Gray;
                 }
-                else
-                {
-                    if (Player.Role.Team == Team.Good)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                    }
-                    else if (Player.Role.Team == Team.Evil)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                    }
-                }
-
+                SetColorByPlayer(Player);
                 Console.WriteLine(" - ({0}) {1} {2}", Player.Name, Player.Role.Name, DeathStatus);
                 Console.ResetColor();
+            }
+        }
+
+        internal void SetColorByPlayer(Player Player)
+        {
+            if (!Player.IsAlive)
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+            }
+            else
+            {
+                if (Player.Role.Team == Team.Good)
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                }
+                else if (Player.Role.Team == Team.Evil)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                }
             }
         }
 
@@ -75,52 +90,51 @@ namespace BotS.Implimentation
         {
             Console.WriteLine("Day time on Day {0}", Program.GameLogic.CurrentDay);
 
-            Console.WriteLine("");
-            Console.WriteLine("Players:");
+            DrawTitle("Players");
             DrawPlayerList();
 
-            Console.WriteLine("");
-            Console.WriteLine("Tonights Setup");
+            var NightSetupVisits = Program.GameLogic.Players.GetPlayersWithNightVisitsToPreSetup().OrderBy(x => x.Role.NightPriority);
 
-            foreach (var Player in Program.GameLogic.Players.GetPlayersWithNightVisitsToPreSetup().OrderBy(x => x.Role.NightPriority))
+            if (NightSetupVisits.Count() > 0)
             {
-                Console.WriteLine(" ({0}) {1}: {2}", Player.Role.Name, Player.Name, Player.Role.RoleText);
+                DrawTitle("Tonights Setup");
+                foreach (var Player in NightSetupVisits)
+                {
+                    DrawPlayerDescription(Player);
+                }
             }
-
-
         }
 
         public void DrawNightScreen()
         {
             Console.WriteLine("Nightime on Day {0} ", Program.GameLogic.CurrentDay);
 
-            Console.WriteLine("");
-            Console.WriteLine("Tonights Visits");
+            DrawTitle("Tonights Visits");
             Program.GameLogic.NightVisitLogic.AddNightVisits();
             foreach (var Player in Program.GameLogic.Players.GetPlayersWithNightVisits().OrderBy(x => x.Role.NightPriority))
             {
-                Console.WriteLine(" ({0}) {1}: {2}", Player.Role.Name, Player.Name, Player.Role.RoleText);
+                DrawPlayerDescription(Player);
             }
 
         }
 
-        public void DrawKillScreen(CauseOfDeath? _CauseOfDeath = null)
+        public void DrawKillScreen(CauseOfDeath? causeOfDeath = null)
         {
             Console.Clear();
             CauseOfDeath CauseOfDeath;
-            if (_CauseOfDeath == null)
+            if (causeOfDeath == null)
             {
-                Console.WriteLine("Select Cause of Death: ");
+                DrawTitle("Select Cause of Death: ");
                 var KillTypeMenu = Enum.GetValues(typeof(CauseOfDeath)).Cast<CauseOfDeath>().Select(x => new MenuItem { Display = x.ToString(), ReturnValue = x.ToString() });
                 CauseOfDeath = (CauseOfDeath)Enum.Parse(typeof(CauseOfDeath), DrawMenu(KillTypeMenu));
             }
             else
             {
-                CauseOfDeath = _CauseOfDeath ?? CauseOfDeath.Execution;
+                CauseOfDeath = causeOfDeath ?? CauseOfDeath.Execution;
             }
+
             
-            Console.WriteLine("");
-            Console.WriteLine("Select which player you wish to kill by {0}", _CauseOfDeath.ToString());
+            DrawTitle("Select which player you wish to kill by "+ causeOfDeath.ToString());
             var KillablePlayers = Program.GameLogic.Players.PlayersList.Where(x => x.IsAlive).Select(x => new MenuItem()
             {
                 Display = " (" + x.Role.Name + ") " + x.Name,
@@ -132,6 +146,30 @@ namespace BotS.Implimentation
             KilledPlayer.KillPlayer(CauseOfDeath, Program.GameLogic.CurrentDay);
 
             Console.Clear();
+        }
+
+        internal void DrawTitle(string title)
+        {
+            Console.WriteLine("");
+            Console.WriteLine(title);
+            string Underline = "";
+            foreach (char Char in title)
+            {
+                Underline += "#";
+            }
+            Console.WriteLine(Underline);
+        }
+
+        internal void DrawPlayerDescription(Player player)
+        {
+            SetColorByPlayer(player);
+
+            Console.WriteLine("");
+            Console.Write(" ({0}) {1}", player.Role.Name, player.Name);
+            Console.ResetColor();
+            Console.Write(": {0}", player.Role.RoleText);
+            Console.ResetColor();
+            Console.WriteLine("");
         }
 
         public string DrawMenu(IEnumerable<MenuItem> InputValues)
@@ -147,7 +185,7 @@ namespace BotS.Implimentation
             do
             {
                 Console.Clear();
-                Console.WriteLine("Select an Item Below");
+                DrawTitle("Select an Item Below");
                 foreach (var item in Values)
                 {
                     Console.WriteLine("{0} - {1}", item.SeclectorValue, item.Display);
