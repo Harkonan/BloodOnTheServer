@@ -18,7 +18,7 @@ namespace BotS
             
             Console.WriteLine("Starting Demo Game");
             Console.WriteLine("");
-
+            
 
             //load the demo game values from the csv then create players & roles based on this file
             using (var Reader = new StreamReader(Resources + @"\DemoGame.csv"))
@@ -42,6 +42,8 @@ namespace BotS
             //Wipe reminders to start next night
             GameLogic.NightVisitLogic.ClearNightVisits();
 
+            GameLogic.CurrentDay++;
+
             DayNightLoop();
 
             Console.WriteLine("");
@@ -54,30 +56,30 @@ namespace BotS
         private static void DayNightLoop()
         {
             bool looper = true;
-            int DayNumber = 1;
 
             while (looper)
             {
                 //Day Phase
                 GameLogic.NightVisitLogic.RefreshNightVisits();
-                ScreenLogic.DrawDayScreen(DayNumber);
+                ScreenLogic.DrawDayScreen();
                 Console.WriteLine("");
                 Console.WriteLine("Was a Player Executed Today? (Y/N)");
                 if (Console.ReadKey(false).Key == ConsoleKey.Y)
                 {
                     ScreenLogic.DrawKillScreen(CauseOfDeath.Execution);
                     GameLogic.NightVisitLogic.RefreshNightVisits();
-                    ScreenLogic.DrawDayScreen(DayNumber);
                 }
-                else
-                {
-                    Console.Clear();
-                    ScreenLogic.DrawDayScreen(DayNumber);
-                }
-
+               
                 Console.Clear();
-                
+                ScreenLogic.DrawDayScreen();
+
+                Console.WriteLine("");
+                Console.WriteLine("Press Any key to continue to Night Phase");
+                Console.ReadKey(false);
+
+
                 //Move into night phase
+                Console.Clear();
                 ScreenLogic.DrawNightScreen();
 
 
@@ -107,13 +109,14 @@ namespace BotS
                 Console.Clear();
                 ScreenLogic.DrawNightScreen();
                 Console.WriteLine("");
-                Console.WriteLine("Press any key to continue to next day");
-                if (Console.ReadKey(false).Key == ConsoleKey.N)
+                Console.WriteLine("Press any key to continue to next day (or press 'Q' to end the game)");
+                if (Console.ReadKey(false).Key == ConsoleKey.Q)
                 {
                     looper = false;
                 }
                 
                 GameLogic.NightVisitLogic.ClearNightVisits();
+                GameLogic.CurrentDay++;
                 Console.Clear();
             }
         }

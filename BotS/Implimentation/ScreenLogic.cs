@@ -46,23 +46,34 @@ namespace BotS.Implimentation
             Console.WriteLine("Player & Role List:");
             foreach (var Player in Program.GameLogic.Players.PlayersList)
             {
-                string VoteStatus = "";
+                string DeathStatus = "";
                 if (!Player.IsAlive)
                 {
-                    VoteStatus = (Player.HasVote ? "[Has Vote]" : "");
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    DeathStatus = "[D]";
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+                else
+                {
+                    if (Player.Role.Team == Team.Good)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    }
+                    else if (Player.Role.Team == Team.Evil)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                    }
                 }
 
-                Console.WriteLine(" - ({0}) {1} {2}", Player.Name, Player.Role.Name, VoteStatus);
+                Console.WriteLine(" - ({0}) {1} {2}", Player.Name, Player.Role.Name, DeathStatus);
                 Console.ResetColor();
             }
         }
 
 
 
-        public void DrawDayScreen(int _DayNumber)
+        public void DrawDayScreen()
         {
-            Console.WriteLine("Day {0}", _DayNumber);
+            Console.WriteLine("Day time on Day {0}", Program.GameLogic.CurrentDay);
 
             Console.WriteLine("");
             Console.WriteLine("Players:");
@@ -81,6 +92,8 @@ namespace BotS.Implimentation
 
         public void DrawNightScreen()
         {
+            Console.WriteLine("Nightime on Day {0} ", Program.GameLogic.CurrentDay);
+
             Console.WriteLine("");
             Console.WriteLine("Tonights Visits");
             Program.GameLogic.NightVisitLogic.AddNightVisits();
@@ -116,7 +129,7 @@ namespace BotS.Implimentation
             var retunredValue = DrawMenu(KillablePlayers);
             var KilledPlayer = Program.GameLogic.Players.PlayersList.Where(x => x.Id.ToString() == retunredValue).First();
 
-            KilledPlayer.KillPlayer(CauseOfDeath);           
+            KilledPlayer.KillPlayer(CauseOfDeath, Program.GameLogic.CurrentDay);
 
             Console.Clear();
         }

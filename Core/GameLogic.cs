@@ -13,14 +13,17 @@ namespace Core
         public Players Players { get; set; }
         public NightVisitLogic NightVisitLogic;
         public IEnumerable<XElement> Roles { get; set; }
+        public int CurrentDay { get; set; }
 
-   
+
 
         public GameLogic()
         {
             Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Core.Data.Roles.xml");
             Players = new Players();
-            NightVisitLogic = new NightVisitLogic(Players.PlayersList);
+            CurrentDay = 0;
+            NightVisitLogic = new NightVisitLogic(this);
+            
 
             Roles = XElement.Load(stream).Descendants("role");
         }

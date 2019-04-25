@@ -11,6 +11,7 @@ namespace Core.Models
         public string Name { get; set; }
         public bool IsAlive { get; set; }
         public CauseOfDeath CauseOfDeath { get; set; }
+        public int DayOfDeath { get; set; }
         public bool HasVote { get; set; }
         public Role Role { get; set; }
 
@@ -22,10 +23,11 @@ namespace Core.Models
             CauseOfDeath = CauseOfDeath.NotDead;
         }
 
-        public void KillPlayer(CauseOfDeath _CauseOfDeath)
+        public void KillPlayer(CauseOfDeath _CauseOfDeath, int _DayOfDeath)
         {
             IsAlive = false;
             CauseOfDeath = _CauseOfDeath;
+            DayOfDeath = _DayOfDeath;
         }
     }
 

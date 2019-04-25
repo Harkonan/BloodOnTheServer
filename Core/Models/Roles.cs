@@ -16,7 +16,6 @@ namespace Core.Models
         public Team Team { get; set; }
         public RoleType Type { get; set; }
         public string RoleText { get; set; }
-        public bool VisitedByTheUndertaker { get; set; }
 
         public Role()
         {
@@ -33,7 +32,6 @@ namespace Core.Models
             Id = Guid.NewGuid();
             IsDrunk = false;
             IsPoisoned = false;
-            VisitedByTheUndertaker = false;
         }
 
 

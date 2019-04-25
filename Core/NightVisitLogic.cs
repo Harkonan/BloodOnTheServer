@@ -9,10 +9,13 @@ namespace Core
     public class NightVisitLogic
     {
         private List<Player> Players { get; set; }
+        private GameLogic GameLogic;
 
-        public NightVisitLogic(List<Player> _Players)
+
+        public NightVisitLogic(GameLogic gameLogic)
         {
-            Players = _Players;
+            this.GameLogic = gameLogic;
+            Players = gameLogic.Players.PlayersList;
         }
 
         public void ClearNightVisits()
@@ -81,20 +84,19 @@ namespace Core
 
         private void SetUndertakerVisit()
         {
-            bool AnyExecutedPlayersNotVisitedYet = Players.Any(p => !p.IsAlive && p.CauseOfDeath == CauseOfDeath.Execution && !p.Role.VisitedByTheUndertaker);
+            bool AnyExecutedPlayersNotVisitedYet = Players.Any(p => !p.IsAlive && p.CauseOfDeath == CauseOfDeath.Execution && p.DayOfDeath == GameLogic.CurrentDay);
 
             if (Players.Any(x => x.Role.Name == "Undertaker" && x.IsAlive && AnyExecutedPlayersNotVisitedYet))
             {
                 var player = Players.Where(x => x.Role.Name == "Undertaker").First();
-                player.Role.NightVisitMarker = new NightVisit();
+                player.Role.NightVisitMarker = new NightVisit(true);
                 
             }
         }
 
-        private bool RavenKeeperSkillUsed = false;
         private void SetRevenKeeperVisit()
         {
-            if (Players.Any(x => x.Role.Name == "Ravenkeeper" && !x.IsAlive && x.CauseOfDeath == CauseOfDeath.Demon))
+            if (Players.Any(x => x.Role.Name == "Ravenkeeper" && !x.IsAlive && x.CauseOfDeath == CauseOfDeath.Demon && x.DayOfDeath == GameLogic.CurrentDay))
             {
                 var player = Players.Where(x => x.Role.Name == "Ravenkeeper").First();
                 player.Role.NightVisitMarker = new NightVisit();
