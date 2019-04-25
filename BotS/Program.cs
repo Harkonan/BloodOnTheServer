@@ -3,18 +3,21 @@ using System.IO;
 using System.Reflection;
 using System.Linq;
 using BotS.Implimentation;
-using Core.Models;
 
 namespace BotS
 {
     class Program
     {
         private static readonly string Resources = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Resources\");
-        internal static readonly Core.GameLogic GameLogic = new Core.GameLogic();
-        internal static readonly ScreenLogic ScreenLogic = new ScreenLogic();
+        public static readonly Core.GameLogic GameLogic = new Core.GameLogic();
+        private static readonly ScreenLogic ScreenLogic = new ScreenLogic();
 
         static void Main(string[] args)
         {
+            Gui.Initalise();
+
+
+            /* DG - TEMPORARY COMMENTING OUT TO TEST GUI
             Console.WriteLine("Starting Demo Game");
             Console.WriteLine("");
 
@@ -35,7 +38,6 @@ namespace BotS
 
                 }
             }
-            GameLogic.Players.PlayersList.Where(x => x.Name == "Ex").First().KillPlayer(Core.Models.CauseOfDeath.Demon);
 
             GameLogic.NightVisitLogic.AddFirstNightVisits();
             ScreenLogic.DrawFirstNightScreen();
@@ -47,6 +49,7 @@ namespace BotS
             Console.WriteLine("");
             Console.WriteLine("Fin");
             Console.Read();
+            */
 
         }
 
@@ -59,33 +62,36 @@ namespace BotS
 
             while (looper)
             {
+                //Day Phase
                 GameLogic.NightVisitLogic.AddNightVisits();
                 ScreenLogic.DrawDayScreen(DayNumber);
                 Console.WriteLine("");
                 Console.WriteLine("Was a Player Executed Today? (Y/N)");
-                switch (Console.ReadKey(false).Key)
+                if (Console.ReadKey(false).Key == ConsoleKey.Y)
                 {
-                    case ConsoleKey.Y:
-                        ScreenLogic.DrawKillScreen(CauseOfDeath.Execution);
-                        GameLogic.NightVisitLogic.RefreshNightVisits();
-                        break;
-                    default:
-                        break;
+                    ScreenLogic.DrawKillScreen(CauseOfDeath.Execution);
+                    GameLogic.NightVisitLogic.RefreshNightVisits();
+                    ScreenLogic.DrawDayScreen(DayNumber);
+
+                }
+                else
+                {
+                    Console.Clear();
+                    ScreenLogic.DrawDayScreen(DayNumber);
                 }
 
                 Console.Clear();
 
+                //Move into night phase
                 ScreenLogic.DrawNightScreen();
+
                 Console.WriteLine("");
                 Console.WriteLine("Continue to Next Turn? (Y/N)");
-                switch (Console.ReadKey(false).Key)
+                if (Console.ReadKey(false).Key == ConsoleKey.N)
                 {
-                    case ConsoleKey.N:
-                        looper = false;
-                        break;
-                    default:
-                        break;
+                    looper = false;
                 }
+                
                 GameLogic.NightVisitLogic.ClearNightVisits();
                 Console.Clear();
             }
