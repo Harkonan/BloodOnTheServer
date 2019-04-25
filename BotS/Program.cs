@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Linq;
 using BotS.Implimentation;
+using Core.Models;
 
 namespace BotS
 {
@@ -14,10 +15,7 @@ namespace BotS
 
         static void Main(string[] args)
         {
-            Gui.Initalise();
-
-
-            /* DG - TEMPORARY COMMENTING OUT TO TEST GUI
+            
             Console.WriteLine("Starting Demo Game");
             Console.WriteLine("");
 
@@ -49,7 +47,7 @@ namespace BotS
             Console.WriteLine("");
             Console.WriteLine("Fin");
             Console.Read();
-            */
+            
 
         }
 
@@ -63,7 +61,7 @@ namespace BotS
             while (looper)
             {
                 //Day Phase
-                GameLogic.NightVisitLogic.AddNightVisits();
+                GameLogic.NightVisitLogic.RefreshNightVisits();
                 ScreenLogic.DrawDayScreen(DayNumber);
                 Console.WriteLine("");
                 Console.WriteLine("Was a Player Executed Today? (Y/N)");
@@ -79,11 +77,9 @@ namespace BotS
                     Console.Clear();
                     ScreenLogic.DrawDayScreen(DayNumber);
                 }
-                
-                Console.WriteLine("Press any Key to move to night Phase");
-                Console.ReadKey();
-                Console.Clear();
 
+                Console.Clear();
+                
                 //Move into night phase
                 ScreenLogic.DrawNightScreen();
 
