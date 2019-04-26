@@ -83,6 +83,16 @@ namespace BotS.Implimentation
             }
         }
 
+        public void ErrorScreen(string Title, string Message)
+        {
+            Console.Clear();
+            DrawTitle(Title);
+            Console.WriteLine(Message);
+            Console.WriteLine("");
+            Console.WriteLine("Press Space Key to quit");
+            do { } while (Console.ReadKey(true).Key != ConsoleKey.Spacebar);
+            Environment.Exit(0);
+        }
 
 
         public void DrawDayScreen()

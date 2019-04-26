@@ -13,7 +13,7 @@ namespace BotS
         public static readonly Core.GameLogic GameLogic = new Core.GameLogic();
         private static readonly ScreenLogic ScreenLogic = new ScreenLogic();
 
-        static void Main(string[] args)
+        static void Main()
         {
             ScreenLogic.DrawTitle("Starting Demo Game");
 
@@ -21,18 +21,39 @@ namespace BotS
             //load the demo game values from the csv then create players & roles based on this file
             using (var Reader = new StreamReader(Resources + @"\DemoGame.csv"))
             {
-                while (!Reader.EndOfStream)
+
+                try
                 {
-                    var line = Reader.ReadLine();
-                    var values = line.Split(',');
-
-                    GameLogic.Players.PlayersList.Add(new Player
+                    while (!Reader.EndOfStream)
                     {
-                        Name = values[0],
-                        Role = GameLogic.GetRole(values[1])
-                    });
+                        var line = Reader.ReadLine();
+                        var values = line.Split(',');
 
+                        GameLogic.Players.PlayersList.Add(new Player
+                        {
+                            Name = values[0],
+                            Role = GameLogic.GetRole(values[1])
+                        });
+                    }
+
+                    if (GameLogic.Players.PlayersList.Count() < 5)
+                    {
+                        throw new PlayerCountException("Only " + GameLogic.Players.PlayersList.Count() + " players loaded, you need atleast 5 to play");
+                    }
+                    if (GameLogic.Players.PlayersList.Count() > 20)
+                    {
+                        throw new PlayerCountException("You have " + GameLogic.Players.PlayersList.Count() + " players loaded, The maximum players is 20");
+                    }
                 }
+                catch (Exception ex)
+                {
+                    if (ex is RoleNotFoundError || ex is PlayerCountException)
+                    {
+                        ScreenLogic.ErrorScreen("Error Loading CSV", ex.Message);
+                    }
+                }
+
+                
             }
 
             GameLogic.NightVisitLogic.AddFirstNightVisits();

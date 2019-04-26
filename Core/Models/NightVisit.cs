@@ -16,10 +16,10 @@ namespace Core.Models
             PreSetup = false;
         }
 
-        public NightVisit(bool _PreSetup)
+        public NightVisit(bool preSetup)
         {
             Id = Guid.NewGuid();
-            PreSetup = _PreSetup;
+            PreSetup = preSetup;
         }
     }
 }

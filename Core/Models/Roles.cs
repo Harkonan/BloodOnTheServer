@@ -19,22 +19,10 @@ namespace Core.Models
 
         public Role()
         {
-            SetupStandardValues();
-        }
-
-        public Role(string Role)
-        {
-            SetupStandardValues();
-        }
-
-        private void SetupStandardValues()
-        {
             Id = Guid.NewGuid();
             IsDrunk = false;
             IsPoisoned = false;
         }
-
-
     }
 
     public enum Team { Good, Evil }

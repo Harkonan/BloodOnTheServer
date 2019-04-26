@@ -9,7 +9,7 @@ namespace Core
     public class NightVisitLogic
     {
         private List<Player> Players { get; set; }
-        private GameLogic GameLogic;
+        private readonly GameLogic GameLogic;
 
 
         public NightVisitLogic(GameLogic gameLogic)

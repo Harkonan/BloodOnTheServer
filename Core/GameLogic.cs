@@ -11,26 +11,34 @@ namespace Core
     public class GameLogic
     {
         public Players Players { get; set; }
-        public NightVisitLogic NightVisitLogic;
+        public NightVisitLogic NightVisitLogic { get; set; }
         public IEnumerable<XElement> Roles { get; set; }
         public int CurrentDay { get; set; }
 
-
-
         public GameLogic()
         {
-            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Core.Data.Roles.xml");
+            LoadRolesDataFromFileIntoXElement();
             Players = new Players();
             CurrentDay = 0;
             NightVisitLogic = new NightVisitLogic(this);
-            
+        }
+        
+        private void LoadRolesDataFromFileIntoXElement()
+        {
+            //imports the Roles.XML embeded file to allow Role Loading
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Core.Data.Roles.xml");
             Roles = XElement.Load(stream).Descendants("role");
         }
 
+        /// <summary>
+        /// Checks for game logic and then kills a character.
+        /// This runs checks for:
+        ///     - Scarlet Woman
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="causeOfDeath"></param>
         public void KillPlayer(Player player, CauseOfDeath causeOfDeath)
         {
-            
-
             //If the Demon dies and there is an alive Scarlet Woman and there is 5 or more non traveller players change the scarlet woman to the demon
             if (Players.PlayersList.Where(x => x.IsAlive && x.Role.Type != RoleType.Traveller).Count() >= 5
                 && player.Role.Type == RoleType.Demon
@@ -69,8 +77,7 @@ namespace Core
             }
             else
             {
-                //if we cannot find a role, throw an error (this needs to be made user friendly)
-                throw new FileNotFoundException("Cannot find Role: "+Role);
+                throw new RoleNotFoundError("Cannot find Role matching the name: " + Role);
             }
         }
 
