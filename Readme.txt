@@ -1,3 +1,1 @@
-To do:
- - Better UI
-	- space to move through each action step by step, with header to tell you what phase your in.
+Blood on the Server is a companion app to help Moderators of Blood on the Cocktower. This system will allow you to automate the Night Visits for players in your game.
