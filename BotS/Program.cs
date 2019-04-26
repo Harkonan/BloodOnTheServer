@@ -69,8 +69,6 @@ namespace BotS
             Console.WriteLine("");
             Console.WriteLine("Fin");
             Console.Read();
-
-
         }
 
         private static void DayNightLoop()
@@ -103,8 +101,6 @@ namespace BotS
                 Console.WriteLine("");
                 Console.WriteLine("Press Space to continue to Night Phase");
                 do { } while (Console.ReadKey(true).Key != ConsoleKey.Spacebar);
-                Console.ReadKey(false);
-
 
                 //Move into night phase
                 Console.Clear();
