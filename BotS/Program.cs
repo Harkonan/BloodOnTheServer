@@ -15,6 +15,7 @@ namespace BotS
 
         static void Main()
         {
+            Console.Clear();
             ScreenLogic.DrawTitle("Starting Demo Game");
 
 
