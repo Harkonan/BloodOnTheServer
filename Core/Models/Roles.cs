@@ -38,6 +38,6 @@ namespace Core.Models
     }
 
     public enum Team { Good, Evil }
-    public enum RoleType { Outsider, Townsfolk, Minion, Demon }
+    public enum RoleType { Outsider, Townsfolk, Minion, Demon, Traveller }
 
 }

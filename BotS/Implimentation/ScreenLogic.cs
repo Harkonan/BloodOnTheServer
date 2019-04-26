@@ -40,11 +40,10 @@ namespace BotS.Implimentation
                 }
             }
 
-            
-
             Console.WriteLine("");
-            Console.WriteLine("Press any key when first night is complete");
-            Console.ReadKey(false);
+            Console.WriteLine("Press Space when first night is complete");
+            do{} while (Console.ReadKey(true).Key != ConsoleKey.Spacebar);
+            
 
             Console.Clear();
         }
@@ -118,6 +117,15 @@ namespace BotS.Implimentation
 
         }
 
+        public void DrawRoleChange(Role role)
+        {
+            
+
+            Console.Clear();
+            DrawTitle("Select a player to become the " + role.Name);
+
+        }
+
         public void DrawKillScreen(CauseOfDeath? causeOfDeath = null)
         {
             Console.Clear();
@@ -125,7 +133,7 @@ namespace BotS.Implimentation
             if (causeOfDeath == null)
             {
                 DrawTitle("Select Cause of Death: ");
-                var KillTypeMenu = Enum.GetValues(typeof(CauseOfDeath)).Cast<CauseOfDeath>().Select(x => new MenuItem { Display = x.ToString(), ReturnValue = x.ToString() });
+                var KillTypeMenu = Enum.GetValues(typeof(CauseOfDeath)).Cast<CauseOfDeath>().Where(x =>x != CauseOfDeath.NotDead).Select(x => new MenuItem { Display = x.ToString(), ReturnValue = x.ToString() });
                 CauseOfDeath = (CauseOfDeath)Enum.Parse(typeof(CauseOfDeath), DrawMenu(KillTypeMenu));
             }
             else
@@ -143,8 +151,34 @@ namespace BotS.Implimentation
             var retunredValue = DrawMenu(KillablePlayers);
             var KilledPlayer = Program.GameLogic.Players.PlayersList.Where(x => x.Id.ToString() == retunredValue).First();
 
-            KilledPlayer.KillPlayer(CauseOfDeath, Program.GameLogic.CurrentDay);
+            //Select a minion to become the Imp if it suicides
+            
+            if (KilledPlayer.Role.Name == "Imp" && CauseOfDeath == CauseOfDeath.Demon
+                && Program.GameLogic.Players.PlayersList.Any(x => x.IsAlive && x.Role.Type == RoleType.Minion))
+            {
+                if (Program.GameLogic.Players.PlayersList.Where(x => x.IsAlive && x.Role.Type == RoleType.Minion).Count() > 1)
+                {
+                    DrawTitle("Select a Minion to become the Imp");
+                    var NewImpId = DrawMenu(Program.GameLogic.Players.PlayersList.Where(x => x.IsAlive && x.Role.Type == RoleType.Minion)
+                            .Select(x => new MenuItem
+                            {
+                                Display = " (" + x.Role.Name + ") " + x.Name,
+                                ReturnValue = x.Id.ToString()
+                            }));
+                    Player NewImpPlayer = Program.GameLogic.Players.PlayersList.Where(x => x.Id.ToString() == NewImpId).First();
 
+                    NewImpPlayer.ChangeRole(KilledPlayer.Role);
+                }
+                else
+                {
+                    Program.GameLogic.Players.PlayersList.Where(x => x.IsAlive && x.Role.Type == RoleType.Minion).First().ChangeRole(KilledPlayer.Role);
+                }
+                
+                
+                
+            }
+
+            Program.GameLogic.KillPlayer(KilledPlayer, CauseOfDeath);
             Console.Clear();
         }
 

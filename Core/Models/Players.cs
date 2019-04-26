@@ -23,11 +23,19 @@ namespace Core.Models
             CauseOfDeath = CauseOfDeath.NotDead;
         }
 
-        public void KillPlayer(CauseOfDeath _CauseOfDeath, int _DayOfDeath)
+        public void KillPlayer(CauseOfDeath causeOfDeath, int dayOfDeath)
         {
             IsAlive = false;
-            CauseOfDeath = _CauseOfDeath;
-            DayOfDeath = _DayOfDeath;
+            CauseOfDeath = causeOfDeath;
+            DayOfDeath = dayOfDeath;
+        }
+
+        public void ChangeRole(Role newRole)
+        {
+            Role = newRole;
+            Role.NightVisitMarker = new NightVisit {
+                PreSetup = false
+            };
         }
     }
 

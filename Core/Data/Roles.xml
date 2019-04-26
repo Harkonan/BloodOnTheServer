@@ -44,7 +44,7 @@
     <name>Fortune Teller</name>
     <night_priority>80</night_priority>
     <first_night_priority>90</first_night_priority>
-    <role_text>Each night, chose 2 players: you learn if either id a Demon. There is 1 good player that registers falsely to you.</role_text>
+    <role_text>Each night, chose 2 players: you learn if either is a Demon. There is 1 good player that registers falsely to you.</role_text>
     <team>Good</team>
     <type>Townsfolk</type>
   </role>

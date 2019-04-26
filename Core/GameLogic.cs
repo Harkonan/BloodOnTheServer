@@ -24,8 +24,22 @@ namespace Core
             CurrentDay = 0;
             NightVisitLogic = new NightVisitLogic(this);
             
-
             Roles = XElement.Load(stream).Descendants("role");
+        }
+
+        public void KillPlayer(Player player, CauseOfDeath causeOfDeath)
+        {
+            
+
+            //If the Demon dies and there is an alive Scarlet Woman and there is 5 or more non traveller players change the scarlet woman to the demon
+            if (Players.PlayersList.Where(x => x.IsAlive && x.Role.Type != RoleType.Traveller).Count() >= 5
+                && player.Role.Type == RoleType.Demon
+                && Players.PlayersList.Any(x => x.Role.Name == "Scarlet Woman" && x.IsAlive))
+            {
+                Players.PlayersList.Where(x => x.Role.Name == "Scarlet Woman" && x.IsAlive).First().ChangeRole(player.Role);
+            }
+
+            player.KillPlayer(causeOfDeath, CurrentDay);
         }
 
 
