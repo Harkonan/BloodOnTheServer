@@ -1,0 +1,53 @@
+﻿@model VotePageInfo
+@{
+    ViewData["Title"] = "Index";
+}
+
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/Vote.css" />
+</environment>
+<environment exclude="Development">
+    <link rel="stylesheet" href="~/css/Vote.min.css" asp-append-version="true" />
+</environment>
+
+@Model.VoteSession
+<div id="container">
+
+    @for (int i = 1; i <= Model.NumberOfVotes; i++)
+    {
+        var StyleClass = "them";
+        if (Model.MyVoteId == i)
+        {
+            StyleClass = "me";
+        }
+        <div class="info-holder">
+            <div class="voter alive @StyleClass no-select" id="Vote_@i" data-id="@i" data-current="False">
+                <div class="vote @StyleClass">N</div>
+            </div>
+            @if (Model.MyVoteId == i)
+            {
+                <div class="username @StyleClass">
+                    <input type="text" id="my_name" />
+                </div>
+
+            }
+            else
+            {
+                <div class="username @StyleClass">
+                </div>
+            }
+
+        </div>
+
+
+    }
+
+</div>
+
+
+
+
+
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/Vote.js"></script>

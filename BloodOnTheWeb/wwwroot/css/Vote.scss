@@ -1,0 +1,93 @@
+﻿$PersonSize: 100px;
+$VoteSize: 70px;
+
+body {
+    background-color:#dbdbdb;
+    /*.vote-holder {
+        position: absolute;
+        left:50%;
+        top:50%;
+        width:5px;
+        height:5px;
+        border-radius:2.5px;
+        background-color:black;*/
+    #container {
+        margin-top: 50px;
+        border: 1px solid #000;
+        position: relative;
+        padding-top: 10px;
+        box-sizing: border-box;
+
+        .info-holder {
+            height: $PersonSize;
+
+            .username {
+                font-size: 23px;
+                height: $PersonSize;
+                line-height: $PersonSize;
+                position: relative;
+                float: left;
+                padding-left: 20px;
+
+                    input[type=text] {
+                        height: 25px;
+                        width:200px;
+                    }                
+            }
+
+            .voter {
+                width: $PersonSize;
+                height: $PersonSize;
+                border-radius: $PersonSize/2;
+                font-size: 50px;
+                line-height: $PersonSize;
+                text-align: center;
+                border: 1px solid black;
+                box-sizing: border-box;
+                float: left;
+
+                &.alive {
+                    background-color: white;
+                }
+
+                &.dead {
+                    background-color: black;
+                }
+
+                .vote {
+                    margin: ($PersonSize - $VoteSize) /2;
+                    width: $VoteSize;
+                    height: $VoteSize;
+                    border-radius: $VoteSize/2;
+                    font-size: 50px;
+                    line-height: $VoteSize;
+                    text-align: center;
+                    border: 1px solid black;
+
+                    &.vote{
+                        background-color:white;
+                    }
+                    &.no-vote{
+                        background-color:black;
+                    }
+
+                    &.me {
+                        
+                        cursor: pointer;
+                    }
+
+                    &.them {
+                        
+                    }
+                }
+            }
+        }
+    }
+    //}
+    .no-select {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+}

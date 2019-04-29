@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Style/Vote.css",
+    "inputFile": "Style/Vote.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Vote.css",
+    "inputFile": "wwwroot/css/Vote.scss"
+  }
+]

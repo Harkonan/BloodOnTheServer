@@ -1,0 +1,62 @@
+﻿body {
+  background-color: #dbdbdb;
+  /*.vote-holder {
+        position: absolute;
+        left:50%;
+        top:50%;
+        width:5px;
+        height:5px;
+        border-radius:2.5px;
+        background-color:black;*/ }
+  body #container {
+    margin-top: 50px;
+    border: 1px solid #000;
+    position: relative;
+    padding-top: 10px;
+    box-sizing: border-box; }
+    body #container .info-holder {
+      height: 100px; }
+      body #container .info-holder .username {
+        font-size: 23px;
+        height: 100px;
+        line-height: 100px;
+        position: relative;
+        float: left;
+        padding-left: 20px; }
+        body #container .info-holder .username input[type=text] {
+          height: 25px;
+          width: 200px; }
+      body #container .info-holder .voter {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        font-size: 50px;
+        line-height: 100px;
+        text-align: center;
+        border: 1px solid black;
+        box-sizing: border-box;
+        float: left; }
+        body #container .info-holder .voter.alive {
+          background-color: white; }
+        body #container .info-holder .voter.dead {
+          background-color: black; }
+        body #container .info-holder .voter .vote {
+          margin: 15px;
+          width: 70px;
+          height: 70px;
+          border-radius: 35px;
+          font-size: 50px;
+          line-height: 70px;
+          text-align: center;
+          border: 1px solid black; }
+          body #container .info-holder .voter .vote.vote {
+            background-color: white; }
+          body #container .info-holder .voter .vote.no-vote {
+            background-color: black; }
+          body #container .info-holder .voter .vote.me {
+            cursor: pointer; }
+  body .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
