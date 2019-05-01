@@ -3,14 +3,17 @@ $VoteSize: 70px;
 
 body {
     background-color: #dbdbdb;
-    /*.vote-holder {
-        position: absolute;
-        left:50%;
-        top:50%;
-        width:5px;
-        height:5px;
-        border-radius:2.5px;
-        background-color:black;*/
+
+    #admin-panel {
+        position: fixed;
+        right: 0px;
+        top: 100px;
+        height: 700px;
+        width: 300px;
+        border: 1px solid black;
+        background-color: white;
+    }
+
     #container {
         margin-top: 50px;
         border: 1px solid #000;
@@ -25,12 +28,23 @@ body {
                 font-size: 23px;
                 height: $PersonSize;
                 line-height: $PersonSize;
-                width:50px;
+                width: 50px;
                 position: relative;
                 float: left;
                 padding-left: 5px;
                 cursor: pointer;
-                text-align:center;
+                text-align: center;
+            }
+
+            .join-link {
+                font-size: 12px;
+                height: $PersonSize;
+                line-height: $PersonSize;
+                position: relative;
+                float: left;
+                padding-left: 10px;
+                cursor: pointer;
+                text-align: center;
             }
 
             .username {
@@ -110,7 +124,7 @@ body {
             }
         }
     }
-    //}
+
     .no-select {
         -webkit-user-select: none;
         -moz-user-select: none;

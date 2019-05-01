@@ -56,29 +56,60 @@ $(function() {
         SendMyStatus();
     });
 
-    
-    //ReOrderUsers($("#vote_3").parent());
-    //LoopUsers();
+
+
 
 });
 
 function SendMyStatus() {
     var my_vote = $(".voter.me");
+    if (my_vote.length) {
+        var voter_id = my_vote.attr("id");
+        var current_vote = my_vote.attr("data-current").toLowerCase() === "true";
+        var my_name = $("#my_name").val();
+        var health = my_vote.attr("data-health");
+        var vote_status = my_vote.find(".vote.me").attr("data-vote");
 
-    var voter_id = my_vote.attr("id");
-    var current_vote = my_vote.attr("data-current").toLowerCase() === "true";
-    var my_name = $("#my_name").val();
-    var health = my_vote.attr("data-health");
-    var vote_status = my_vote.find(".vote.me").attr("data-vote");
-
-    connection.invoke("ClientToServerVote", voter_id, my_name, current_vote, health, vote_status, SessionId).catch(function(err) {
-        return console.error(err.toString());
-    });
+        connection.invoke("ClientToServerVote", voter_id, my_name, current_vote, health, vote_status, SessionId).catch(function(err) {
+            return console.error(err.toString());
+        });
+    }
 }
 
 
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/Clocktower").build();
+
+
+connection.on("StartTimer", function(timePerUser) {
+    var Voters = $(".voter");
+    var i = 0;
+
+    Voters.siblings(".timer").text(timePerUser);
+    var Timer = setInterval(UserTimer, 1000, UserTimer);
+
+    function UserTimer() {
+        var TimerDiv = $(Voters[i]).siblings(".timer");
+
+        if (i < Voters.length) {
+            var Next = TimerDiv.text() - 1;
+            TimerDiv.text(Next);
+
+            if (Next === 0) {
+                i++;
+            }
+        } else {
+            clearInterval(Timer);
+        }
+    }
+});
+
+
+connection.on("ReOrderFromServer", function(nominatedVoterId) {
+    var FirstVoter = $("#" + nominatedVoterId).parent();
+    var Preceeding = FirstVoter.prevAll();
+    $("#container").append(Preceeding.get().reverse());
+});
 
 connection.on("ServerToClientVote", function(voter_id, voter_name, new_vote, vote_status, health) {
     var voter = $("#" + voter_id);
@@ -107,6 +138,11 @@ connection.on("ServerToClientVote", function(voter_id, voter_name, new_vote, vot
         voter.find(".vote").removeClass("abstain-vote");
         voter.find(".vote").addClass("execute-vote");
     }
+
+    if (typeof UpdateDropDown === "function") {
+        UpdateDropDown();
+    }
+
 });
 
 
@@ -122,42 +158,4 @@ connection.start().then(function() {
 }).catch(function(err) {
     return console.error(err.toString());
 });
-
-
-function ReOrderUsers(FirstVoter) {
-    var Preceeding = $(FirstVoter).prevAll();
-    $("#container").append(Preceeding);    
-}
-
-
-function LoopUsers() {
-
-    var Voters = $(".voter");
-
-    var i = 0;
-
-    Voters.siblings(".timer").text(5);
-    var Timer = setInterval(UserTimer, 1000, UserTimer);
-
-    function UserTimer() {
-        var TimerDiv = $(Voters[i]).siblings(".timer");
-
-        if (i < Voters.length) {
-            var Next = TimerDiv.text() - 1;
-            TimerDiv.text(Next);
-
-            if (Next === 0) {
-                i++;
-            }
-        } else {
-            clearInterval(Timer);
-        }
-    }
-}
-
-
-
-
-
-
 

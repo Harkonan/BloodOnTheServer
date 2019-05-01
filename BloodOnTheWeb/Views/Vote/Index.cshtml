@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="~/css/Vote.min.css" asp-append-version="true" />
 </environment>
 
-@Model.VoteSession
-
 <div id="container">
 
     @for (int i = 1; i <= Model.NumberOfVotes; i++)
@@ -21,8 +19,8 @@
         {
             StyleClass = "me";
         }
-    <div class="info-holder">
-        <div class="timer">0</div>
+    <div class="info-holder" data-sitting-order="@i">
+        <div class="timer"></div>
         <div class="voter alive @StyleClass no-select" id="vote_@i" data-id="@i" data-current="false" data-health="alive">
             <div class="vote @StyleClass abstain-vote" data-vote="free"></div>
         </div>
@@ -37,21 +35,51 @@
             else
             {
         <div class="username @StyleClass">
+            voter_@i
         </div>
             }
+
+        @if(Model.MyVoteId == 0){
+            <div class="join-link">
+                <a href="../@i/@Model.VoteSession">[Link to Join]</a>
+            </div>
+        }
+
+
+
     </div>
-
-
     }
+
+
+</div>
+@if(Model.MyVoteId == 0){
+<div id="admin-panel">
+    <h3>Admin</h3>
+    <div class="form-group">
+        <div >
+            <label  for="nominated-voter">First Voter: </label>
+            <select class="form-control" id="nominated-voter"></select>
+        </div>
+        
+        <div class="form-control">
+            <label for="TimePerVoter">Time Per Voter</label>
+            <input type="text" id="TimePerVoter" value="5" />
+        </div>
+        
+        <input type="button" value="Start Vote" id="start-vote"/>
+    </div>
 
 </div>
 
 
-
-
+}
 
 <script>
     var SessionId = "@Model.VoteSession.ToString()";
 </script>
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/Vote.js"></script>
+@if(Model.MyVoteId == 0){
+    <script src="~/js/VoteAdmin.js"></script>
+}
+
