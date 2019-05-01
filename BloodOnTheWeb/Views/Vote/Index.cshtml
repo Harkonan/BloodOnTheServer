@@ -22,7 +22,8 @@
             StyleClass = "me";
         }
     <div class="info-holder">
-        <div class="voter alive @StyleClass no-select" id="Vote_@i" data-id="@i" data-current="false" data-health="alive">
+        <div class="timer">0</div>
+        <div class="voter alive @StyleClass no-select" id="vote_@i" data-id="@i" data-current="false" data-health="alive">
             <div class="vote @StyleClass abstain-vote" data-vote="free"></div>
         </div>
         @if (Model.MyVoteId == i)

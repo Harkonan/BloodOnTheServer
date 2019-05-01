@@ -16,6 +16,16 @@
     box-sizing: border-box; }
     body #container .info-holder {
       height: 100px; }
+      body #container .info-holder .timer {
+        font-size: 23px;
+        height: 100px;
+        line-height: 100px;
+        width: 50px;
+        position: relative;
+        float: left;
+        padding-left: 5px;
+        cursor: pointer;
+        text-align: center; }
       body #container .info-holder .username {
         font-size: 23px;
         height: 100px;

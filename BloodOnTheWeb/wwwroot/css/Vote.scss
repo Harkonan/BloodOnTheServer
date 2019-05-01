@@ -21,6 +21,18 @@ body {
         .info-holder {
             height: $PersonSize;
 
+            .timer {
+                font-size: 23px;
+                height: $PersonSize;
+                line-height: $PersonSize;
+                width:50px;
+                position: relative;
+                float: left;
+                padding-left: 5px;
+                cursor: pointer;
+                text-align:center;
+            }
+
             .username {
                 font-size: 23px;
                 height: $PersonSize;
@@ -35,7 +47,7 @@ body {
                 }
             }
 
-            #kill-switch,#used-switch {
+            #kill-switch, #used-switch {
                 font-size: 23px;
                 height: $PersonSize;
                 line-height: $PersonSize;

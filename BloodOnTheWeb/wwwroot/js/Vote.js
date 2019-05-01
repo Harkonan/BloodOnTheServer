@@ -1,13 +1,16 @@
 ﻿"use strict";
 
-    
-$(function () {
+//import { debug } from "util";
+
+//import { setInterval } from "timers";
+
+$(function() {
     $(".voter.me").on('click', function() {
         var my_vote = $(".voter.me");
 
         var current_vote = my_vote.attr("data-current").toLowerCase() === "true";
-         my_vote.attr("data-current", !current_vote);
-        
+        my_vote.attr("data-current", !current_vote);
+
         SendMyStatus();
     });
 
@@ -51,8 +54,12 @@ $(function () {
         }
 
         SendMyStatus();
-
     });
+
+    
+    //ReOrderUsers($("#vote_3").parent());
+    //LoopUsers();
+
 });
 
 function SendMyStatus() {
@@ -73,7 +80,7 @@ function SendMyStatus() {
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/Clocktower").build();
 
-connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vote_status, health) {
+connection.on("ServerToClientVote", function(voter_id, voter_name, new_vote, vote_status, health) {
     var voter = $("#" + voter_id);
     voter.attr("data-current", new_vote);
     voter.siblings(".username.them").text(voter_name);
@@ -87,7 +94,7 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
     if (health === "alive") {
         voter.removeClass("dead");
         voter.addClass("alive");
-        
+
     } else {
         voter.removeClass("alive");
         voter.addClass("dead");
@@ -102,6 +109,8 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
     }
 });
 
+
+
 connection.on("GetCurrentClientVote", function() {
     SendMyStatus();
 });
@@ -110,9 +119,42 @@ connection.on("GetCurrentClientVote", function() {
 connection.start().then(function() {
     connection.invoke("JoinSession", SessionId);
     connection.invoke("ClientRequestsLatest", SessionId);
-}).catch(function (err) {
+}).catch(function(err) {
     return console.error(err.toString());
 });
+
+
+function ReOrderUsers(FirstVoter) {
+    var Preceeding = $(FirstVoter).prevAll();
+    $("#container").append(Preceeding);    
+}
+
+
+function LoopUsers() {
+
+    var Voters = $(".voter");
+
+    var i = 0;
+
+    Voters.siblings(".timer").text(5);
+    var Timer = setInterval(UserTimer, 1000, UserTimer);
+
+    function UserTimer() {
+        var TimerDiv = $(Voters[i]).siblings(".timer");
+
+        if (i < Voters.length) {
+            var Next = TimerDiv.text() - 1;
+            TimerDiv.text(Next);
+
+            if (Next === 0) {
+                i++;
+            }
+        } else {
+            clearInterval(Timer);
+        }
+    }
+}
+
 
 
 
