@@ -26,6 +26,14 @@
         body #container .info-holder .username input[type=text] {
           height: 25px;
           width: 200px; }
+      body #container .info-holder #kill-switch, body #container .info-holder #used-switch {
+        font-size: 23px;
+        height: 100px;
+        line-height: 100px;
+        position: relative;
+        float: left;
+        padding-left: 5px;
+        cursor: pointer; }
       body #container .info-holder .voter {
         width: 100px;
         height: 100px;
@@ -33,7 +41,7 @@
         font-size: 50px;
         line-height: 100px;
         text-align: center;
-        border: 1px solid black;
+        border: 1px solid #808080;
         box-sizing: border-box;
         float: left; }
         body #container .info-holder .voter.alive {
@@ -48,11 +56,13 @@
           font-size: 50px;
           line-height: 70px;
           text-align: center;
-          border: 1px solid black; }
-          body #container .info-holder .voter .vote.vote {
-            background-color: white; }
-          body #container .info-holder .voter .vote.no-vote {
+          border: 1px solid #808080; }
+          body #container .info-holder .voter .vote.execute-vote {
             background-color: black; }
+          body #container .info-holder .voter .vote.abstain-vote {
+            background-color: white; }
+          body #container .info-holder .voter .vote.used-vote {
+            border: 10px solid #750000; }
           body #container .info-holder .voter .vote.me {
             cursor: pointer; }
   body .no-select {

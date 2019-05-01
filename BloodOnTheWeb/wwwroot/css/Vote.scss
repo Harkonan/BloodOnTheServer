@@ -2,7 +2,7 @@
 $VoteSize: 70px;
 
 body {
-    background-color:#dbdbdb;
+    background-color: #dbdbdb;
     /*.vote-holder {
         position: absolute;
         left:50%;
@@ -29,10 +29,20 @@ body {
                 float: left;
                 padding-left: 20px;
 
-                    input[type=text] {
-                        height: 25px;
-                        width:200px;
-                    }                
+                input[type=text] {
+                    height: 25px;
+                    width: 200px;
+                }
+            }
+
+            #kill-switch,#used-switch {
+                font-size: 23px;
+                height: $PersonSize;
+                line-height: $PersonSize;
+                position: relative;
+                float: left;
+                padding-left: 5px;
+                cursor: pointer;
             }
 
             .voter {
@@ -42,7 +52,7 @@ body {
                 font-size: 50px;
                 line-height: $PersonSize;
                 text-align: center;
-                border: 1px solid black;
+                border: 1px solid #808080;
                 box-sizing: border-box;
                 float: left;
 
@@ -62,22 +72,27 @@ body {
                     font-size: 50px;
                     line-height: $VoteSize;
                     text-align: center;
-                    border: 1px solid black;
+                    border: 1px solid #808080;
 
-                    &.vote{
-                        background-color:white;
+
+
+                    &.execute-vote {
+                        background-color: black;
                     }
-                    &.no-vote{
-                        background-color:black;
+
+                    &.abstain-vote {
+                        background-color: white;
+                    }
+
+                    &.used-vote {
+                        border: 10px solid #750000;
                     }
 
                     &.me {
-                        
                         cursor: pointer;
                     }
 
                     &.them {
-                        
                     }
                 }
             }

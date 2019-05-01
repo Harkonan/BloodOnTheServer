@@ -11,14 +11,19 @@ namespace BloodOnTheWeb.Hubs
     
     public class Clocktower : Hub
     {
-        public async Task ClientToServerVote(string voterId, string voterName, string newVote)
+        public async Task ClientToServerVote(string voterId, string voterName, string newVote, string health, string vote_status, Guid session)
         {
-            await Clients.All.SendAsync("ServerToClientVote", voterId, voterName, newVote);
+            await Clients.Group(session.ToString()).SendAsync("ServerToClientVote", voterId, voterName, newVote, vote_status, health);
+        }
+            
+        public async Task ClientRequestsLatest(Guid session)
+        {
+            await Clients.Group(session.ToString()).SendAsync("GetCurrentClientVote");
         }
 
-        public async Task ClientRequestsLatest()
+        public async Task JoinSession(Guid session)
         {
-            await Clients.All.SendAsync("GetCurrentClientVote");
+            await Groups.AddToGroupAsync(Context.ConnectionId, session.ToString());
         }
     }
 }
