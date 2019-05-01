@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="~/css/Vote.min.css" asp-append-version="true" />
 </environment>
 
+
+@if (Model.MyVoteId == 0)
+{
+    <h1>You are admin for this session and cannot participate</h1>
+}
 <div id="container">
 
     @for (int i = 1; i <= Model.NumberOfVotes; i++)
@@ -19,57 +24,59 @@
         {
             StyleClass = "me";
         }
-    <div class="info-holder" data-sitting-order="@i">
-        <div class="timer"></div>
-        <div class="voter alive @StyleClass no-select" id="vote_@i" data-id="@i" data-current="false" data-health="alive">
-            <div class="vote @StyleClass abstain-vote" data-vote="free"></div>
-        </div>
-        @if (Model.MyVoteId == i)
+        <div class="info-holder" data-sitting-order="@i">
+            <div class="timer"></div>
+            <div class="voter alive @StyleClass no-select" id="vote_@i" data-id="@i" data-current="false" data-health="alive">
+                <div class="vote @StyleClass abstain-vote" data-vote="free"></div>
+            </div>
+            @if (Model.MyVoteId == i)
             {
-        <div class="username @StyleClass">
-            <input type="text" id="my_name" />
-        </div>
-        <div id="kill-switch" class="no-select">[D]</div>
-        <div id="used-switch" class="no-select">[U]</div>
+                <div class="username @StyleClass">
+                    <input type="text" id="my_name" />
+                </div>
+                <div id="kill-switch" class="no-select">[D]</div>
+                <div id="used-switch" class="no-select">[U]</div>
             }
             else
             {
-        <div class="username @StyleClass">
-            voter_@i
-        </div>
+                <div class="username @StyleClass">
+                    voter_@i
+                </div>
             }
 
-        @if(Model.MyVoteId == 0){
-            <div class="join-link">
-                <a href="../@i/@Model.VoteSession">[Link to Join]</a>
-            </div>
-        }
+            @if (Model.MyVoteId == 0)
+            {
+                <div class="join-link">
+                    <a href="/vote/index/@Model.NumberOfVotes/@i/@Model.VoteSession" target="_blank">[Link to Join]</a>
+                </div>
+            }
 
 
 
-    </div>
+        </div>
     }
 
 
 </div>
-@if(Model.MyVoteId == 0){
-<div id="admin-panel">
-    <h3>Admin</h3>
-    <div class="form-group">
-        <div >
-            <label  for="nominated-voter">First Voter: </label>
-            <select class="form-control" id="nominated-voter"></select>
-        </div>
-        
-        <div class="form-control">
-            <label for="TimePerVoter">Time Per Voter</label>
-            <input type="text" id="TimePerVoter" value="5" />
-        </div>
-        
-        <input type="button" value="Start Vote" id="start-vote"/>
-    </div>
+@if (Model.MyVoteId == 0)
+{
+    <div id="admin-panel">
+        <h3>Admin</h3>
+        <div class="form-group">
+            <div>
+                <label for="nominated-voter">First Voter: </label>
+                <select class="form-control" id="nominated-voter"></select>
+            </div>
 
-</div>
+            <div class="form-control">
+                <label for="TimePerVoter">Time Per Voter</label>
+                <input type="text" id="TimePerVoter" value="5" />
+            </div>
+
+            <input type="button" value="Start Vote" id="start-vote" />
+        </div>
+
+    </div>
 
 
 }
@@ -79,7 +86,8 @@
 </script>
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/Vote.js"></script>
-@if(Model.MyVoteId == 0){
+@if (Model.MyVoteId == 0)
+{
     <script src="~/js/VoteAdmin.js"></script>
 }
 

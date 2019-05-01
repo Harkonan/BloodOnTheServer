@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "Help";
+}
+
+<h2>Help</h2>
+
+@model VotePageInfo
+@{
+    ViewData["Title"] = "Index";
+}
+
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/Vote.css" />
+</environment>
+<environment exclude="Development">
+    <link rel="stylesheet" href="~/css/Vote.min.css" asp-append-version="true" />
+</environment>
+
+<div id="container" class="help">
+    <div class="info-holder">
+        <div class="timer"></div>
+        <div class="voter alive no-select">
+            <div class="vote abstain-vote" data-vote="free"></div>
+        </div>
+        <div class="username">
+            Outer ring is white for alive and black for Dead You can press this button to toggle:
+        </div>
+        <div id="kill-switch" class="no-select">[D]</div>
+    </div>
+
+    <div class="info-holder">
+        <div class="timer"></div>
+        <div class="voter me alive no-select">
+            <div class="vote abstain-vote me" data-vote="free"></div>
+        </div>
+        <div class="username">
+            Inner circle is white for an abstain vote, and black for a execute vote. You can toggle this by clicking on your vote
+        </div>
+    </div>
+
+    <div class="info-holder">
+        <div class="timer"></div>
+        <div class="voter dead no-select">
+            <div class="vote abstain-vote" data-vote="free"></div>
+        </div>
+        <div class="username">
+            If you are dead, and have used your single vote, you should mark yourself by clicing this button:
+        </div>
+        <div id="used-switch" class="no-select">[U]</div>
+
+
+    </div>
+
+    <script src="~/js/VoteHelp.js"></script>

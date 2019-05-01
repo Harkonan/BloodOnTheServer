@@ -25,5 +25,10 @@ namespace BloodOnTheWeb.Controllers
 
             return View(Page);
         }
+
+        public IActionResult Help()
+        {
+            return View();
+        }
     }
 }
