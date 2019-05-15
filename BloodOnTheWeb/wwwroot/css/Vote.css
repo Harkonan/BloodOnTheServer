@@ -7,14 +7,18 @@
     height: 700px;
     width: 300px;
     border: 1px solid black;
-    background-color: white; }
+    background-color: white;
+    padding: 10px; }
+    body #admin-panel div {
+      margin-top: 5px;
+      margin-bottom: 5px; }
   body #container.help .info-holder .username {
     font-size: 15px; }
   body #container {
     margin-top: 50px;
     border: 1px solid #000;
     position: relative;
-    padding-top: 10px;
+    padding: 10px;
     box-sizing: border-box; }
     body #container .info-holder {
       height: 100px; }
@@ -37,13 +41,20 @@
         padding-left: 10px;
         cursor: pointer;
         text-align: center; }
+      body #container .info-holder .seat-number {
+        font-size: 23px;
+        height: 100px;
+        line-height: 100px;
+        position: relative;
+        float: left;
+        padding-left: 5px; }
       body #container .info-holder .username {
         font-size: 23px;
         height: 100px;
         line-height: 100px;
         position: relative;
         float: left;
-        padding-left: 20px; }
+        padding-left: 10px; }
         body #container .info-holder .username input[type=text] {
           height: 25px;
           width: 200px; }

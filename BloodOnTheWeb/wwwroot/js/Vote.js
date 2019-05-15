@@ -4,7 +4,10 @@
 
 //import { setInterval } from "timers";
 
-$(function() {
+$(function () {
+    $("#my_name_display").hide();
+    $("#my_name_display").text($("#my_name").val());
+
     $(".voter.me").on('click', function() {
         var my_vote = $(".voter.me");
 
@@ -16,7 +19,19 @@ $(function() {
 
     $("#my_name").on("change", function() {
         SendMyStatus();
+        $("#my_name_display").text($("#my_name").val());
     });
+
+
+
+    $("#my_name").on("focusout", function () {
+        toggleMyName();
+    });
+
+    $("#my_name_display").on("click", function () {
+        toggleMyName();
+    });
+
 
     $("#kill-switch").on('click', function() {
         var my_vote = $(".voter.me");
@@ -60,6 +75,24 @@ $(function() {
 
 
 });
+
+function toggleMyName() {
+
+    if ($("#my_name").val() !== "") {
+        if ($("#my_name").is(":hidden")) {
+            $("#my_name").show();
+            $("#my_name_display").hide();
+            $("#my_name").get(0).focus();
+
+        } else {
+            $("#my_name").hide();
+            $("#my_name_display").show();
+        }
+    }
+
+    
+    
+}
 
 function SendMyStatus() {
     var my_vote = $(".voter.me");
