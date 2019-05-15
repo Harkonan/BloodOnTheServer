@@ -20,7 +20,7 @@ namespace BotS
 
 
             //load the demo game values from the csv then create players & roles based on this file
-            using (var Reader = new StreamReader(Resources + @"\DemoGame.csv"))
+            using (var Reader = new StreamReader(Resources + @"\Game.csv"))
             {
 
                 try

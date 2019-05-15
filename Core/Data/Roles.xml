@@ -179,4 +179,105 @@
     <team>Evil</team>
     <type>Demon</type>
   </role>
+
+  <role>
+    <name>Good Bureaucrat</name>
+    <night_priority>0</night_priority>
+    <first_night_priority>0</first_night_priority>
+    <role_text>Each dusk, choose a player (not yourself): their vote counts as 3 votes tomorrow. </role_text>
+    <team>Good</team>
+    <type>Traveler</type>
+  </role>
+  <role>
+    <name>Evil Bureaucrat</name>
+    <night_priority>0</night_priority>
+    <first_night_priority>0</first_night_priority>
+    <role_text>Each dusk, choose a player (not yourself): their vote counts as 3 votes tomorrow. </role_text>
+    <team>Evil</team>
+    <type>Traveler</type>
+  </role>
+  <role>
+    <name>Good Theif</name>
+    <night_priority>0</night_priority>
+    <first_night_priority>0</first_night_priority>
+    <role_text>Each dusk, choose a player (not yourself): their vote counts negatively tomorrow. </role_text>
+    <team>Good</team>
+    <type>Traveler</type>
+  </role>
+  <role>
+    <name>Evil Theif</name>
+    <night_priority>0</night_priority>
+    <first_night_priority>0</first_night_priority>
+    <role_text>Each dusk, choose a player (not yourself): their vote counts negatively tomorrow. </role_text>
+    <team>Evil</team>
+    <type>Traveler</type>
+  </role>
+  <role>
+    <name>Good Apprentice</name>
+    <night_priority>0</night_priority>
+    <first_night_priority>0</first_night_priority>
+    <role_text>At dusk, you gain a Townsfolk ability (if good), or a Minion ability (if evil). </role_text>
+    <team>Good</team>
+    <type>Traveler</type>
+  </role>
+  <role>
+    <name>Evil Apprentice</name>
+    <night_priority>0</night_priority>
+    <first_night_priority>0</first_night_priority>
+    <role_text>At dusk, you gain a Townsfolk ability (if good), or a Minion ability (if evil). </role_text>
+    <team>Evil</team>
+    <type>Traveler</type>
+  </role>
+  <role>
+    <name>Good Bone Collector</name>
+    <night_priority>0</night_priority>
+    <first_night_priority>0</first_night_priority>
+    <role_text>Once per game, at dusk, choose a dead player: they regain their ability until next dusk. </role_text>
+    <team>Good</team>
+    <type>Traveler</type>
+  </role>
+  <role>
+    <name>Evil Bone Collector</name>
+    <night_priority>0</night_priority>
+    <first_night_priority>0</first_night_priority>
+    <role_text>Once per game, at dusk, choose a dead player: they regain their ability until next dusk. </role_text>
+    <team>Evil</team>
+    <type>Traveler</type>
+  </role>
+  <role>
+    <name>Good Harlot</name>
+    <night_priority>0</night_priority>
+    <first_night_priority>0</first_night_priority>
+    <role_text>Each dusk, choose a living player: if they agree, you learn their character, but you both might die tonight. </role_text>
+    <team>Good</team>
+    <type>Traveler</type>
+  </role>
+  <role>
+    <name>Evil Harlot</name>
+    <night_priority>0</night_priority>
+    <first_night_priority>0</first_night_priority>
+    <role_text>Each dusk, choose a living player: if they agree, you learn their character, but you both might die tonight. </role_text>
+    <team>Evil</team>
+    <type>Traveler</type>
+  </role>
+  <role>
+    <name>Good Barista</name>
+    <night_priority>0</night_priority>
+    <first_night_priority>0</first_night_priority>
+    <role_text>Each dusk, 1 player learns that (until next dusk): 1) they are sober, healthy and getting true info, or 2) their ability works twice. </role_text>
+    <team>Good</team>
+    <type>Traveler</type>
+  </role>
+  <role>
+    <name>Evil Barista</name>
+    <night_priority>0</night_priority>
+    <first_night_priority>0</first_night_priority>
+    <role_text>Each dusk, 1 player learns that (until next dusk): 1) they are sober, healthy and getting true info, or 2) their ability works twice. </role_text>
+    <team>Evil</team>
+    <type>Traveler</type>
+  </role>
+  
+
+
+
 </roles>

@@ -13,7 +13,7 @@
     <None Update="BotS.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\DemoGame.csv">
+    <None Update="Resources\Game.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
