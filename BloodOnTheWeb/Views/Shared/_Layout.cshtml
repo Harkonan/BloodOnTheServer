@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BloodOnTheWeb</title>
+    <title>@ViewData["Title"] - Blood On The Web</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -47,13 +47,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">BloodOnTheWeb</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Blood On The Web</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @for (int i = 5; i <= 20; i++)
                     {
-                        <li><a href="/vote/index/@i">@i</a></li>
+                        <li><a href="/vote/index/@i" title="Create a @i player session">@i</a></li>
                     }
                     <li><a href="/vote/help">Help</a></li>
                 </ul>
