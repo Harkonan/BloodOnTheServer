@@ -16,8 +16,13 @@ namespace BloodOnTheWeb.Controllers
                 voteSession = Guid.NewGuid();
             }
 
-            VotePageInfo Page = new VotePageInfo()
+            if (numberOfVoters == 0)
             {
+                numberOfVoters = 7;
+            }
+
+            VotePageInfo Page = new VotePageInfo()
+            {   
                 MyVoteId = id,
                 NumberOfVotes = numberOfVoters,
                 VoteSession = voteSession

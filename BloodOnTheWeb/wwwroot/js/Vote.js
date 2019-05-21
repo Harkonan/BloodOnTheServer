@@ -4,11 +4,22 @@
 
 //import { setInterval } from "timers";
 
+var MyStatus = {
+    health: null,
+    vote_status: null,
+    current_vote: null
+};
+
+var MyName = "";
+
+
+
 $(function () {
+
     $("#my_name_display").hide();
     $("#my_name_display").text($("#my_name").val());
 
-    $(".voter.me").on('click', function() {
+    $(".voter.me").on('click', function () {
         var my_vote = $(".voter.me");
 
         var current_vote = my_vote.attr("data-current").toLowerCase() === "true";
@@ -17,7 +28,7 @@ $(function () {
         SendMyStatus();
     });
 
-    $("#my_name").on("change", function() {
+    $("#my_name").on("change", function () {
         SendMyStatus();
         $("#my_name_display").text($("#my_name").val());
     });
@@ -33,27 +44,40 @@ $(function () {
     });
 
 
-    $("#kill-switch").on('click', function() {
+    $("#kill-switch").on('click', function () {
         var my_vote = $(".voter.me");
 
-        if (my_vote.attr("data-health") === "dead") {
 
-            my_vote.removeClass("dead");
-            my_vote.addClass("alive");
-            my_vote.attr("data-health", "alive");
-
-        } else {
-
+        if (my_vote.attr("data-health") === "alive") {
+            $(this).removeClass("alive");
+            $(this).removeClass("traveler");
+            $(this).addClass("dead");
             my_vote.removeClass("alive");
+            my_vote.removeClass("traveler");
             my_vote.addClass("dead");
             my_vote.attr("data-health", "dead");
-
+        } else if (my_vote.attr("data-health") === "dead") {
+            $(this).removeClass("dead");
+            $(this).removeClass("traveler");
+            $(this).addClass("traveler");
+            my_vote.removeClass("dead");
+            my_vote.removeClass("traveler");
+            my_vote.addClass("traveler");
+            my_vote.attr("data-health", "traveler");
+        } else {
+            $(this).removeClass("dead");
+            $(this).removeClass("traveler");
+            $(this).addClass("alive");
+            my_vote.removeClass("dead");
+            my_vote.removeClass("traveler");
+            my_vote.addClass("alive");
+            my_vote.attr("data-health", "alive");
         }
 
         SendMyStatus();
     });
 
-    $("#used-switch").on('click', function() {
+    $("#used-switch").on('click', function () {
         var my_vote = $(".vote.me");
 
         if (my_vote.attr("data-vote") === "free") {
@@ -71,12 +95,15 @@ $(function () {
         SendMyStatus();
     });
 
+   
 
 
 
 });
 
 function toggleMyName() {
+
+    $("#my_name_display").text($("#my_name").val());
 
     if ($("#my_name").val() !== "") {
         if ($("#my_name").is(":hidden")) {
@@ -89,32 +116,16 @@ function toggleMyName() {
             $("#my_name_display").show();
         }
     }
-
-    
-    
 }
 
-function SendMyStatus() {
-    var my_vote = $(".voter.me");
-    if (my_vote.length) {
-        var voter_id = my_vote.attr("id");
-        var current_vote = my_vote.attr("data-current").toLowerCase() === "true";
-        var my_name = $("#my_name").val();
-        var health = my_vote.attr("data-health");
-        var vote_status = my_vote.find(".vote.me").attr("data-vote");
 
-        connection.invoke("ClientToServerVote", voter_id, my_name, current_vote, health, vote_status, SessionId).catch(function(err) {
-            return console.error(err.toString());
-        });
-    }
-}
 
 
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/Clocktower").build();
 
 
-connection.on("StartTimer", function(timePerUser) {
+connection.on("StartTimer", function (timePerUser) {
     var Voters = $(".voter");
     var i = 0;
 
@@ -137,14 +148,39 @@ connection.on("StartTimer", function(timePerUser) {
     }
 });
 
+connection.on("SwapPlayers", function (voterOne, voterTwo) {
 
-connection.on("ReOrderFromServer", function(nominatedVoterId) {
+    if ($(".voter.me").attr("data-id") !== "0") {
+        var MyId = $(".voter.me").attr("data-id");
+
+        if (MyId === ""+voterOne) {
+            window.location.href = "/vote/index/5/" + voterTwo + "/" + SessionId;
+        }
+
+        if (MyId === ""+voterTwo) {
+            window.location.href = "/vote/index/5/" + voterOne + "/" + SessionId;
+        }
+    }
+});
+
+
+connection.on("ChangePlayerNumber", function (newPlayerNumber) {
+    var MyId = $(".voter.me").attr("data-id");
+
+    if (MyId === undefined) {
+        MyId = 0;
+    }
+
+    window.location.href = "/vote/index/" + newPlayerNumber + "/" + MyId + "/" + SessionId;
+});
+
+connection.on("ReOrderFromServer", function (nominatedVoterId) {
     var FirstVoter = $("#" + nominatedVoterId).parent();
     var Preceeding = FirstVoter.prevAll();
     $("#container").append(Preceeding.get().reverse());
 });
 
-connection.on("ServerToClientVote", function(voter_id, voter_name, new_vote, vote_status, health) {
+connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vote_status, health) {
     var voter = $("#" + voter_id);
     voter.attr("data-current", new_vote);
     voter.siblings(".username.them").text(voter_name);
@@ -157,10 +193,16 @@ connection.on("ServerToClientVote", function(voter_id, voter_name, new_vote, vot
 
     if (health === "alive") {
         voter.removeClass("dead");
+        voter.removeClass("traveler");
         voter.addClass("alive");
 
+    } else if (health === "traveler") {
+        voter.removeClass("alive");
+        voter.removeClass("dead");
+        voter.addClass("traveler");
     } else {
         voter.removeClass("alive");
+        voter.removeClass("traveler");
         voter.addClass("dead");
     }
 
@@ -176,19 +218,98 @@ connection.on("ServerToClientVote", function(voter_id, voter_name, new_vote, vot
         UpdateDropDown();
     }
 
+
 });
 
 
 
-connection.on("GetCurrentClientVote", function() {
+
+
+
+connection.on("GetCurrentClientVote", function () {
     SendMyStatus();
 });
 
+connection.start().then(function () {
 
-connection.start().then(function() {
+    if ($(".voter.me").attr("data-id") !== "0") {
+
+        if (getCookie(SessionId) !== null) {
+            MyStatus = $.parseJSON(getCookie(SessionId));
+            UpdateStatus(MyStatus.current_vote, MyStatus.vote_status, MyStatus.health);
+        }
+        
+        if (getCookie("name") !== null) {
+            MyName = getCookie("name");
+            $("#my_name").val(MyName);
+            toggleMyName();
+        }
+    }
+    
+
     connection.invoke("JoinSession", SessionId);
     connection.invoke("ClientRequestsLatest", SessionId);
-}).catch(function(err) {
+}).catch(function (err) {
     return console.error(err.toString());
 });
 
+
+function SendMyStatus() {
+    var my_vote = $(".voter.me");
+
+
+    if (my_vote.attr("data-id") !== "0") {
+        var voter_id = my_vote.attr("id");
+        var current_vote = my_vote.attr("data-current").toLowerCase() === "true";
+        var my_name = $("#my_name").val();
+        var health = my_vote.attr("data-health");
+        var vote_status = my_vote.find(".vote.me").attr("data-vote");
+
+        
+
+        connection.invoke("ClientToServerVote", voter_id, my_name, current_vote, health, vote_status, SessionId).catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        if ($(".voter.me").attr("data-id") !== "0") {
+            MyStatus.health = health;
+            MyStatus.current_vote = current_vote;
+            MyStatus.vote_status = vote_status;
+
+            setCookie(SessionId, JSON.stringify(MyStatus), 14);
+            setCookie("name", my_name, 14);
+        }
+    }
+}
+
+
+function UpdateStatus(new_vote, vote_status, health) {
+
+    $(".voter.me").attr("data-current", new_vote);
+    $(".voter.me").attr("data-health", health);
+    $(".voter.me .vote").attr("data-vote", vote_status);
+    $("#my_name_display").text($("#my_name").val());
+}
+
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+function eraseCookie(name) {
+    document.cookie = name + '=; Max-Age=-99999999;';
+}

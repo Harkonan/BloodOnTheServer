@@ -20,13 +20,13 @@
 <div id="container" class="help">
     <div class="info-holder">
         <div class="timer"></div>
-        <div class="voter alive no-select">
+        <div id="death" class="voter alive no-select">
             <div class="vote abstain-vote" data-vote="free"></div>
         </div>
         <div class="username">
-            Outer ring is white for alive and black for Dead You can press this button to toggle:
+            Outer ring is white if you are Alive, black if you are a Ghost and Grey if you are a traveler. You can press this button to toggle between them:
         </div>
-        <div id="kill-switch" class="no-select">[D]</div>
+        <div id="kill-switch" class="no-select alive"></div>
     </div>
 
     <div class="info-holder">
@@ -45,9 +45,9 @@
             <div class="vote abstain-vote" data-vote="free"></div>
         </div>
         <div class="username">
-            If you are dead, and have used your single vote, you should mark yourself by clicking this button:
+            If you are dead, and have used your single vote, you can remove your vote token by clicking this button:
         </div>
-        <div id="used-switch" class="no-select">[U]</div>
+        <div id="used-switch" class="no-select"></div>
 
 
     </div>

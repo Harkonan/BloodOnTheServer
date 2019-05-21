@@ -51,10 +51,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @for (int i = 5; i <= 20; i++)
-                    {
-                        <li><a href="/vote/index/@i" title="Create a @i player session">@i</a></li>
-                    }
+
+                    <li><a href="/vote/index">Start a new session</a></li>
                     <li><a href="/vote/help">Help</a></li>
                 </ul>
             </div>
@@ -67,7 +65,8 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2019 - BloodOnTheWeb</p>
+            <span>&copy; 2019 - BloodOnTheWeb</span> | 
+            <span><a href="/home/Privacy">Privacy Policy</a></span>
         </footer>
     </div>
 

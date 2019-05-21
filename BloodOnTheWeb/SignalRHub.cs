@@ -31,6 +31,17 @@ namespace BloodOnTheWeb.Hubs
             await Clients.Group(session.ToString()).SendAsync("StartTimer", timePerUser);
         }
 
+        public async Task AdminSendNewPlayerCount(int newPlayerNumber, Guid session)
+        {
+            await Clients.Group(session.ToString()).SendAsync("ChangePlayerNumber", newPlayerNumber);
+        }
+
+        public async Task AdminSwapPlayers(int voterOne, int voterTwo, Guid session)
+        {
+            await Clients.Group(session.ToString()).SendAsync("SwapPlayers", voterOne, voterTwo);
+        }
+
+
         public async Task JoinSession(Guid session)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, session.ToString());

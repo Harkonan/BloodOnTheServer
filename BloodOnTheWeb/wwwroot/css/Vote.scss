@@ -1,22 +1,57 @@
-﻿$PersonSize: 100px;
+﻿
+
+$PersonSize: 100px;
 $VoteSize: 70px;
+
+
+$SmallPersonSize: 80px;
+$SmallVoteSize: 60px;
+
 
 body {
     background-color: #dbdbdb;
 
+    .body-content {
+        @media screen and (max-width: 300px) {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+
+    min-width: 257px;
+
     #admin-panel {
-        position: fixed;
-        right: 0px;
-        top: 100px;
-        height: 700px;
-        width: 300px;
+        @media screen and (min-width: 700px) {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            width: 300px;
+        }
+
+        @media screen and (max-width: 700px) {
+            position: initial;
+            width: 100%;
+        }
+
         border: 1px solid black;
         background-color: white;
         padding: 10px;
+        height: 100%;
+        overflow: auto;
 
         div {
             margin-top: 5px;
             margin-bottom: 5px;
+        }
+
+        .title {
+            font-size: 18px;
+        }
+
+        .form-group {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
         }
     }
 
@@ -29,31 +64,64 @@ body {
     }
 
     #container {
-        margin-top: 50px;
+        @media screen and (min-width: 400px) {
+            padding: 10px;
+        }
+
+        @media screen and (max-width: 400px) {
+            padding: 3px;
+        }
+
         border: 1px solid #000;
         position: relative;
-        padding: 10px;
         box-sizing: border-box;
 
         .info-holder {
-            height: $PersonSize;
+            @media screen and (min-width: 400px) {
+                height: $PersonSize;
+            }
+
+            @media screen and (max-width: 400px) {
+                height: $SmallPersonSize;
+            }
+
+            min-width: 265px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+
+            .timer, .join-link, .seat-number, .username {
+                @media screen and (min-width: 400px) {
+                    height: $PersonSize;
+                    line-height: $PersonSize;
+                }
+
+                @media screen and (max-width: 400px) {
+                    height: $SmallPersonSize;
+                    line-height: $SmallPersonSize;
+                }
+            }
 
             .timer {
-                font-size: 23px;
-                height: $PersonSize;
-                line-height: $PersonSize;
-                width: 50px;
+                @media screen and (min-width: 400px) {
+                    font-size: 23px;
+                    width: 50px;
+                    padding-left: 5px;
+                }
+
+                @media screen and (max-width: 400px) {
+                    font-size: 25px;
+                    width: 25px;
+                    padding-left: 0px;
+                }
+
                 position: relative;
                 float: left;
-                padding-left: 5px;
                 cursor: pointer;
                 text-align: center;
             }
 
             .join-link {
                 font-size: 12px;
-                height: $PersonSize;
-                line-height: $PersonSize;
                 position: relative;
                 float: left;
                 padding-left: 10px;
@@ -63,43 +131,113 @@ body {
 
             .seat-number {
                 font-size: 23px;
-                height: $PersonSize;
-                line-height: $PersonSize;
                 position: relative;
                 float: left;
                 padding-left: 5px;
             }
 
             .username {
-                font-size: 23px;
-                height: $PersonSize;
-                line-height: $PersonSize;
                 position: relative;
                 float: left;
                 padding-left: 10px;
 
-                input[type=text] {
-                    height: 25px;
-                    width: 200px;
+
+                @media screen and (min-width: 500px) {
+                    font-size: 23px;
+
+                    input[type=text] {
+                        height: 25px;
+                        width: 200px;
+                    }
+
+                    #my_name_display {
+                        width: 200px;
+                    }
+                }
+
+                @media screen and (max-width: 500px) {
+                    font-size: 18px;
+
+                    input[type=text] {
+                        height: 25px;
+                        width: 100px;
+                    }
+
+                    #my_name_display {
+                        width: 100px;
+                    }
                 }
             }
 
-            #kill-switch, #used-switch {
-                font-size: 23px;
-                height: $PersonSize;
-                line-height: $PersonSize;
-                position: relative;
-                float: left;
-                padding-left: 5px;
-                cursor: pointer;
+            .switches {
+                @media screen and (min-width: 400px) {
+                    line-height: $PersonSize;
+                    padding-top: 34px;
+                }
+
+                @media screen and ( max-width: 400px) and (min-width:350px) {
+                    line-height: $SmallPersonSize;
+                    padding-top: 25px;
+                }
+
+                @media screen and ( max-width: 350px) {
+                    line-height: $SmallPersonSize;
+                    padding-top: 5px;
+
+                    #kill-switch, #used-switch {
+                        padding-top: 2px;
+                    }
+                }
+
+
+
+                #kill-switch, #used-switch {
+                    font-size: 23px;
+                    position: relative;
+                    float: left;
+                    padding-left: 5px;
+                    cursor: pointer;
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 16px;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    border: 1px solid black
+                }
+
+                #kill-switch {
+                    &.dead {
+                        background-color: black;
+                    }
+
+                    &.alive {
+                        background-color: white;
+                    }
+
+                    &.traveler {
+                        background-color: grey;
+                    }
+                }
             }
 
+
+
             .voter {
-                width: $PersonSize;
-                height: $PersonSize;
-                border-radius: $PersonSize/2;
+                @media screen and (min-width: 400px) {
+                    width: $PersonSize;
+                    height: $PersonSize;
+                    border-radius: $PersonSize/2;
+                    line-height: $PersonSize;
+                }
+
+                @media screen and (max-width: 400px) {
+                    width: $SmallPersonSize;
+                    height: $SmallPersonSize;
+                    border-radius: $SmallPersonSize/2;
+                    line-height: $SmallPersonSize;
+                }
+
                 font-size: 50px;
-                line-height: $PersonSize;
                 text-align: center;
                 border: 1px solid #808080;
                 box-sizing: border-box;
@@ -113,13 +251,28 @@ body {
                     background-color: black;
                 }
 
+                &.traveler {
+                    background-color: grey;
+                }
+
                 .vote {
-                    margin: ($PersonSize - $VoteSize) /2;
-                    width: $VoteSize;
-                    height: $VoteSize;
-                    border-radius: $VoteSize/2;
+                    @media screen and (min-width: 400px) {
+                        margin: ($PersonSize - $VoteSize) /2;
+                        width: $VoteSize;
+                        height: $VoteSize;
+                        border-radius: $VoteSize/2;
+                        line-height: $VoteSize;
+                    }
+
+                    @media screen and (max-width: 400px) {
+                        margin: ($SmallPersonSize - $SmallVoteSize) /2;
+                        width: $SmallVoteSize;
+                        height: $SmallVoteSize;
+                        border-radius: $SmallVoteSize/2;
+                        line-height: $SmallVoteSize;
+                    }
+
                     font-size: 50px;
-                    line-height: $VoteSize;
                     text-align: center;
                     border: 1px solid #808080;
 
@@ -127,6 +280,9 @@ body {
 
                     &.execute-vote {
                         background-color: black;
+                        background-image: url('../images/noose.png');
+                        background-position: top;
+                        background-repeat: no-repeat;
                     }
 
                     &.abstain-vote {
@@ -134,7 +290,7 @@ body {
                     }
 
                     &.used-vote {
-                        border: 10px solid #750000;
+                        display: none;
                     }
 
                     &.me {
