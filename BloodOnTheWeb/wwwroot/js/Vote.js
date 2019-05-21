@@ -16,6 +16,11 @@ var MyName = "";
 
 $(function () {
 
+    if (window.location.href.split('/').length !== 8) {
+        $("#admin-link")[0].click();
+    }
+    
+
     $("#my_name_display").hide();
     $("#my_name_display").text($("#my_name").val());
 
@@ -126,7 +131,7 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/Clocktower").build
 
 
 connection.on("StartTimer", function (timePerUser) {
-    var Voters = $(".voter");
+    var Voters = $(".voter.player");
     var i = 0;
 
     Voters.siblings(".timer").text(timePerUser);
