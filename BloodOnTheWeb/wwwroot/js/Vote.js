@@ -129,13 +129,16 @@ function toggleMyName() {
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/Clocktower").build();
 
-
+var Timer;
 connection.on("StartTimer", function (timePerUser) {
     var Voters = $(".voter.player");
     var i = 0;
 
+    clearInterval(Timer);
+
     Voters.siblings(".timer").text(timePerUser);
-    var Timer = setInterval(UserTimer, 1000, UserTimer);
+
+    Timer = setInterval(UserTimer, 1000);
 
     function UserTimer() {
         var TimerDiv = $(Voters[i]).siblings(".timer");
@@ -145,10 +148,12 @@ connection.on("StartTimer", function (timePerUser) {
             TimerDiv.text(Next);
 
             if (Next === 0) {
+                TimerDiv.text("");
                 i++;
             }
         } else {
             clearInterval(Timer);
+
         }
     }
 });

@@ -1,7 +1,7 @@
 ﻿
 
 $PersonSize: 100px;
-$VoteSize: 70px;
+$VoteSize: 60px;
 
 
 $SmallPersonSize: 80px;
@@ -9,7 +9,11 @@ $SmallVoteSize: 60px;
 
 
 body {
-    background-color: #dbdbdb;
+    //background-color: #dbdbdb;#
+    h1, h2, h3, h4, .title {
+        font-family: 'Dancing Script', cursive;
+        color: #bb0a1e;
+    }
 
     .body-content {
         @media screen and (max-width: 300px) {
@@ -21,6 +25,7 @@ body {
     min-width: 257px;
 
     #admin-panel {
+
         @media screen and (min-width: 700px) {
             position: absolute;
             right: 0px;
@@ -33,6 +38,7 @@ body {
             width: 100%;
         }
 
+        z-index: 3;
         border: 1px solid black;
         background-color: white;
         padding: 10px;
@@ -45,7 +51,7 @@ body {
         }
 
         .title {
-            font-size: 18px;
+            font-size: 28px;
         }
 
         .form-group {
@@ -64,8 +70,52 @@ body {
     }
 
     #container {
-        @media screen and (min-width: 400px) {
-            padding: 10px;
+        position: absolute;
+        z-index: 0;
+        padding-top: 40px;
+        padding-bottom: 40px;
+
+
+
+
+        @media screen and (min-width: 620px) {
+            padding: 60px 10px 60px 70px;
+
+            .border {
+                width: 172px;
+                height: 269px;
+                position: absolute;
+                z-index: 1;
+                pointer-events: none;
+
+                &.top {
+                    top: 0px;
+
+                    &.right {
+                        background-image: url('../images/border-top-right.png');
+                        right: 0px;
+                    }
+
+                    &.left {
+                        background-image: url('../images/border-top-left.png');
+                        left: 0px;
+                    }
+                }
+
+                &.bottom {
+                    bottom: 0px;
+
+                    &.right {
+                        background-image: url('../images/border-bottom-right.png');
+                        right: 0px;
+                    }
+
+                    &.left {
+                        background-image: url('../images/border-bottom-left.png');
+                        left: 0px;
+                    }
+                }
+            }
         }
 
         @media screen and (max-width: 400px) {
@@ -75,6 +125,7 @@ body {
         border: 1px solid #000;
         position: relative;
         box-sizing: border-box;
+        background-image: url('../images/parchment.jpg');
 
         .info-holder {
             @media screen and (min-width: 400px) {
@@ -103,7 +154,7 @@ body {
 
             .timer {
                 @media screen and (min-width: 400px) {
-                    font-size: 23px;
+                    font-size: 50px;
                     width: 50px;
                     padding-left: 5px;
                 }
@@ -114,6 +165,8 @@ body {
                     padding-left: 0px;
                 }
 
+                font-family: 'Stylish', sans-serif;
+                color: #bb0a1e;
                 position: relative;
                 float: left;
                 cursor: pointer;
@@ -140,10 +193,10 @@ body {
                 position: relative;
                 float: left;
                 padding-left: 10px;
-
+                font-family: 'Stylish', sans-serif;
 
                 @media screen and (min-width: 500px) {
-                    font-size: 23px;
+                    font-size: 33px;
 
                     input[type=text] {
                         height: 25px;
@@ -211,7 +264,7 @@ body {
                     }
 
                     &.alive {
-                        background-color: white;
+                        background-color: #f2d98e;
                     }
 
                     &.traveler {
@@ -223,6 +276,13 @@ body {
 
 
             .voter {
+                font-size: 50px;
+                text-align: center;
+                border: 1px solid #808080;
+                box-sizing: border-box;
+                float: left;
+                z-index: 99;
+
                 @media screen and (min-width: 400px) {
                     width: $PersonSize;
                     height: $PersonSize;
@@ -237,14 +297,9 @@ body {
                     line-height: $SmallPersonSize;
                 }
 
-                font-size: 50px;
-                text-align: center;
-                border: 1px solid #808080;
-                box-sizing: border-box;
-                float: left;
-
                 &.alive {
-                    background-color: white;
+                    background-color: #f2d98e;
+                    border: 1px solid #d0aa38;
                 }
 
                 &.dead {
@@ -253,11 +308,17 @@ body {
 
                 &.traveler {
                     background-color: grey;
+                    border: 1px solid black;
                 }
 
                 .vote {
+                    font-size: 50px;
+                    text-align: center;
+                    border: 2px solid #808080;
+                    z-index: 100;
+
                     @media screen and (min-width: 400px) {
-                        margin: ($PersonSize - $VoteSize) /2;
+                        margin: ($PersonSize - $VoteSize - 2) /2;
                         width: $VoteSize;
                         height: $VoteSize;
                         border-radius: $VoteSize/2;
@@ -271,12 +332,6 @@ body {
                         border-radius: $SmallVoteSize/2;
                         line-height: $SmallVoteSize;
                     }
-
-                    font-size: 50px;
-                    text-align: center;
-                    border: 1px solid #808080;
-
-
 
                     &.execute-vote {
                         background-color: black;

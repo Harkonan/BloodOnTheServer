@@ -1,11 +1,14 @@
 ﻿body {
-  background-color: #dbdbdb;
   min-width: 257px; }
+  body h1, body h2, body h3, body h4, body .title {
+    font-family: 'Dancing Script', cursive;
+    color: #bb0a1e; }
   @media screen and (max-width: 300px) {
     body .body-content {
       padding-left: 5px;
       padding-right: 5px; } }
   body #admin-panel {
+    z-index: 3;
     border: 1px solid black;
     background-color: white;
     padding: 10px;
@@ -25,7 +28,7 @@
       margin-top: 5px;
       margin-bottom: 5px; }
     body #admin-panel .title {
-      font-size: 18px; }
+      font-size: 28px; }
     body #admin-panel .form-group {
       border: 1px solid black;
       border-radius: 5px;
@@ -33,12 +36,39 @@
   body #container.help .info-holder .username {
     font-size: 15px; }
   body #container {
+    position: absolute;
+    z-index: 0;
+    padding-top: 40px;
+    padding-bottom: 40px;
     border: 1px solid #000;
     position: relative;
-    box-sizing: border-box; }
-    @media screen and (min-width: 400px) {
+    box-sizing: border-box;
+    background-image: url("../images/parchment.jpg"); }
+    @media screen and (min-width: 620px) {
       body #container {
-        padding: 10px; } }
+        padding: 60px 10px 60px 70px; }
+        body #container .border {
+          width: 172px;
+          height: 269px;
+          position: absolute;
+          z-index: 1;
+          pointer-events: none; }
+          body #container .border.top {
+            top: 0px; }
+            body #container .border.top.right {
+              background-image: url("../images/border-top-right.png");
+              right: 0px; }
+            body #container .border.top.left {
+              background-image: url("../images/border-top-left.png");
+              left: 0px; }
+          body #container .border.bottom {
+            bottom: 0px; }
+            body #container .border.bottom.right {
+              background-image: url("../images/border-bottom-right.png");
+              right: 0px; }
+            body #container .border.bottom.left {
+              background-image: url("../images/border-bottom-left.png");
+              left: 0px; } }
     @media screen and (max-width: 400px) {
       body #container {
         padding: 3px; } }
@@ -61,13 +91,15 @@
           height: 80px;
           line-height: 80px; } }
       body #container .info-holder .timer {
+        font-family: 'Stylish', sans-serif;
+        color: #bb0a1e;
         position: relative;
         float: left;
         cursor: pointer;
         text-align: center; }
         @media screen and (min-width: 400px) {
           body #container .info-holder .timer {
-            font-size: 23px;
+            font-size: 50px;
             width: 50px;
             padding-left: 5px; } }
         @media screen and (max-width: 400px) {
@@ -90,10 +122,11 @@
       body #container .info-holder .username {
         position: relative;
         float: left;
-        padding-left: 10px; }
+        padding-left: 10px;
+        font-family: 'Stylish', sans-serif; }
         @media screen and (min-width: 500px) {
           body #container .info-holder .username {
-            font-size: 23px; }
+            font-size: 33px; }
             body #container .info-holder .username input[type=text] {
               height: 25px;
               width: 200px; }
@@ -136,7 +169,7 @@
       body #container .info-holder .switches #kill-switch.dead {
         background-color: black; }
       body #container .info-holder .switches #kill-switch.alive {
-        background-color: white; }
+        background-color: #f2d98e; }
       body #container .info-holder .switches #kill-switch.traveler {
         background-color: grey; }
       body #container .info-holder .voter {
@@ -144,7 +177,8 @@
         text-align: center;
         border: 1px solid #808080;
         box-sizing: border-box;
-        float: left; }
+        float: left;
+        z-index: 99; }
         @media screen and (min-width: 400px) {
           body #container .info-holder .voter {
             width: 100px;
@@ -158,22 +192,25 @@
             border-radius: 40px;
             line-height: 80px; } }
         body #container .info-holder .voter.alive {
-          background-color: white; }
+          background-color: #f2d98e;
+          border: 1px solid #d0aa38; }
         body #container .info-holder .voter.dead {
           background-color: black; }
         body #container .info-holder .voter.traveler {
-          background-color: grey; }
+          background-color: grey;
+          border: 1px solid black; }
         body #container .info-holder .voter .vote {
           font-size: 50px;
           text-align: center;
-          border: 1px solid #808080; }
+          border: 2px solid #808080;
+          z-index: 100; }
           @media screen and (min-width: 400px) {
             body #container .info-holder .voter .vote {
-              margin: 15px;
-              width: 70px;
-              height: 70px;
-              border-radius: 35px;
-              line-height: 70px; } }
+              margin: 19px;
+              width: 60px;
+              height: 60px;
+              border-radius: 30px;
+              line-height: 60px; } }
           @media screen and (max-width: 400px) {
             body #container .info-holder .voter .vote {
               margin: 10px;
