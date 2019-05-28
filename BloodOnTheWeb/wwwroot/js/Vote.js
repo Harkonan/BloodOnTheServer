@@ -1,5 +1,7 @@
 ﻿"use strict";
 
+//import { connect } from "http2";
+
 //import { debug } from "util";
 
 //import { setInterval } from "timers";
@@ -158,6 +160,8 @@ connection.on("StartTimer", function (timePerUser) {
     }
 });
 
+
+
 connection.on("SwapPlayers", function (voterOne, voterTwo) {
 
     if ($(".voter.me").attr("data-id") !== "0") {
@@ -240,34 +244,43 @@ connection.on("GetCurrentClientVote", function () {
     SendMyStatus();
 });
 
-connection.start().then(function () {
 
+connection.start().then(StartupProcess).catch(function (err) {
+    return console.error(err.toString());
+});
+
+function Reconnect() {
+    connection.start().then(StartupProcess).catch(function (err) {
+        return console.error(err.toString());
+    });
+}
+
+
+
+
+function StartupProcess() {
     if ($(".voter.me").attr("data-id") !== "0") {
 
         if (getCookie(SessionId) !== null) {
             MyStatus = $.parseJSON(getCookie(SessionId));
             UpdateStatus(MyStatus.current_vote, MyStatus.vote_status, MyStatus.health);
         }
-        
+
         if (getCookie("name") !== null) {
             MyName = getCookie("name");
             $("#my_name").val(MyName);
             toggleMyName();
         }
     }
-    
+
 
     connection.invoke("JoinSession", SessionId);
     connection.invoke("ClientRequestsLatest", SessionId);
-}).catch(function (err) {
-    return console.error(err.toString());
-});
+}
 
 
 function SendMyStatus() {
     var my_vote = $(".voter.me");
-
-
     if (my_vote.attr("data-id") !== "0") {
         var voter_id = my_vote.attr("id");
         var current_vote = my_vote.attr("data-current").toLowerCase() === "true";
@@ -275,7 +288,7 @@ function SendMyStatus() {
         var health = my_vote.attr("data-health");
         var vote_status = my_vote.find(".vote.me").attr("data-vote");
 
-        
+
 
         connection.invoke("ClientToServerVote", voter_id, my_name, current_vote, health, vote_status, SessionId).catch(function (err) {
             return console.error(err.toString());

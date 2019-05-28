@@ -36,10 +36,8 @@
   body #container.help .info-holder .username {
     font-size: 15px; }
   body #container {
-    position: absolute;
     z-index: 0;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    min-height: 700px;
     border: 1px solid #000;
     position: relative;
     box-sizing: border-box;
@@ -107,6 +105,9 @@
             font-size: 25px;
             width: 25px;
             padding-left: 0px; } }
+        body #container .info-holder .timer.long-vote {
+          font-size: 18px;
+          width: 200px; }
       body #container .info-holder .join-link {
         font-size: 12px;
         position: relative;

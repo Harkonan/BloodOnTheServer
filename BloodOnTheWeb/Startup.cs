@@ -34,7 +34,9 @@ namespace BloodOnTheWeb
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSignalR();
+            services.AddSignalR(hubOptions =>
+                    hubOptions.KeepAliveInterval = TimeSpan.FromSeconds(3)
+                );
 
         }
 

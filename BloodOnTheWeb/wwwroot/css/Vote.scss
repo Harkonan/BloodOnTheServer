@@ -70,11 +70,9 @@ body {
     }
 
     #container {
-        position: absolute;
-        z-index: 0;
-        padding-top: 40px;
-        padding-bottom: 40px;
 
+        z-index: 0;
+        min-height:700px;
 
 
 
@@ -163,6 +161,11 @@ body {
                     font-size: 25px;
                     width: 25px;
                     padding-left: 0px;
+                }
+
+                &.long-vote{
+                    font-size:18px;
+                    width: 200px;
                 }
 
                 font-family: 'Stylish', sans-serif;

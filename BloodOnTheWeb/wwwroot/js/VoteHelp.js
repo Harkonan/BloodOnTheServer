@@ -37,7 +37,8 @@
     });
 
     $("#used-switch").on("click", function () {
-        $(this).siblings(".voter").find(".vote").toggleClass("used-vote");
+        
+        $("#dead-demo").find(".voter").find(".vote").toggleClass("used-vote");
 
     });
 

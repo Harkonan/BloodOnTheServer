@@ -17,6 +17,20 @@
     });
 
 
+    $("#start-slow-vote").on("click", function () {
+        var now = moment();
+        var gap = $("#mins-per-voter").val();
+        var Voters = $(".voter.player");
+
+        Voters.siblings(".timer").addClass("long-vote");
+
+        for (var i = 0; i < Voters.length; i++) {
+            $(Voters[i]).siblings(".timer").text(now.add(gap, "m").format("YYYY-MM-DD HH:mm"));
+        }
+
+    });
+
+
     $("#change-players").on("click", function () {
         var NewPlayerNumber = $("#number-of-players").val();
 
@@ -31,6 +45,11 @@
         });
     });
 });
+
+
+
+
+
 
 function UpdateDropDown() {
     $("#nominated-voter").children("option").remove();

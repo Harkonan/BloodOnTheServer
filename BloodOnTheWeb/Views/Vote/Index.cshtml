@@ -85,9 +85,6 @@ else{
                     <a href="/vote/index/@Model.NumberOfVotes/@i/@Model.VoteSession" target="_blank">[Link to Join]</a>
                 </div>
             }
-
-
-
         </div>
     }
 
@@ -98,17 +95,29 @@ else{
             <div class="title">Voting Process</div>
             <div class="form-group">
                 <div>
+                    <input type="radio" name="vote-type" value="Live" checked="checked" /> Live
+                    <input type="radio" name="vote-type" value="Slow" /> Slow
+                </div>
+                <div class="live-vote">
                     <label for="nominated-voter">First Voter: </label>
                     <select class="form-control" id="nominated-voter"></select>
                 </div>
 
-                <div>
+                <div class="live-vote">
                     <label for="TimePerVoter">Seconds Per Voter</label>
                     <input type="text" id="TimePerVoter" value="5" class="form-control" />
                 </div>
-                <div>
+                <div class="live-vote">
                     <input type="button" value="Start Vote" id="start-vote" />
                 </div>
+                <div class="slow-vote">
+                    <label for="mins-per-voter">Mins Per Voter</label>
+                    <input type="number" id="mins-per-voter" value="30" class="form-control" />
+                </div>
+                <div class="slow-vote">
+                    <input type="button" value="Start Vote" id="start-slow-vote" />
+                </div>
+
             </div>
             <div class="title">Change number of Voters</div>
             <div class="form-group">
