@@ -1,10 +1,6 @@
 ﻿"use strict";
 
-//import { connect } from "http2";
 
-//import { debug } from "util";
-
-//import { setInterval } from "timers";
 
 var MyStatus = {
     health: null,
@@ -22,6 +18,7 @@ $(function () {
         $("#admin-link")[0].click();
     }
     
+    $(".clock").hide();
 
     $("#my_name_display").hide();
     $("#my_name_display").text($("#my_name").val());
@@ -132,15 +129,36 @@ function toggleMyName() {
 var connection = new signalR.HubConnectionBuilder().withUrl("/Clocktower").build();
 
 var Timer;
-connection.on("StartTimer", function (timePerUser) {
+var AnalogTimer;
+
+connection.on("StartTimer", function (timePerUser, type) {
+
     var Voters = $(".voter.player");
-    var i = 0;
 
-    clearInterval(Timer);
+    if (type === "digital") {
+        var i = 0;
 
-    Voters.siblings(".timer").text(timePerUser);
+        clearInterval(Timer);
 
-    Timer = setInterval(UserTimer, 1000);
+        Voters.siblings(".timer").text(timePerUser);
+
+        Timer = setInterval(UserTimer, 1000);
+
+    } else {
+        $(".clock").show();
+        var clockTime = timePerUser * Voters.length;
+        clearTimeout(AnalogTimer);
+        $("#start-vote").attr("disabled", true);
+
+        $(".seconds-container").attr("style", "animation: rotate " + clockTime + "s 1 linear;");
+
+        AnalogTimer = setTimeout(function () {
+            $(".seconds-container").attr("style", "");
+            $("#start-vote").attr("disabled", false);
+            $(".clock").hide();
+        }, (clockTime * 1000)+1000);
+    }
+
 
     function UserTimer() {
         var TimerDiv = $(Voters[i]).siblings(".timer");
@@ -189,9 +207,18 @@ connection.on("ChangePlayerNumber", function (newPlayerNumber) {
 });
 
 connection.on("ReOrderFromServer", function (nominatedVoterId) {
+
+
     var FirstVoter = $("#" + nominatedVoterId).parent();
     var Preceeding = FirstVoter.prevAll();
     $("#container").append(Preceeding.get().reverse());
+
+    var i = 0;
+    $("#container .info-holder").each(function () {
+        i++;
+        $(this).attr("data-sitting-order", i);
+    });
+    
 });
 
 connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vote_status, health) {

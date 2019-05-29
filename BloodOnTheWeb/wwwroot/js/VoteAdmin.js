@@ -10,25 +10,13 @@
 
     $("#start-vote").on("click", function() {
         var Time = $("#TimePerVoter").val();
+        var Type = $("input[name='vote-type']:checked").val();
 
-        connection.invoke("AdminSendStartTimer", Time, SessionId).catch(function(err) {
+        connection.invoke("AdminSendStartTimer", Time, Type, SessionId).catch(function(err) {
             return console.error(err.toString());
         });
     });
 
-
-    $("#start-slow-vote").on("click", function () {
-        var now = moment();
-        var gap = $("#mins-per-voter").val();
-        var Voters = $(".voter.player");
-
-        Voters.siblings(".timer").addClass("long-vote");
-
-        for (var i = 0; i < Voters.length; i++) {
-            $(Voters[i]).siblings(".timer").text(now.add(gap, "m").format("YYYY-MM-DD HH:mm"));
-        }
-
-    });
 
 
     $("#change-players").on("click", function () {

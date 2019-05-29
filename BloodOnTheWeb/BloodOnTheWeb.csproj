@@ -38,4 +38,8 @@
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\Backgrounds\" />
+  </ItemGroup>
+
 </Project>

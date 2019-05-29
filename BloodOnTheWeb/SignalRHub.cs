@@ -21,15 +21,14 @@ namespace BloodOnTheWeb.Hubs
             await Clients.Group(session.ToString()).SendAsync("GetCurrentClientVote");
         }
 
-
         public async Task AdminSendNominatedVoter(string nominatedVoterId, Guid session)
         {
             await Clients.Group(session.ToString()).SendAsync("ReOrderFromServer", nominatedVoterId);
         }
 
-        public async Task AdminSendStartTimer(int timePerUser, Guid session)
+        public async Task AdminSendStartTimer(int timePerUser, string type, Guid session)
         {
-            await Clients.Group(session.ToString()).SendAsync("StartTimer", timePerUser);
+            await Clients.Group(session.ToString()).SendAsync("StartTimer", timePerUser, type);
         }
 
         public async Task AdminSendNewPlayerCount(int newPlayerNumber, Guid session)
@@ -41,7 +40,6 @@ namespace BloodOnTheWeb.Hubs
         {
             await Clients.Group(session.ToString()).SendAsync("SwapPlayers", voterOne, voterTwo);
         }
-
 
         public async Task JoinSession(Guid session)
         {
