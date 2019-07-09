@@ -301,7 +301,7 @@ function StartupProcess() {
     }
 
 
-    connection.invoke("JoinSession", SessionId);
+    connection.invoke("JoinSession", SessionId, $(".voter.me").attr("data-id"));
     connection.invoke("ClientRequestsLatest", SessionId);
 }
 

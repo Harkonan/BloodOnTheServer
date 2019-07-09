@@ -66,18 +66,18 @@
         </div>
     </nav>
 
-    <partial name="_CookieConsentPartial" />
+
 
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <span>&copy; 2019 - BloodOnTheWeb</span> | 
+            <span>&copy; 2019 - BloodOnTheWeb</span> |
             <span><a href="/home/Privacy">Privacy Policy</a></span>
         </footer>
     </div>
 
-
+    <partial name="_CookieConsentPartial" />
 
     @RenderSection("Scripts", required: false)
 </body>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BloodOnTheWeb.Models
 {
@@ -28,7 +29,9 @@ namespace BloodOnTheWeb.Models
 
     public class Player
     {
-        public int PlayerID { get; set; }
+
+        public Guid PlayerID { get; set; }
+        public int PlayerSeat { get; set; }
         public Session Session { get; set; }
     }
 }

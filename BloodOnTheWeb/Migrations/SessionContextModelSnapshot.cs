@@ -21,9 +21,10 @@ namespace BloodOnTheWeb.Migrations
 
             modelBuilder.Entity("BloodOnTheWeb.Models.Player", b =>
                 {
-                    b.Property<int>("PlayerID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("PlayerID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("PlayerSeat");
 
                     b.Property<Guid?>("SessionId");
 

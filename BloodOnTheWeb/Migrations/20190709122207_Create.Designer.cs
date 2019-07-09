@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodOnTheWeb.Migrations
 {
     [DbContext(typeof(SessionContext))]
-    [Migration("20190709090904_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190709122207_Create")]
+    partial class Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,9 +23,10 @@ namespace BloodOnTheWeb.Migrations
 
             modelBuilder.Entity("BloodOnTheWeb.Models.Player", b =>
                 {
-                    b.Property<int>("PlayerID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("PlayerID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("PlayerSeat");
 
                     b.Property<Guid?>("SessionId");
 

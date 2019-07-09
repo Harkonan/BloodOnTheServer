@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using BloodOnTheWeb.Models;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,14 @@ namespace BloodOnTheWeb.Hubs
     
     public class Clocktower : Hub
     {
+
+        private readonly SessionContext _context;
+
+        public Clocktower(SessionContext context)
+        {
+            _context = context;
+        }
+
         public async Task ClientToServerVote(string voterId, string voterName, string newVote, string health, string vote_status, Guid session)
         {
             await Clients.Group(session.ToString()).SendAsync("ServerToClientVote", voterId, voterName, newVote, vote_status, health);
@@ -41,7 +50,7 @@ namespace BloodOnTheWeb.Hubs
             await Clients.Group(session.ToString()).SendAsync("SwapPlayers", voterOne, voterTwo);
         }
 
-        public async Task JoinSession(Guid session)
+        public async Task JoinSession(Guid session, int playerSeat)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, session.ToString());
         }

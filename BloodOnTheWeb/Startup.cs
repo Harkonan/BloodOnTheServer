@@ -80,6 +80,10 @@ namespace BloodOnTheWeb
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{numberOfVoters?}/{id?}/{voteSession?}");
+
+                routes.MapRoute(
+                    name: "defaultJoin",
+                    template: "{controller=Home}/{action=Index}/{numberOfVoters?}/{voteSession?}");
             });
 
             

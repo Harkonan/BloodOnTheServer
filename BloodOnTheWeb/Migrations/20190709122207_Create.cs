@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BloodOnTheWeb.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,8 +22,8 @@ namespace BloodOnTheWeb.Migrations
                 name: "Players",
                 columns: table => new
                 {
-                    PlayerID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    PlayerID = table.Column<Guid>(nullable: false),
+                    PlayerSeat = table.Column<int>(nullable: false),
                     SessionId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
