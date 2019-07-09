@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using BloodOnTheWeb.Hubs;
+using BloodOnTheWeb.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -32,11 +35,22 @@ namespace BloodOnTheWeb
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            var builder = new SqlConnectionStringBuilder(
+                Configuration.GetConnectionString("DefaultConnection"))
+            {
+                Password = Configuration["DbPassword"],
+                UserID = Configuration["DbId"]
+            };
+
+            services.AddDbContext<SessionContext>(options =>
+                options.UseSqlServer(builder.ConnectionString));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSignalR(hubOptions =>
                     hubOptions.KeepAliveInterval = TimeSpan.FromSeconds(3)
                 );
+
+            
 
         }
 
@@ -67,6 +81,8 @@ namespace BloodOnTheWeb
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{numberOfVoters?}/{id?}/{voteSession?}");
             });
+
+            
         }
     }
 }

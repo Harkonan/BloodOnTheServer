@@ -259,34 +259,23 @@ body {
           height: 269px;
           position: absolute;
           z-index: 1;
-          pointer-events: none;
-          /*&.top {
-                    top: 0px;
-
-                    &.right {
-                        background-image: url('../images/border-top-right.png');
-                        right: 0px;
-                    }
-
-                    &.left {
-                        background-image: url('../images/border-top-left.png');
-                        left: 0px;
-                    }
-                }
-
-                &.bottom {
-                    bottom: 0px;
-
-                    &.right {
-                        background-image: url('../images/border-bottom-right.png');
-                        right: 0px;
-                    }
-
-                    &.left {
-                        background-image: url('../images/border-bottom-left.png');
-                        left: 0px;
-                    }
-                }*/ } }
+          pointer-events: none; }
+          body #container .border.top {
+            top: 0px; }
+            body #container .border.top.right {
+              background-image: url("../images/border-top-right.png");
+              right: 0px; }
+            body #container .border.top.left {
+              background-image: url("../images/border-top-left.png");
+              left: 0px; }
+          body #container .border.bottom {
+            bottom: 0px; }
+            body #container .border.bottom.right {
+              background-image: url("../images/border-bottom-right.png");
+              right: 0px; }
+            body #container .border.bottom.left {
+              background-image: url("../images/border-bottom-left.png");
+              left: 0px; } }
     @media screen and (max-width: 400px) {
       body #container {
         padding: 3px; } }

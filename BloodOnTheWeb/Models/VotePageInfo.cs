@@ -8,7 +8,8 @@ namespace BloodOnTheWeb.Models
     public class VotePageInfo
     {
         public int NumberOfVotes { get; set; }
-        public int MyVoteId { get; set; }
+        public int? MyVoteId { get; set; }
         public Guid VoteSession { get; set; }
+        public bool JoinLink { get; set; }
     }
 }

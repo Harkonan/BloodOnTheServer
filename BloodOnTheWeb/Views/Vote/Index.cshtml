@@ -11,6 +11,19 @@
     <link rel="stylesheet" href="~/css/Vote.min.css" asp-append-version="true" />
 </environment>
 
+<script type="text/javascript">
+    var Joiner = false;
+
+@if (Model.MyVoteId == null)
+{
+
+    @:Joiner = true;
+
+}
+</script>
+
+
+@TempData["Test"]
 
 @if (Model.MyVoteId == 0)
 {
@@ -27,6 +40,7 @@
 
         </p>
     </div>
+
 }
 
 @if (Model.MyVoteId > Model.NumberOfVotes)
@@ -48,7 +62,7 @@ else
         ContainerType = "round";
 
 
-       
+
     }
 }
 
@@ -176,4 +190,5 @@ else
 {
     <script src="~/js/VoteAdmin.js"></script>
 }
+
 

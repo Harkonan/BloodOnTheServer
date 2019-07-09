@@ -414,7 +414,7 @@ body {
                 position: absolute;
                 z-index: 1;
                 pointer-events: none;
-                /*&.top {
+                &.top {
                     top: 0px;
 
                     &.right {
@@ -440,7 +440,7 @@ body {
                         background-image: url('../images/border-bottom-left.png');
                         left: 0px;
                     }
-                }*/
+                }
             }
         }
 
