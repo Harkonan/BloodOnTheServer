@@ -186,11 +186,11 @@ connection.on("SwapPlayers", function (voterOne, voterTwo) {
         var MyId = $(".voter.me").attr("data-id");
 
         if (MyId === ""+voterOne) {
-            window.location.href = "/vote/index/5/" + voterTwo + "/" + SessionId;
+            window.location.href = "/vote/index/" + numberOfVoters + "/" + voterTwo + "/" + SessionId;
         }
 
-        if (MyId === ""+voterTwo) {
-            window.location.href = "/vote/index/5/" + voterOne + "/" + SessionId;
+        if (MyId === "" + voterTwo) {
+            window.location.href = "/vote/index/" + numberOfVoters + "/" + voterOne + "/" + SessionId;
         }
     }
 });

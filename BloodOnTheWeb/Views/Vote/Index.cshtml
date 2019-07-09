@@ -37,7 +37,8 @@
             (Dont give this out!)
         </p>
         <p>
-
+            The link for players to join the first avaible seat is:
+            <a id="join-link" href="/vote/Join/@Model.NumberOfVotes/J/@Model.VoteSession">Join</a>
         </p>
     </div>
 
@@ -183,6 +184,7 @@ else
 
 <script>
     var SessionId = "@Model.VoteSession.ToString()";
+    var numberOfVoters = "@Model.NumberOfVotes";
 </script>
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/Vote.js"></script>
