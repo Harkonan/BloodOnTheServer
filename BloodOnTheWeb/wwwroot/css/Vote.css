@@ -1,211 +1,372 @@
-﻿@media screen and (min-width: 1000px) {
-  body #container.round {
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 800px;
-    height: 830px;
-    margin: auto;
-    padding: 0px;
-    margin: 0px; }
-    body #container.round .clock {
-      border-radius: 50%;
-      background-size: 88%;
-      height: 800px;
-      padding-bottom: 31%;
-      position: relative;
-      width: 800px; }
-    body #container.round .clock.simple:after {
-      background: #000;
-      border-radius: 50%;
-      content: "";
+﻿body #container.round {
+  background-size: contain;
+  width: 800px;
+  height: 830px;
+  margin: auto;
+  padding: 0px;
+  margin: 0px; }
+  body #container.round .clock {
+    border-radius: 50%;
+    background-size: 88%;
+    height: 800px;
+    padding-bottom: 31%;
+    position: relative;
+    width: 800px; }
+  body #container.round .clock.simple:after {
+    background: #000;
+    border-radius: 50%;
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 5%;
+    height: 5%;
+    z-index: 10; }
+  body #container.round .seconds-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; }
+  body #container.round .seconds {
+    background: #000;
+    height: 36%;
+    left: 49.5%;
+    position: absolute;
+    top: 22%;
+    transform-origin: 50% 80%;
+    width: 1%;
+    z-index: 8; }
+  body #container.round .animate-seconds-container {
+    animation-name: rotate;
+    animation-duration: 60s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear; }
+
+@keyframes rotate {
+  100% {
+    transform: rotateZ(360deg); } }
+  body #container.round.admin {
+    width: 1100px; }
+  body #container.round .info-holder {
+    position: absolute;
+    width: 189px;
+    height: 189px;
+    min-width: unset; }
+    body #container.round .info-holder .timer {
+      float: unset;
+      padding: 0px;
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 5%;
-      height: 5%;
-      z-index: 10; }
-    body #container.round .seconds-container {
+      top: 39px;
+      left: 8px; }
+    body #container.round .info-holder .voter {
+      float: unset;
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0; }
-    body #container.round .seconds {
-      background: #000;
-      height: 36%;
-      left: 49.5%;
+      top: 42px;
+      left: 43px; }
+    body #container.round .info-holder .join-link {
+      float: unset;
       position: absolute;
-      top: 22%;
-      transform-origin: 50% 80%;
-      width: 1%;
-      z-index: 8; }
-    body #container.round .animate-seconds-container {
-      animation-name: rotate;
-      animation-duration: 60s;
-      animation-iteration-count: 1;
-      animation-timing-function: linear; }
-  @keyframes rotate {
-    100% {
-      transform: rotateZ(360deg); } }
-    body #container.round.admin {
-      width: 1100px; }
-    body #container.round .info-holder {
-      position: absolute;
+      top: 175px;
+      padding: 0px;
+      height: 20px;
+      line-height: 20px;
       width: 189px;
-      height: 189px;
-      min-width: unset; }
-      body #container.round .info-holder .timer {
-        float: unset;
-        padding: 0px;
-        position: absolute;
-        top: 39px;
-        left: 8px; }
-      body #container.round .info-holder .voter {
-        float: unset;
-        position: absolute;
-        top: 42px;
-        left: 43px; }
-      body #container.round .info-holder .join-link {
-        float: unset;
-        position: absolute;
-        top: 175px;
-        padding: 0px;
-        height: 20px;
-        line-height: 20px;
+      text-align: center; }
+    body #container.round .info-holder .seat-number {
+      float: unset;
+      padding: 0px;
+      position: absolute;
+      top: 14px;
+      height: 45px;
+      line-height: 25px;
+      text-align: center;
+      right: 82px; }
+    body #container.round .info-holder .username {
+      float: unset;
+      padding: 0px;
+      position: relative;
+      top: 145px;
+      height: 45px;
+      line-height: 25px;
+      text-align: center; }
+      body #container.round .info-holder .username input[type="text"] {
+        text-align: center;
+        width: 189px; }
+      body #container.round .info-holder .username #my_name_display {
         width: 189px;
         text-align: center; }
-      body #container.round .info-holder .seat-number {
-        float: unset;
-        padding: 0px;
+    body #container.round .info-holder .switches {
+      padding: 0px;
+      position: absolute;
+      bottom: 80px;
+      width: 189px; }
+      body #container.round .info-holder .switches #kill-switch {
         position: absolute;
-        top: 14px;
-        height: 45px;
-        line-height: 25px;
-        text-align: center;
-        right: 82px; }
-      body #container.round .info-holder .username {
+        left: 18px;
+        margin: 0px;
         float: unset;
-        padding: 0px;
-        position: relative;
-        top: 145px;
-        height: 45px;
-        line-height: 25px;
-        text-align: center; }
-        body #container.round .info-holder .username input[type="text"] {
-          text-align: center;
-          width: 189px; }
-        body #container.round .info-holder .username #my_name_display {
-          width: 189px;
-          text-align: center; }
-      body #container.round .info-holder .switches {
-        padding: 0px;
+        padding: 0px; }
+      body #container.round .info-holder .switches #used-switch {
         position: absolute;
-        bottom: 80px;
-        width: 189px; }
-        body #container.round .info-holder .switches #kill-switch {
-          position: absolute;
-          left: 18px;
-          margin: 0px;
-          float: unset;
-          padding: 0px; }
-        body #container.round .info-holder .switches #used-switch {
-          position: absolute;
-          right: 18px;
-          margin: 0px;
-          padding: 0px;
-          float: unset;
-          background-color: white; }
-  body #container.round[data-players="6"] .info-holder[data-sitting-order="1"] {
-    top: -21px;
-    left: 306px; }
-  body #container.round[data-players="6"] .info-holder[data-sitting-order="2"] {
-    top: 143px;
-    left: 587px; }
-  body #container.round[data-players="6"] .info-holder[data-sitting-order="3"] {
-    top: 462px;
-    left: 588px; }
-  body #container.round[data-players="6"] .info-holder[data-sitting-order="4"] {
-    top: 621px;
-    left: 311px; }
-  body #container.round[data-players="6"] .info-holder[data-sitting-order="5"] {
-    top: 460px;
-    left: 33px; }
-  body #container.round[data-players="6"] .info-holder[data-sitting-order="6"] {
-    top: 142px;
-    left: 33px; }
-  body #container.round[data-players="7"] .info-holder[data-sitting-order="1"] {
-    top: -21px;
-    left: 306px; }
-  body #container.round[data-players="7"] .info-holder[data-sitting-order="2"] {
-    top: 100px;
-    left: 552px; }
-  body #container.round[data-players="7"] .info-holder[data-sitting-order="3"] {
-    top: 366px;
-    left: 616px; }
-  body #container.round[data-players="7"] .info-holder[data-sitting-order="4"] {
-    top: 583px;
-    left: 450px; }
-  body #container.round[data-players="7"] .info-holder[data-sitting-order="5"] {
-    top: 590px;
-    left: 177px; }
-  body #container.round[data-players="7"] .info-holder[data-sitting-order="6"] {
-    top: 381px;
-    left: 0px; }
-  body #container.round[data-players="7"] .info-holder[data-sitting-order="7"] {
-    top: 113px;
-    left: 50px; }
-  body #container.round[data-players="8"] .info-holder[data-sitting-order="1"] {
-    top: -21px;
-    left: 306px; }
-  body #container.round[data-players="8"] .info-holder[data-sitting-order="2"] {
-    top: 76px;
-    left: 537px; }
-  body #container.round[data-players="8"] .info-holder[data-sitting-order="3"] {
-    top: 303px;
-    left: 631px; }
-  body #container.round[data-players="8"] .info-holder[data-sitting-order="4"] {
-    top: 530px;
-    left: 536px; }
-  body #container.round[data-players="8"] .info-holder[data-sitting-order="5"] {
-    top: 622px;
-    left: 311px; }
-  body #container.round[data-players="8"] .info-holder[data-sitting-order="6"] {
-    top: 528px;
-    left: 84px; }
-  body #container.round[data-players="8"] .info-holder[data-sitting-order="7"] {
-    top: 302px;
-    left: -9px; }
-  body #container.round[data-players="8"] .info-holder[data-sitting-order="8"] {
-    top: 76px;
-    left: 84px; }
-  body #container.round[data-players="9"] .info-holder[data-sitting-order="1"] {
-    top: -21px;
-    left: 306px; }
-  body #container.round[data-players="9"] .info-holder[data-sitting-order="2"] {
-    top: 57px;
-    left: 517px; }
-  body #container.round[data-players="9"] .info-holder[data-sitting-order="3"] {
-    top: 247px;
-    left: 626px; }
-  body #container.round[data-players="9"] .info-holder[data-sitting-order="4"] {
-    top: 462px;
-    left: 588px; }
-  body #container.round[data-players="9"] .info-holder[data-sitting-order="5"] {
-    top: 604px;
-    left: 419px; }
-  body #container.round[data-players="9"] .info-holder[data-sitting-order="6"] {
-    top: 604px;
-    left: 200px; }
-  body #container.round[data-players="9"] .info-holder[data-sitting-order="7"] {
-    top: 462px;
-    left: 34px; }
-  body #container.round[data-players="9"] .info-holder[data-sitting-order="8"] {
-    top: 247px;
-    left: -5px; }
-  body #container.round[data-players="9"] .info-holder[data-sitting-order="9"] {
-    top: 57px;
-    left: 106px; } }
+        right: 18px;
+        margin: 0px;
+        padding: 0px;
+        float: unset;
+        background-color: white; }
+
+body #container.round[data-players="6"] .info-holder[data-sitting-order="1"] {
+  top: -21px;
+  left: 306px; }
+
+body #container.round[data-players="6"] .info-holder[data-sitting-order="2"] {
+  top: 143px;
+  left: 587px; }
+
+body #container.round[data-players="6"] .info-holder[data-sitting-order="3"] {
+  top: 462px;
+  left: 588px; }
+
+body #container.round[data-players="6"] .info-holder[data-sitting-order="4"] {
+  top: 621px;
+  left: 311px; }
+
+body #container.round[data-players="6"] .info-holder[data-sitting-order="5"] {
+  top: 460px;
+  left: 33px; }
+
+body #container.round[data-players="6"] .info-holder[data-sitting-order="6"] {
+  top: 142px;
+  left: 33px; }
+
+body #container.round[data-players="7"] .info-holder[data-sitting-order="1"] {
+  top: -21px;
+  left: 306px; }
+
+body #container.round[data-players="7"] .info-holder[data-sitting-order="2"] {
+  top: 100px;
+  left: 552px; }
+
+body #container.round[data-players="7"] .info-holder[data-sitting-order="3"] {
+  top: 366px;
+  left: 616px; }
+
+body #container.round[data-players="7"] .info-holder[data-sitting-order="4"] {
+  top: 583px;
+  left: 450px; }
+
+body #container.round[data-players="7"] .info-holder[data-sitting-order="5"] {
+  top: 590px;
+  left: 177px; }
+
+body #container.round[data-players="7"] .info-holder[data-sitting-order="6"] {
+  top: 381px;
+  left: 0px; }
+
+body #container.round[data-players="7"] .info-holder[data-sitting-order="7"] {
+  top: 113px;
+  left: 50px; }
+
+body #container.round[data-players="8"] .info-holder[data-sitting-order="1"] {
+  top: -21px;
+  left: 306px; }
+
+body #container.round[data-players="8"] .info-holder[data-sitting-order="2"] {
+  top: 76px;
+  left: 537px; }
+
+body #container.round[data-players="8"] .info-holder[data-sitting-order="3"] {
+  top: 303px;
+  left: 631px; }
+
+body #container.round[data-players="8"] .info-holder[data-sitting-order="4"] {
+  top: 530px;
+  left: 536px; }
+
+body #container.round[data-players="8"] .info-holder[data-sitting-order="5"] {
+  top: 622px;
+  left: 311px; }
+
+body #container.round[data-players="8"] .info-holder[data-sitting-order="6"] {
+  top: 528px;
+  left: 84px; }
+
+body #container.round[data-players="8"] .info-holder[data-sitting-order="7"] {
+  top: 302px;
+  left: -9px; }
+
+body #container.round[data-players="8"] .info-holder[data-sitting-order="8"] {
+  top: 76px;
+  left: 84px; }
+
+body #container.round[data-players="9"] .info-holder[data-sitting-order="1"] {
+  top: -21px;
+  left: 306px; }
+
+body #container.round[data-players="9"] .info-holder[data-sitting-order="2"] {
+  top: 57px;
+  left: 517px; }
+
+body #container.round[data-players="9"] .info-holder[data-sitting-order="3"] {
+  top: 247px;
+  left: 626px; }
+
+body #container.round[data-players="9"] .info-holder[data-sitting-order="4"] {
+  top: 462px;
+  left: 588px; }
+
+body #container.round[data-players="9"] .info-holder[data-sitting-order="5"] {
+  top: 604px;
+  left: 419px; }
+
+body #container.round[data-players="9"] .info-holder[data-sitting-order="6"] {
+  top: 604px;
+  left: 200px; }
+
+body #container.round[data-players="9"] .info-holder[data-sitting-order="7"] {
+  top: 462px;
+  left: 34px; }
+
+body #container.round[data-players="9"] .info-holder[data-sitting-order="8"] {
+  top: 247px;
+  left: -5px; }
+
+body #container.round[data-players="9"] .info-holder[data-sitting-order="9"] {
+  top: 57px;
+  left: 106px; }
+
+body #container.round[data-players="10"] .info-holder[data-sitting-order="1"] {
+  top: -21px;
+  left: 306px; }
+
+body #container.round[data-players="10"] .info-holder[data-sitting-order="2"] {
+  top: 43px;
+  left: 494px; }
+
+body #container.round[data-players="10"] .info-holder[data-sitting-order="3"] {
+  top: 202px;
+  left: 611px; }
+
+body #container.round[data-players="10"] .info-holder[data-sitting-order="4"] {
+  top: 399px;
+  left: 612px; }
+
+body #container.round[data-players="10"] .info-holder[data-sitting-order="5"] {
+  top: 560px;
+  left: 494px; }
+
+body #container.round[data-players="10"] .info-holder[data-sitting-order="6"] {
+  top: 623px;
+  left: 307px; }
+
+body #container.round[data-players="10"] .info-holder[data-sitting-order="7"] {
+  top: 561px;
+  left: 118px; }
+
+body #container.round[data-players="10"] .info-holder[data-sitting-order="8"] {
+  top: 400px;
+  left: 2px; }
+
+body #container.round[data-players="10"] .info-holder[data-sitting-order="9"] {
+  top: 201px;
+  left: 1px; }
+
+body #container.round[data-players="10"] .info-holder[data-sitting-order="10"] {
+  top: 43px;
+  left: 117px; }
+
+body #container.round[data-players="11"] .info-holder[data-sitting-order="1"] {
+  top: -21px;
+  left: 306px; }
+
+body #container.round[data-players="11"] .info-holder[data-sitting-order="2"] {
+  top: 32px;
+  left: 479px; }
+
+body #container.round[data-players="11"] .info-holder[data-sitting-order="3"] {
+  top: 169px;
+  left: 599px; }
+
+body #container.round[data-players="11"] .info-holder[data-sitting-order="4"] {
+  top: 347px;
+  left: 624px; }
+
+body #container.round[data-players="11"] .info-holder[data-sitting-order="5"] {
+  top: 510px;
+  left: 548px; }
+
+body #container.round[data-players="11"] .info-holder[data-sitting-order="6"] {
+  top: 609px;
+  left: 397px; }
+
+body #container.round[data-players="11"] .info-holder[data-sitting-order="7"] {
+  top: 608px;
+  left: 216px; }
+
+body #container.round[data-players="11"] .info-holder[data-sitting-order="8"] {
+  top: 512px;
+  left: 64px; }
+
+body #container.round[data-players="11"] .info-holder[data-sitting-order="9"] {
+  top: 347px;
+  left: -11px; }
+
+body #container.round[data-players="11"] .info-holder[data-sitting-order="10"] {
+  top: 169px;
+  left: 13px; }
+
+body #container.round[data-players="11"] .info-holder[data-sitting-order="11"] {
+  top: 32px;
+  left: 132px; }
+
+body #container.round[data-players="12"] .info-holder[data-sitting-order="1"] {
+  top: -21px;
+  left: 306px; }
+
+body #container.round[data-players="12"] .info-holder[data-sitting-order="2"] {
+  top: 24px;
+  left: 466px; }
+
+body #container.round[data-players="12"] .info-holder[data-sitting-order="3"] {
+  top: 142px;
+  left: 584px; }
+
+body #container.round[data-players="12"] .info-holder[data-sitting-order="4"] {
+  top: 301px;
+  left: 627px; }
+
+body #container.round[data-players="12"] .info-holder[data-sitting-order="5"] {
+  top: 462px;
+  left: 583px; }
+
+body #container.round[data-players="12"] .info-holder[data-sitting-order="6"] {
+  top: 581px;
+  left: 466px; }
+
+body #container.round[data-players="12"] .info-holder[data-sitting-order="7"] {
+  top: 623px;
+  left: 306px; }
+
+body #container.round[data-players="12"] .info-holder[data-sitting-order="8"] {
+  top: 581px;
+  left: 145px; }
+
+body #container.round[data-players="12"] .info-holder[data-sitting-order="9"] {
+  top: 462px;
+  left: 27px; }
+
+body #container.round[data-players="12"] .info-holder[data-sitting-order="10"] {
+  top: 301px;
+  left: -17px; }
+
+body #container.round[data-players="12"] .info-holder[data-sitting-order="11"] {
+  top: 142px;
+  left: 27px; }
+
+body #container.round[data-players="12"] .info-holder[data-sitting-order="12"] {
+  top: 24px;
+  left: 145px; }
 
 body {
   min-width: 257px; }
@@ -244,9 +405,12 @@ body {
       padding: 10px; }
   body #container.help .info-holder .username {
     font-size: 15px; }
+  body #info {
+    min-width: 300px; }
   body #container {
     z-index: 0;
     min-height: 700px;
+    min-width: 300px;
     border: 1px solid #000;
     position: relative;
     box-sizing: border-box;

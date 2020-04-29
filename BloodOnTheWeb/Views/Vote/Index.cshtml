@@ -34,7 +34,7 @@
         <div>
             <p>
                 Your link for this session is:
-                <a id="admin-link" href="/vote/index/@Model.NumberOfVotes/0/@Model.VoteSession">@Model.VoteSession</a>
+                <a id="admin-link" href="/vote/index/@Model.NumberOfVotes/0/@Model.VoteSession">Link</a>
                 (Dont give this out!)
             </p>
             <p>
@@ -59,12 +59,12 @@
         if (Model.NumberOfVotes == 6 ||
             Model.NumberOfVotes == 7 ||
             Model.NumberOfVotes == 8 ||
-            Model.NumberOfVotes == 9)
+            Model.NumberOfVotes == 9 ||
+            Model.NumberOfVotes == 10 ||
+            Model.NumberOfVotes == 11 ||
+            Model.NumberOfVotes == 12 )
         {
             ContainerType = "round";
-
-
-
         }
     }
 </div>
