@@ -62,7 +62,7 @@
             Model.NumberOfVotes == 9 ||
             Model.NumberOfVotes == 10 ||
             Model.NumberOfVotes == 11 ||
-            Model.NumberOfVotes == 12 )
+            Model.NumberOfVotes == 12)
         {
             ContainerType = "round";
         }
@@ -79,6 +79,10 @@
         </div>
     </article>
 
+    <div id="master-timer" class="timer">
+    </div>
+    <div id="current-voter"></div>
+
     @for (int i = 1; i <= Model.NumberOfVotes; i++)
     {
         var StyleClass = "them";
@@ -88,6 +92,15 @@
         }
         <div class="info-holder" data-sitting-order="@i">
             <div class="timer"></div>
+            @if (ContainerType == "round")
+            {
+                <div class="voting">
+                    <div class="voting-border top-right"></div>
+                    <div class="voting-border top-left"></div>
+                    <div class="voting-border bottom-right"></div>
+                    <div class="voting-border bottom-left"></div>
+                </div>
+            }
             <div class="voter alive @StyleClass no-select player" id="vote_@i" data-id="@i" data-current="true" data-health="alive">
                 <div class="vote @StyleClass abstain-vote" data-vote="free"></div>
             </div>
@@ -128,8 +141,12 @@
 
     @if (Model.MyVoteId == 0)
     {
+        <div id="spacer"></div>
         <div id="admin-panel">
             <div class="title">Voting Process</div>
+            <div style="display:none">
+                <label><input type="radio" name="vote-type" value="digital" checked="checked" /> Digital</label>
+            </div>
             <div class="form-group">
                 <div class="live-vote">
                     <label for="nominated-voter">First Voter: </label>

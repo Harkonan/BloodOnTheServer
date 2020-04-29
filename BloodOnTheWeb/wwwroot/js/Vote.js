@@ -134,13 +134,20 @@ var AnalogTimer;
 connection.on("StartTimer", function (timePerUser, type) {
 
     var Voters = $(".voter.player");
+    var TimePerUser = 0; 
 
     if (type === "digital") {
         var i = 0;
 
         clearInterval(Timer);
 
+        TimePerUser = timePerUser;
         Voters.siblings(".timer").text(timePerUser);
+        $("#master-timer").text(timePerUser);
+        $(Voters[i]).siblings(".voting").show();
+
+        
+        $("#current-voter").text($(Voters[i]).siblings(".username").text());
 
         Timer = setInterval(UserTimer, 1000);
 
@@ -162,18 +169,33 @@ connection.on("StartTimer", function (timePerUser, type) {
 
     function UserTimer() {
         var TimerDiv = $(Voters[i]).siblings(".timer");
+        var MasterTimer = $("#master-timer");
 
         if (i < Voters.length) {
-            var Next = TimerDiv.text() - 1;
-            TimerDiv.text(Next);
+            var MasterNext = MasterTimer.text() - 1;
+            MasterTimer.text(MasterNext);
+            TimerDiv.text(MasterNext); //individual timer for non circle votes
 
-            if (Next === 0) {
+
+            if (MasterNext === -1 ) {
                 TimerDiv.text("");
                 i++;
+
+                $(".voting").hide();
+                
+                if (i < Voters.length) {
+                    MasterTimer.text(TimePerUser);
+                    $(Voters[i]).siblings(".voting").show();
+                    $("#current-voter").text($(Voters[i]).siblings(".username").text());
+                } else {
+                    MasterTimer.text("");
+                    $("#current-voter").text("");
+                }
             }
+
         } else {
             clearInterval(Timer);
-
+            
         }
     }
 });

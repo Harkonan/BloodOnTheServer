@@ -12,10 +12,56 @@ body {
     #container.round {
         background-size: contain;
         width: 800px;
-        height: 830px;
         margin: auto;
         padding: 0px;
         margin: 0px;
+
+        @media screen and (min-width: 700px) {
+            height: 830px;
+        }
+
+        @media screen and (max-width: 700px) {
+            min-height: 830px;
+        }
+
+        #master-timer {
+            display: block;
+            width: 100px;
+            height: 100px;
+            position: relative;
+            top: 400px;
+            left: 415px;
+            margin-left: -50px;
+            margin-top: -50px;
+
+            &.timer {
+                line-height: 100px;
+                font-size: 100px;
+                font-family: 'Stylish', sans-serif;
+                color: #bb0a1e;
+                position: relative;
+                float: left;
+                cursor: pointer;
+                text-align: center;
+            }
+        }
+
+        #current-voter {
+            display: block;
+            display: inline-block;
+            width: 200px;
+            height: 50px;
+            font-size: 49px;
+            line-height: 49px;
+            position: relative;
+            top: 500px;
+            left: 415px;
+            text-align: center;
+            margin-left: -150px;
+            margin-top: -50px;
+            font-family: 'Stylish', sans-serif;
+            color: #bb0a1e;
+        }
 
         .clock {
             border-radius: 50%;
@@ -83,11 +129,7 @@ body {
             min-width: unset;
 
             .timer {
-                float: unset;
-                padding: 0px;
-                position: absolute;
-                top: 39px;
-                left: 8px;
+                display: none;
             }
 
             .voter {
@@ -97,6 +139,76 @@ body {
                 left: 43px;
             }
 
+            .voting {
+                display: none;
+                float: unset;
+                position: absolute;
+                top: 41px;
+                left: 42px;
+                font-size: 50px;
+                text-align: center;
+                box-sizing: border-box;
+                float: left;
+                z-index: 99;
+
+                @media screen and (min-width: 400px) {
+                    width: $PersonSize+2;
+                    height: $PersonSize+2;
+                    line-height: $PersonSize+2;
+                }
+
+                @media screen and (max-width: 400px) {
+                    width: $SmallPersonSize+2;
+                    height: $SmallPersonSize+2;
+                    line-height: $SmallPersonSize+2;
+                }
+
+
+                .voting-border {
+                    position: absolute;
+
+                    @media screen and (min-width: 400px) {
+                        width: ($PersonSize+2)/2;
+                        height: ($PersonSize+2)/2;
+                    }
+
+                    @media screen and (max-width: 400px) {
+                        width: ($SmallPersonSize+2)/2;
+                        height: ($SmallPersonSize+2)/2;
+                    }
+
+                    background-size: contain;
+                    background-repeat: no-repeat;
+
+                    &.top-right {
+                        background-image: url("../images/border-top-right.png");
+                        right: 0px;
+                        top: 0px;
+                        background-position: right bottom;
+                    }
+
+                    &.top-left {
+                        background-image: url("../images/border-top-left.png");
+                        left: 0px;
+                        top: 0px;
+                        background-position: left bottom;
+                    }
+
+                    &.bottom-right {
+                        background-image: url("../images/border-bottom-right.png");
+                        right: 0px;
+                        bottom: 0px;
+                        background-position: right bottom;
+                    }
+
+                    &.bottom-left {
+                        background-image: url("../images/Border-bottom-left.png");
+                        left: 0px;
+                        bottom: 0px;
+                        background-position: left bottom;
+                    }
+                }
+            }
 
 
             .join-link {
@@ -524,6 +636,14 @@ body {
 
     min-width: 257px;
 
+    #spacer {
+        @media screen and (max-width: 700px) {
+            
+            width: 100%;
+            height:830px;
+        }
+    }
+
     #admin-panel {
 
         @media screen and (min-width: 700px) {
@@ -534,7 +654,7 @@ body {
         }
 
         @media screen and (max-width: 700px) {
-            position: initial;
+            /*position: initial;*/
             width: 100%;
         }
 
@@ -577,6 +697,14 @@ body {
         z-index: 0;
         min-height: 700px;
         min-width: 300px;
+
+        #master-timer {
+            display: none;
+        }
+
+        #current-voter {
+            display: none;
+        }
 
 
         @media screen and (min-width: 620px) {
@@ -628,7 +756,6 @@ body {
         box-sizing: border-box;
         background-image: url('../images/parchment.jpg');
         //background-image: url('../images/Backgrounds/12 Player Layout.png');
-
         .info-holder {
             @media screen and (min-width: 400px) {
                 height: $PersonSize;
@@ -652,6 +779,10 @@ body {
                     height: $SmallPersonSize;
                     line-height: $SmallPersonSize;
                 }
+            }
+
+            .voting {
+                display: none;
             }
 
             .timer {
@@ -789,6 +920,7 @@ body {
                 box-sizing: border-box;
                 float: left;
                 z-index: 99;
+
 
                 @media screen and (min-width: 400px) {
                     width: $PersonSize;
