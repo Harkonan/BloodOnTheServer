@@ -25,48 +25,49 @@
 
 @TempData["Test"]
 
-@if (Model.MyVoteId == 0)
-{
-    ContainerClass = "admin";
-    <h1>You are admin for this session and cannot participate</h1>
-    <div class="voter me" style="display:none" data-id="0"></div>
-    <div>
-        <p>
-            Your link for this session is:
-            <a id="admin-link" href="/vote/index/@Model.NumberOfVotes/0/@Model.VoteSession">@Model.VoteSession</a>
-            (Dont give this out!)
-        </p>
-        <p>
-            The link for players to join the first avaible seat is:
-            <a id="join-link" href="/vote/Join/@Model.NumberOfVotes/J/@Model.VoteSession">Join</a>
-        </p>
-    </div>
-
-}
-
-@if (Model.MyVoteId > Model.NumberOfVotes)
-{
-    <h1>Your player ID is not in this vote session, ask storyteller to check the vote session</h1>
-
-}
-else
-{
-    <h1></h1>
-}
-@{
-    var ContainerType = "list";
-    if (Model.NumberOfVotes == 6 ||
-        Model.NumberOfVotes == 7 ||
-        Model.NumberOfVotes == 8 ||
-        Model.NumberOfVotes == 9)
+<div id="info">
+    @if (Model.MyVoteId == 0)
     {
-        ContainerType = "round";
-
-
+        ContainerClass = "admin";
+        <h1>You are admin for this session and cannot participate</h1>
+        <div class="voter me" style="display:none" data-id="0"></div>
+        <div>
+            <p>
+                Your link for this session is:
+                <a id="admin-link" href="/vote/index/@Model.NumberOfVotes/0/@Model.VoteSession">@Model.VoteSession</a>
+                (Dont give this out!)
+            </p>
+            <p>
+                The link for players to join the first avaible seat is:
+                <a id="join-link" href="/vote/Join/@Model.NumberOfVotes/J/@Model.VoteSession">Join</a>
+            </p>
+        </div>
 
     }
-}
 
+    @if (Model.MyVoteId > Model.NumberOfVotes)
+    {
+        <h1>Your player ID is not in this vote session, ask storyteller to check the vote session</h1>
+
+    }
+    else
+    {
+        <h1></h1>
+    }
+    @{
+        var ContainerType = "list";
+        if (Model.NumberOfVotes == 6 ||
+            Model.NumberOfVotes == 7 ||
+            Model.NumberOfVotes == 8 ||
+            Model.NumberOfVotes == 9)
+        {
+            ContainerType = "round";
+
+
+
+        }
+    }
+</div>
 <div id="container" data-players="@Model.NumberOfVotes" class="@ContainerClass @ContainerType">
     <div class="border top right"></div>
     <div class="border top left"></div>
@@ -130,10 +131,6 @@ else
         <div id="admin-panel">
             <div class="title">Voting Process</div>
             <div class="form-group">
-                <div>
-                    <label><input type="radio" name="vote-type" value="digital" checked="checked" /> Digital</label>
-                    <label><input type="radio" name="vote-type" value="analog" /> Analog</label>
-                </div>
                 <div class="live-vote">
                     <label for="nominated-voter">First Voter: </label>
                     <select class="form-control" id="nominated-voter"></select>
