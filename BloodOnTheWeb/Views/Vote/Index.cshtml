@@ -55,16 +55,13 @@
         <h1></h1>
     }
     @{
-        var ContainerType = "list";
-        if (Model.NumberOfVotes == 6 ||
-            Model.NumberOfVotes == 7 ||
-            Model.NumberOfVotes == 8 ||
-            Model.NumberOfVotes == 9 ||
-            Model.NumberOfVotes == 10 ||
-            Model.NumberOfVotes == 11 ||
-            Model.NumberOfVotes == 12)
+        var ContainerType = "round";
+        if (Model.NumberOfVotes == 5 ||
+            Model.NumberOfVotes == 13 ||
+            Model.NumberOfVotes == 14 ||
+            Model.NumberOfVotes == 15)
         {
-            ContainerType = "round";
+            ContainerType = "list";
         }
     }
 </div>
@@ -141,7 +138,6 @@
 
     @if (Model.MyVoteId == 0)
     {
-        <div id="spacer"></div>
         <div id="admin-panel">
             <div class="title">Voting Process</div>
             <div style="display:none">
