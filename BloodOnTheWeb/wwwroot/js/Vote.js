@@ -17,7 +17,7 @@ $(function () {
     if (window.location.href.split('/').length !== 8) {
         $("#admin-link")[0].click();
     }
-    
+
     $(".clock").hide();
 
     $("#my_name_display").hide();
@@ -99,7 +99,7 @@ $(function () {
         SendMyStatus();
     });
 
-   
+
 
 
 
@@ -134,38 +134,22 @@ var AnalogTimer;
 connection.on("StartTimer", function (timePerUser, type) {
 
     var Voters = $(".voter.player");
-    var TimePerUser = 0; 
+    var TimePerUser = 0;
 
-    if (type === "digital") {
-        var i = 0;
 
-        clearInterval(Timer);
+    var i = 0;
 
-        TimePerUser = timePerUser;
-        Voters.siblings(".timer").text(timePerUser);
-        $("#master-timer").text(timePerUser);
-        $(Voters[i]).siblings(".voting").show();
+    clearInterval(Timer);
 
-        
-        $("#current-voter").text($(Voters[i]).siblings(".username").text());
+    TimePerUser = timePerUser;
+    Voters.siblings(".timer").text(timePerUser);
+    $("#master-timer").text(timePerUser);
+    $(Voters[i]).siblings(".voting").show();
 
-        Timer = setInterval(UserTimer, 1000);
 
-    } else {
-        $(".clock").show();
-        var clockTime = timePerUser * Voters.length;
-        clearTimeout(AnalogTimer);
-        $("#start-vote").attr("disabled", true);
+    $("#current-voter").text($(Voters[i]).siblings(".username").text());
 
-        $(".seconds-container").attr("style", "animation: rotate " + clockTime + "s 1 linear;");
-
-        AnalogTimer = setTimeout(function () {
-            $(".seconds-container").attr("style", "");
-            $("#start-vote").attr("disabled", false);
-            $(".clock").hide();
-        }, (clockTime * 1000)+1000);
-    }
-
+    Timer = setInterval(UserTimer, 1000);
 
     function UserTimer() {
         var TimerDiv = $(Voters[i]).siblings(".timer");
@@ -178,12 +162,12 @@ connection.on("StartTimer", function (timePerUser, type) {
 
 
 
-            if (MasterNext === -1 ) {
+            if (MasterNext === -1) {
                 TimerDiv.text("");
                 i++;
 
                 $(".voting").hide();
-                
+
                 if (i < Voters.length) {
                     MasterTimer.text(TimePerUser);
                     $(Voters[i]).siblings(".voting").show();
@@ -196,7 +180,7 @@ connection.on("StartTimer", function (timePerUser, type) {
 
         } else {
             clearInterval(Timer);
-            
+
         }
     }
 });
@@ -208,7 +192,7 @@ connection.on("SwapPlayers", function (voterOne, voterTwo) {
     if ($(".voter.me").attr("data-id") !== "0") {
         var MyId = $(".voter.me").attr("data-id");
 
-        if (MyId === ""+voterOne) {
+        if (MyId === "" + voterOne) {
             window.location.href = "/vote/index/" + numberOfVoters + "/" + voterTwo + "/" + SessionId;
         }
 
@@ -241,7 +225,7 @@ connection.on("ReOrderFromServer", function (nominatedVoterId) {
         i++;
         $(this).attr("data-sitting-order", i);
     });
-    
+
 });
 
 connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vote_status, health) {
