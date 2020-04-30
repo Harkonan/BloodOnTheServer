@@ -1,0 +1,210 @@
+﻿@model VotePageInfo
+@{
+    ViewData["Title"] = "Index";
+    string ContainerClass = "";
+}
+
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/Vote.css" />
+</environment>
+<environment exclude="Development">
+    <link rel="stylesheet" href="~/css/Vote.min.css" asp-append-version="true" />
+</environment>
+
+<script type="text/javascript">
+    var Joiner = false;
+
+@if (Model.MyVoteId == null)
+{
+
+    @:Joiner = true;
+
+}
+</script>
+
+
+@TempData["Test"]
+
+<div id="info">
+    @if (Model.MyVoteId == 0)
+    {
+        ContainerClass = "admin";
+        <h1>You are admin for this session and cannot participate</h1>
+        <div class="voter me" style="display:none" data-id="0"></div>
+        <div>
+            <p>
+                Your link for this session is:
+                <a id="admin-link" href="/vote/index/@Model.NumberOfVotes/0/@Model.VoteSession">Link</a>
+                (Dont give this out!)
+            </p>
+            <p>
+                The link for players to join the first avaible seat is:
+                <a id="join-link" href="/vote/Join/@Model.NumberOfVotes/J/@Model.VoteSession">Join</a>
+            </p>
+        </div>
+
+    }
+
+    @if (Model.MyVoteId > Model.NumberOfVotes)
+    {
+        <h1>Your player ID is not in this vote session, ask storyteller to check the vote session</h1>
+
+    }
+    else
+    {
+        <h1></h1>
+    }
+    @{
+        var ContainerType = "list";
+        if (Model.NumberOfVotes == 6 ||
+            Model.NumberOfVotes == 7 ||
+            Model.NumberOfVotes == 8 ||
+            Model.NumberOfVotes == 9 ||
+            Model.NumberOfVotes == 10 ||
+            Model.NumberOfVotes == 11 ||
+            Model.NumberOfVotes == 12)
+        {
+            ContainerType = "round";
+        }
+    }
+</div>
+<div id="container" data-players="@Model.NumberOfVotes" class="@ContainerClass @ContainerType">
+    <div class="border top right"></div>
+    <div class="border top left"></div>
+    <div class="border bottom right "></div>
+    <div class="border bottom left"></div>
+    <article class="clock simple" style="display:none">
+        <div class="seconds-container">
+            <div class="seconds"></div>
+        </div>
+    </article>
+
+    <div id="master-timer" class="timer">
+    </div>
+    <div id="current-voter"></div>
+
+    @for (int i = 1; i <= Model.NumberOfVotes; i++)
+    {
+        var StyleClass = "them";
+        if (Model.MyVoteId == i)
+        {
+            StyleClass = "me";
+        }
+        <div class="info-holder" data-sitting-order="@i">
+            <div class="timer"></div>
+            @if (ContainerType == "round")
+            {
+                <div class="voting">
+                    <div class="voting-border top-right"></div>
+                    <div class="voting-border top-left"></div>
+                    <div class="voting-border bottom-right"></div>
+                    <div class="voting-border bottom-left"></div>
+                </div>
+            }
+            <div class="voter alive @StyleClass no-select player" id="vote_@i" data-id="@i" data-current="true" data-health="alive">
+                <div class="vote @StyleClass abstain-vote" data-vote="free"></div>
+            </div>
+            @if (Model.MyVoteId == i)
+            {
+
+                <div class="username @StyleClass">
+                    <input type="text" id="my_name" autofocus />
+                    <div id="my_name_display"></div>
+                </div>
+
+                <div class="switches">
+                    <div id="kill-switch" class="alive no-select" title="Toggle between Alive, Dead and Traveler status "></div>
+                    <div id="used-switch" class="no-select" title="Toggle Vote token"></div>
+                </div>
+
+            }
+            else
+            {
+                @if (Model.MyVoteId == 0)
+                {
+                    <div class="seat-number">(@i)</div>
+                }
+                <div class="username @StyleClass">
+                    voter_@i
+                </div>
+            }
+
+            @if (Model.MyVoteId == 0)
+            {
+                <div class="join-link">
+                    <a href="/vote/index/@Model.NumberOfVotes/@i/@Model.VoteSession" target="_blank">[Link to Join]</a>
+                </div>
+            }
+        </div>
+    }
+
+
+    @if (Model.MyVoteId == 0)
+    {
+        <div id="spacer"></div>
+        <div id="admin-panel">
+            <div class="title">Voting Process</div>
+            <div style="display:none">
+                <label><input type="radio" name="vote-type" value="digital" checked="checked" /> Digital</label>
+            </div>
+            <div class="form-group">
+                <div class="live-vote">
+                    <label for="nominated-voter">First Voter: </label>
+                    <select class="form-control" id="nominated-voter"></select>
+                </div>
+
+                <div class="live-vote">
+                    <label for="TimePerVoter">Seconds Per Voter</label>
+                    <input type="text" id="TimePerVoter" value="5" class="form-control" />
+                </div>
+                <div class="live-vote">
+                    <input type="button" value="Start Vote" id="start-vote" />
+                </div>
+
+            </div>
+            <div class="title">Change number of Voters</div>
+            <div class="form-group">
+                <div>
+                    <label for="number-of-players">Number of Voters</label>
+                    <input type="number" id="number-of-players" class="form-control" value="@Model.NumberOfVotes" min="5" max="20" />
+                </div>
+                <div>
+                    <input type="button" id="change-players" value="Update" />
+                </div>
+
+            </div>
+
+            <div class="title">Swap Voters</div>
+            <div class="form-group">
+                <div>
+                    <label for="swap-voter-one">First Voter</label>
+                    <select class="form-control" id="swap-voter-one"></select>
+                </div>
+                <div>
+                    <label for="swap-voter-two">Second Voter</label>
+                    <select class="form-control" id="swap-voter-two"></select>
+                </div>
+                <div>
+                    <input type="button" value="Swap" id="swap-button" />
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+</div>
+
+
+<script>
+    var SessionId = "@Model.VoteSession.ToString()";
+    var numberOfVoters = "@Model.NumberOfVotes";
+</script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/Vote.js"></script>
+@if (Model.MyVoteId == 0)
+{
+    <script src="~/js/VoteAdmin.js"></script>
+}
+
+

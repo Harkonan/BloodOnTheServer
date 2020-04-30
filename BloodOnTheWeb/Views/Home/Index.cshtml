@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+    <div class="container">
+        <h1>How create a voting session</h1>
+        <p>
+            This site is designed to replicate the voting system used for real life games of Blood on the Clocktower for online play.
+        </p>
+        <p>
+            To set up a game you will need to create a new session for your players. You can do this by clicking the "Start a new session" button on the navigation bar above. This will create a new game with a default number of voters.
+        </p>
+        <p>
+            As the person who created the session you should see a white admin panel on the right of the page. This contains a number of controls to administer your vote.
+        </p>
+        <h4>Inviting Players</h4>
+        <p>
+            To invite players you have two options.
+        </p>
+        <ol>
+            <li>To invite a player to a specific seat, give them a copy of the "link to join" under the seat you want.</li>
+            <li>To invite players to take the first available seat copy the "Join" link at the top of the page.</li>
+        </ol>
+        <h4>Voting process:</h4>
+        <p>
+            Changing the First Voter will rotate the players around to set the person who will get to vote first (always the person at the top of the list). For example, if player 3 in a 5 player game has been nominated, you can set player 4 to be the First Voter (meaning player 3 will be the last).
+        </p>
+        <p>
+            You can then select how many seconds you would like each player to have to vote and then press the Start Vote button to initiate the vote process. This will show all players a countdown timer for each players time to vote in the seating order displayed.
+        </p>
+        <h4>Change number of Voters:</h4>
+        <p>
+            This will let you change the number of voters in your game. Simply update the number in the Number of Voters field, and press update to change your game size. This will update your session, and the session of all connected players.
+        </p>
+        <h4>Swap voters:</h4>
+        <p>
+            This function allows you to change the seats of your players. By selecting two voters to change places and then clicking the Swap button, you will change your players seating positions.
+        </p>
+
+        <p>
+            Once your game is setup to your liking you can invite players by sending them the links next to each position in the voting space. Players joining through these links will not see your admin controls, but will be invited to enter their players name and are given control of a voting chip. Help on how to use this can be found <a href="https://localhost:44388/vote/help">here</a>.
+        </p>
+
+        <h3>
+            Advanced Notes
+        </h3>
+        <p>
+            The URL which players join through controls their position on the board, number of players in the game and the ID of the session they are in. You can edit this URL manually if you wish to play with these. The format is as follows:
+        </p>
+        <p>
+            /vote/index/A/B/C
+        </p>
+        <p>
+            Where:
+        </p>
+        <ul>
+            <li>A: Number of players (5-20)</li>
+            <li>B: Your position (0 for admin then 1-20 for players)</li>
+            <li>C: Session id (feel free to make one up if you like)</li>
+        </ul>
+        <h3>
+            Feedback, Source code and questions
+        </h3>
+        <p>Code for this site can be found at my github <a href="https://github.com/Harkonan/BloodOnTheServer">here</a> (its in the webserver branch at the moment).</p>
+        <p>Feedback is welcome, but this is a side project developed in between a full work schedule and a new baby, so don't expect much fast! (this might also explain any typos or issues you spot).</p>
+    </div>
