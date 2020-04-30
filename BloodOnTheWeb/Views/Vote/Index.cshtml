@@ -20,6 +20,7 @@
     @:Joiner = true;
 
 }
+    var PlayerNumber = @Model.NumberOfVotes;
 </script>
 
 
@@ -29,30 +30,33 @@
     @if (Model.MyVoteId == 0)
     {
         ContainerClass = "admin";
-    <h1>You are admin for this session and cannot participate</h1>
-    <div class="voter me" style="display:none" data-id="0"></div>
-    <div>
-        <p>
-            Your link for this session is:
-            <a id="admin-link" href="/vote/index/@Model.NumberOfVotes/0/@Model.VoteSession">Link</a>
-            (Dont give this out!)
-        </p>
-        <p>
-            The link for players to join the first avaible seat is:
-            <a id="join-link" href="/vote/Join/@Model.NumberOfVotes/J/@Model.VoteSession">Join</a>
-        </p>
-    </div>
+        <h1>You are admin for this session and cannot participate</h1>
+        <div class="voter me" style="display:none" data-id="0"></div>
+        <div>
+            <p>
+                Your link for this session is:
+                <a id="admin-link" href="/vote/index/@Model.NumberOfVotes/0/@Model.VoteSession">Link</a>
+                (Dont give this out!)
+            </p>
+            <p>
+                The link for players to join the first avaible seat is:
+                <a id="join-link" href="/vote/Join/@Model.VoteSession">Join</a>
+            </p>
+        </div>
 
     }
 
-    @if (Model.MyVoteId > Model.NumberOfVotes)
+    @if (Model.MyVoteId == 100)
     {
-    <h1>Your player ID is not in this vote session, ask storyteller to check the vote session</h1>
-
+        <h1>Spectating</h1>
+    }
+    else if (Model.MyVoteId > Model.NumberOfVotes)
+    {
+        <h1>Your player ID is not in this vote session, ask storyteller to check the vote session</h1>
     }
     else
     {
-    <h1></h1>
+        <h1></h1>
     }
     @{
         var ContainerType = "round";

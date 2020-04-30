@@ -67,6 +67,14 @@ connection.on("PlayerReady", function (voter_id) {
     }
 });
 
+connection.on("PlayerRequestPlayerNumber", function () {
+    var NewPlayerNumber = $("#number-of-players").val();
+
+    connection.invoke("AdminSendNewPlayerCount", NewPlayerNumber, SessionId).catch(function (err) {
+        return console.error(err.toString());
+    });
+});
+
 function triggerRecordVote() {
     var Votes = $(".vote.execute-vote").length;
     var LastVoter = $(".username").last().text().trim();

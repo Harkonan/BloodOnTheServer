@@ -19,6 +19,7 @@ namespace BloodOnTheWeb.Controllers
             _context = context;
         }
 
+        
         public IActionResult Index(int numberOfVoters, int id,  Guid voteSession)
         {
             if (voteSession == Guid.Empty)
@@ -65,8 +66,13 @@ namespace BloodOnTheWeb.Controllers
             return View(Page);
         }
 
+        public IActionResult Spectate(Guid voteSession)
+        {
+            return RedirectToAction("index", new { id = 100, numberOfVoters = 7, voteSession = voteSession });
+        }
 
-        public IActionResult Join(int numberOfVoters, Guid voteSession)
+
+        public IActionResult Join(Guid voteSession)
         {
             int FirstEmptySeat = 21;
 
@@ -93,7 +99,7 @@ namespace BloodOnTheWeb.Controllers
 
                 SetCookie(voteSession.ToString() + "_Seat", FirstEmptySeat.ToString(), null, true);
             }
-            return RedirectToAction("index", new { id = FirstEmptySeat, numberOfVoters = numberOfVoters, voteSession = voteSession });
+            return RedirectToAction("index", new { id = FirstEmptySeat, numberOfVoters = 7, voteSession = voteSession });
         }
 
 

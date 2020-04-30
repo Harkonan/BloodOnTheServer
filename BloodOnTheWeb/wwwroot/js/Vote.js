@@ -10,8 +10,6 @@ var MyStatus = {
 
 var MyName = "";
 
-
-
 $(function () {
 
     if (window.location.href.split('/').length !== 8) {
@@ -108,6 +106,7 @@ $(function () {
         }
     });
 
+    
 
 
 });
@@ -215,7 +214,12 @@ connection.on("ChangePlayerNumber", function (newPlayerNumber) {
         MyId = 0;
     }
 
-    window.location.href = "/vote/index/" + newPlayerNumber + "/" + MyId + "/" + SessionId;
+    console.log(PlayerNumber);
+    console.log(newPlayerNumber);
+
+    if (PlayerNumber !== newPlayerNumber) {
+        window.location.href = "/vote/index/" + newPlayerNumber + "/" + MyId + "/" + SessionId;
+    }
 });
 
 connection.on("ReOrderFromServer", function (nominatedVoterId) {
@@ -235,7 +239,7 @@ connection.on("ReOrderFromServer", function (nominatedVoterId) {
 
 connection.on("GetReadyResponse", function () {
     var my_vote = $(".voter.me");
-    $(".voter.player").addClass("not-ready")
+    $(".voter.player").addClass("not-ready");
     if (my_vote.attr("data-id") !== "0") {
         $("#ReadyCheckDialog").dialog("open");
     }
@@ -322,6 +326,8 @@ function Reconnect() {
 
 
 
+
+
 function StartupProcess() {
     if ($(".voter.me").attr("data-id") !== "0") {
 
@@ -340,6 +346,10 @@ function StartupProcess() {
 
     connection.invoke("JoinSession", SessionId, $(".voter.me").attr("data-id"));
     connection.invoke("ClientRequestsLatest", SessionId);
+    if ($(".voter.me").attr("data-id") !== "0") {
+        connection.invoke("RequestPlayerNumber", SessionId);
+    }
+    
 }
 
 
