@@ -177,6 +177,7 @@ connection.on("StartTimer", function (timePerUser, type) {
             TimerDiv.text(MasterNext); //individual timer for non circle votes
 
 
+
             if (MasterNext === -1 ) {
                 TimerDiv.text("");
                 i++;
