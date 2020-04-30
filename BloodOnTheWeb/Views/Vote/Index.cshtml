@@ -138,68 +138,79 @@
 
     @if (Model.MyVoteId == 0)
     {
-    <div id="admin-panel">
-        <div class="title">Voting Process</div>
-        <div style="display:none">
-            <label><input type="radio" name="vote-type" value="digital" checked="checked" /> Digital</label>
-        </div>
-        <div class="form-group">
-            <div class="live-vote">
-                <label for="nominated-voter">First Voter: </label>
-                <select class="form-control" id="nominated-voter"></select>
-            </div>
-
-            <div class="live-vote">
-                <label for="TimePerVoter">Seconds Per Voter</label>
-                <input type="text" id="TimePerVoter" value="5" class="form-control" />
-            </div>
-            <div>
-                <label for="ReadyCheckToggle">
-                    <input type="checkbox" id="ReadyCheckToggle" checked="checked">
-                    Require Ready (experimental)
-                </label>
-            </div>
-
-
-            <div class="live-vote">
-                <input type="button" value="Start Vote" id="start-vote" />
-            </div>
-        </div>
-        <div class="title">Change number of Voters</div>
-        <div class="form-group">
-            <div>
-                <label for="number-of-players">Number of Voters</label>
-                <input type="number" id="number-of-players" class="form-control" value="@Model.NumberOfVotes" min="5" max="20" />
-            </div>
-            <div>
-                <input type="button" id="change-players" value="Update" />
-            </div>
-
+<div id="admin-panel">
+    <div class="title">Voting Process</div>
+    <div style="display:none">
+        <label><input type="radio" name="vote-type" value="digital" checked="checked" /> Digital</label>
+    </div>
+    <div class="form-group">
+        <div class="live-vote">
+            <label for="nominated-voter">First Voter: </label>
+            <select class="form-control" id="nominated-voter"></select>
         </div>
 
-        <div class="title">Swap Voters</div>
-        <div class="form-group">
-            <div>
-                <label for="swap-voter-one">First Voter</label>
-                <select class="form-control" id="swap-voter-one"></select>
-            </div>
-            <div>
-                <label for="swap-voter-two">Second Voter</label>
-                <select class="form-control" id="swap-voter-two"></select>
-            </div>
-            <div>
-                <input type="button" value="Swap" id="swap-button" />
-            </div>
+        <div class="live-vote">
+            <label for="TimePerVoter">Seconds Per Voter</label>
+            <input type="text" id="TimePerVoter" value="5" class="form-control" />
+        </div>
+        <div>
+            <label for="ReadyCheckToggle">
+                <input type="checkbox" id="ReadyCheckToggle" checked="checked">
+                Require Ready (experimental)
+            </label>
+        </div>
+
+
+        <div class="live-vote">
+            <input type="button" value="Start Vote" id="start-vote" />
+        </div>
+    </div>
+    <div class="title">Change number of Voters</div>
+    <div class="form-group">
+        <div>
+            <label for="number-of-players">Number of Voters</label>
+            <input type="number" id="number-of-players" class="form-control" value="@Model.NumberOfVotes" min="5" max="20" />
+        </div>
+        <div>
+            <input type="button" id="change-players" value="Update" />
+        </div>
+
+    </div>
+
+    <div class="title">Swap Voters</div>
+    <div class="form-group">
+        <div>
+            <label for="swap-voter-one">First Voter</label>
+            <select class="form-control" id="swap-voter-one"></select>
+        </div>
+        <div>
+            <label for="swap-voter-two">Second Voter</label>
+            <select class="form-control" id="swap-voter-two"></select>
+        </div>
+        <div>
+            <input type="button" value="Swap" id="swap-button" />
         </div>
     </div>
 
+    <div class="title"><input type="button" id="clear-log" value="Clear Log" /></div>
+</div>
+    <div id="RecordResultDialog" title="Record Result">
+        <p>Would you like to record the result of this vote:</p>
+        <input type="text" id="VoteResult" value=""/>
+    </div>
 
     }
 
 </div>
+<h1>Recorded Votes</h1>
+<div id="VoteLog">
+    <i>No Votes Recorded</i>
+</div>
+
 <div id="ReadyCheckDialog" title="Ready Check">
     <p>Please Confirm you are ready for this vote</p>
 </div>
+
 
 
 
@@ -207,7 +218,6 @@
     var SessionId = "@Model.VoteSession.ToString()";
     var numberOfVoters = "@Model.NumberOfVotes";
 </script>
-blood on
 <environment include="Development">
     <script src="~/lib/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/Vote.js"></script>

@@ -105,7 +105,7 @@ $(function () {
         position: { my: "center", at: "center", of: "#container" },
         buttons: {
             "Ready": SendReady
-            }
+        }
     });
 
 
@@ -157,7 +157,7 @@ connection.on("StartTimer", function (timePerUser, type) {
 
     Timer = setInterval(UserTimer, 1000);
 
-    function UserTimer() {        
+    function UserTimer() {
 
         var TimerDiv = $(Voters[i]).siblings(".timer");
         var MasterTimer = $("#master-timer");
@@ -184,6 +184,9 @@ connection.on("StartTimer", function (timePerUser, type) {
 
         } else {
             clearInterval(Timer);
+            if ($(".voter.me").attr("data-id") === "0") {
+                triggerRecordVote();
+            }
         }
 
     }
@@ -294,7 +297,9 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
 
 });
 
-
+connection.on("UpdateLog", function (log) {
+    $("#VoteLog").html(log);
+});
 
 
 

@@ -3,3 +3,8 @@
  - Add in Vote Title
  - Add in "Vote History"
  - Add option to change location of count down timer between centerd and by voter
+ - Joining shouldnt require a number of voters in the URL
+ - add spectator view if joining with only session ID
+ - Button on spectator view to join the game in the next seat
+ - Hide admin link behidng click to show element
+ - stop minus number second votes

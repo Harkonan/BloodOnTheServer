@@ -38,6 +38,22 @@
             return console.error(err.toString());
         });
     });
+
+    $("#clear-log").on("click", function () {
+        connection.invoke("AdminUpdateRecord", SessionId, "<i>No Votes Recorded</i>");
+    });
+
+    $("#RecordResultDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        position: { my: "center", at: "center", of: "#container" },
+        buttons: {
+            "Record": recordVote,
+            "Close without recording": function () {
+                $("#RecordResultDialog").dialog("close");
+            }
+        }
+    });
 });
 
 
@@ -50,6 +66,20 @@ connection.on("PlayerReady", function (voter_id) {
         });
     }
 });
+
+function triggerRecordVote() {
+    var Votes = $(".vote.execute-vote").length;
+    var LastVoter = $(".username").last().text().trim();
+    $("#VoteResult").val(Votes + " votes for " + LastVoter);
+    $("#RecordResultDialog").dialog("open");
+}
+
+function recordVote() {
+    $("#VoteLog").find("i").remove();
+    $("#VoteLog").append('<div><span>' + moment().toISOString()+': </span> '+ $("#VoteResult").val() + '</div>');
+    $("#RecordResultDialog").dialog("close");
+    connection.invoke("AdminUpdateRecord", SessionId, $("#VoteLog").html());
+}
 
 function UpdateDropDown() {
     $("#nominated-voter").children("option").remove();
