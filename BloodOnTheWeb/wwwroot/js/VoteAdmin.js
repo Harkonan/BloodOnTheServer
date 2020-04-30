@@ -42,7 +42,6 @@
 
 
 connection.on("PlayerReady", function (voter_id) {
-    console.log($(".voter.player.not-ready").length);
     if ($(".voter.player.not-ready").length === 0) {
         var Time = $("#TimePerVoter").val();
         var Type = $("input[name='vote-type']:checked").val();
