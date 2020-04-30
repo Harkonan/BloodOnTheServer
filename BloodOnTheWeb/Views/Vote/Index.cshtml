@@ -53,12 +53,6 @@
     @if (Model.MyVoteId == 100)
     {
         <h1>Spectating</h1>
-        <div>
-            <p>
-                The link for players to join the first avaible seat is:
-                <a id="join-link" href="/vote/Join/@Model.VoteSession">Join</a>
-            </p>
-        </div>
 
     }
     else if (Model.MyVoteId > Model.NumberOfVotes)
