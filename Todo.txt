@@ -1,4 +1,5 @@
 
- - Option to switch between list and round view
+ - tidy location of ready check
+ - Add in Vote Title
  - Add in "Vote History"
  - Add option to change location of count down timer between centerd and by voter
