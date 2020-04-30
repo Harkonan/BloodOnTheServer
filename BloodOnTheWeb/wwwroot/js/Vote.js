@@ -132,11 +132,9 @@ var Timer;
 var AnalogTimer;
 
 connection.on("StartTimer", function (timePerUser, type) {
-
-    var Voters = $(".voter.player");
+    $(".voting").hide();
+    var Voters = $(".vote:not(.used-vote)").parent(".voter.player");
     var TimePerUser = 0;
-
-
     var i = 0;
 
     clearInterval(Timer);
@@ -145,13 +143,12 @@ connection.on("StartTimer", function (timePerUser, type) {
     Voters.siblings(".timer").text(timePerUser);
     $("#master-timer").text(timePerUser);
     $(Voters[i]).siblings(".voting").show();
-
-
     $("#current-voter").text($(Voters[i]).siblings(".username").text());
 
     Timer = setInterval(UserTimer, 1000);
 
-    function UserTimer() {
+    function UserTimer() {        
+
         var TimerDiv = $(Voters[i]).siblings(".timer");
         var MasterTimer = $("#master-timer");
 
@@ -160,14 +157,11 @@ connection.on("StartTimer", function (timePerUser, type) {
             MasterTimer.text(MasterNext);
             TimerDiv.text(MasterNext); //individual timer for non circle votes
 
-
-
             if (MasterNext === -1) {
                 TimerDiv.text("");
                 i++;
 
                 $(".voting").hide();
-
                 if (i < Voters.length) {
                     MasterTimer.text(TimePerUser);
                     $(Voters[i]).siblings(".voting").show();
@@ -180,12 +174,10 @@ connection.on("StartTimer", function (timePerUser, type) {
 
         } else {
             clearInterval(Timer);
-
         }
+
     }
 });
-
-
 
 connection.on("SwapPlayers", function (voterOne, voterTwo) {
 
