@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A8C3334B-CBF1-4FEE-9B96-6F57167243A5}"
 	ProjectSection(SolutionItems) = preProject
 		Readme.txt = Readme.txt
+		Todo.txt = Todo.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodOnTheWeb", "BloodOnTheWeb\BloodOnTheWeb.csproj", "{0A015FC4-399B-4170-946E-B68BDA4F2377}"

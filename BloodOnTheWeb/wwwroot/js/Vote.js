@@ -99,7 +99,13 @@ $(function () {
         SendMyStatus();
     });
 
-
+    $("#ReadyCheckDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        buttons: {
+            "Ready": SendReady
+            }
+    });
 
 
 
@@ -131,8 +137,11 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/Clocktower").build
 var Timer;
 var AnalogTimer;
 
+
+
 connection.on("StartTimer", function (timePerUser, type) {
     $(".voting").hide();
+    $(".voter").removeClass("not-ready");
     var Voters = $(".vote:not(.used-vote)").parent(".voter.player");
     var TimePerUser = 0;
     var i = 0;
@@ -219,6 +228,29 @@ connection.on("ReOrderFromServer", function (nominatedVoterId) {
     });
 
 });
+
+connection.on("GetReadyResponse", function () {
+    var my_vote = $(".voter.me");
+    $(".voter.player").addClass("not-ready")
+    if (my_vote.attr("data-id") !== "0") {
+        $("#ReadyCheckDialog").dialog("open");
+    }
+});
+
+function SendReady() {
+    var my_vote = $(".voter.me");
+    if (my_vote.attr("data-id") !== "0") {
+        var voter_id = my_vote.attr("id");
+        connection.invoke("ClientReadyResponse", SessionId, voter_id);
+    }
+    $("#ReadyCheckDialog").dialog("close");
+}
+
+connection.on("PlayerReady", function (voter_id) {
+    var voter = $("#" + voter_id);
+    voter.removeClass("not-ready");
+});
+
 
 connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vote_status, health) {
     var voter = $("#" + voter_id);

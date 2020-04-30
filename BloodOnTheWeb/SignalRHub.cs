@@ -35,6 +35,15 @@ namespace BloodOnTheWeb.Hubs
             await Clients.Group(session.ToString()).SendAsync("ReOrderFromServer", nominatedVoterId);
         }
 
+        public async Task AdminTriggerReadyCheck(Guid session)
+        {
+            await Clients.Group(session.ToString()).SendAsync("GetReadyResponse");
+        }
+
+        public async Task ClientReadyResponse(Guid session, string voterId){
+            await Clients.Group(session.ToString()).SendAsync("PlayerReady", voterId);
+        }
+
         public async Task AdminSendStartTimer(int timePerUser, string type, Guid session)
         {
             await Clients.Group(session.ToString()).SendAsync("StartTimer", timePerUser, type);

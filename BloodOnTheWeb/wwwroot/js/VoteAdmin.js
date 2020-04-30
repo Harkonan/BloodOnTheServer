@@ -9,12 +9,18 @@
 
 
     $("#start-vote").on("click", function() {
-        var Time = $("#TimePerVoter").val();
-        var Type = $("input[name='vote-type']:checked").val();
+        
 
-        connection.invoke("AdminSendStartTimer", Time, Type, SessionId).catch(function(err) {
-            return console.error(err.toString());
-        });
+        if ($("#ReadyCheckToggle").is(":checked")) {
+            connection.invoke("AdminTriggerReadyCheck", SessionId);
+        } else {
+            var Time = $("#TimePerVoter").val();
+            var Type = $("input[name='vote-type']:checked").val();
+
+            connection.invoke("AdminSendStartTimer", Time, Type, SessionId).catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
     });
 
 
@@ -35,9 +41,16 @@
 });
 
 
-
-
-
+connection.on("PlayerReady", function (voter_id) {
+    console.log($(".voter.player.not-ready").length);
+    if ($(".voter.player.not-ready").length === 0) {
+        var Time = $("#TimePerVoter").val();
+        var Type = $("input[name='vote-type']:checked").val();
+        connection.invoke("AdminSendStartTimer", Time, Type, SessionId).catch(function (err) {
+            return console.error(err.toString());
+        });
+    }
+});
 
 function UpdateDropDown() {
     $("#nominated-voter").children("option").remove();

@@ -153,10 +153,17 @@
                     <label for="TimePerVoter">Seconds Per Voter</label>
                     <input type="text" id="TimePerVoter" value="5" class="form-control" />
                 </div>
+                <div>
+                    <label for="ReadyCheckToggle">
+                        <input type="checkbox" id="ReadyCheckToggle" checked="checked">
+                        Require Ready
+                    </label>
+                </div>
+                
+
                 <div class="live-vote">
                     <input type="button" value="Start Vote" id="start-vote" />
                 </div>
-
             </div>
             <div class="title">Change number of Voters</div>
             <div class="form-group">
@@ -190,6 +197,10 @@
     }
 
 </div>
+<div id="ReadyCheckDialog" title="Ready Check">
+    <p>Please Confirm you are ready for this vote</p>
+</div>
+
 
 
 <script>

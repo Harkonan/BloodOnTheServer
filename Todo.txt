@@ -1,0 +1,4 @@
+
+ - Create a ready indicator
+ - Option to switch between list and round view
+ - Add in "Vote History"

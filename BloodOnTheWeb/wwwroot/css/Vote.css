@@ -569,6 +569,8 @@ body {
         box-sizing: border-box;
         float: left;
         z-index: 99; }
+        body #container .info-holder .voter.player.not-ready {
+          border: 1px solid #bb0a1e; }
         @media screen and (min-width: 400px) {
           body #container .info-holder .voter {
             width: 100px;
