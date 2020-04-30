@@ -102,6 +102,7 @@ $(function () {
     $("#ReadyCheckDialog").dialog({
         autoOpen: false,
         modal: true,
+        position: { my: "center", at: "center", of: "#container" },
         buttons: {
             "Ready": SendReady
             }
