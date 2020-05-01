@@ -309,8 +309,13 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
         UpdateDropDown();
     }
 
-
+    if ($(".voter.me").attr("data-id") === "0") {
+        checkAFK();
+    }
 });
+
+
+
 
 connection.on("UpdateLog", function (log) {
     $("#vote-log").html(log);

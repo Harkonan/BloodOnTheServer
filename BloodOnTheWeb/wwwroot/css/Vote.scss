@@ -128,27 +128,9 @@ $SmallVoteSize: 60px;
                     position: absolute;
                     top: 42px;
                     left: 43px;
-
-                    &[data-afk=true] .afk-notice {
-                        display: inline-block;
-                    }
-
-                    &[data-afk=false] .afk-notice {
-                        display: none;
-                    }
                 }
 
-                .afk-notice {
-                    float: unset;
-                    position: absolute;
-                    top: 0px;
-                    left: 10px;
-                    font-weight: bold;
-                    font-size: 40px;
-                    -webkit-text-stroke: 1px white;
-                    -webkit-text-fill-color: #510909;
-                    z-index: 100;
-                }
+                
 
                 .voting {
                     display: none;
@@ -276,7 +258,7 @@ $SmallVoteSize: 60px;
                         margin: 0px;
                         padding: 0px;
                         float: unset;
-                        top: -108px;
+                        top: -74px;
                     }
                 }
             }
@@ -675,6 +657,11 @@ body {
             margin-bottom: 5px;
         }
 
+        .error {
+            display: none;
+            color: #bb0a1e;
+        }
+
         .title {
             font-size: 28px;
         }
@@ -764,6 +751,7 @@ body {
 
 
         .info-holder {
+
             @media screen and (min-width: 400px) {
                 height: $PersonSize;
             }
@@ -867,6 +855,18 @@ body {
                 }
             }
 
+            .afk-notice {
+                float: unset;
+                position: relative;
+                top: -100px;
+                left: 0px;
+                font-weight: bold;
+                font-size: 40px;
+                -webkit-text-stroke: 1px white;
+                -webkit-text-fill-color: #510909;
+                z-index: 100;
+            }
+
             .switches {
                 @media screen and (min-width: 400px) {
                     line-height: $PersonSize;
@@ -889,6 +889,7 @@ body {
 
                 #afk-switch {
                     cursor: pointer;
+                    line-height: 32px;
                 }
 
                 #kill-switch, #used-switch {
@@ -929,6 +930,14 @@ body {
                 box-sizing: border-box;
                 float: left;
                 z-index: 99;
+
+                &[data-afk=true] .afk-notice {
+                    display: inline-block;
+                }
+
+                &[data-afk=false] .afk-notice {
+                    display: none;
+                }
 
                 &.player.not-ready {
                     border: 1px solid #bb0a1e;

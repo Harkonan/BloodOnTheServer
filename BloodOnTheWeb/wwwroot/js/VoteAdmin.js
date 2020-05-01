@@ -54,6 +54,8 @@
             }
         }
     });
+
+    checkAFK();
 });
 
 
@@ -120,6 +122,16 @@ function UpdateDropDown() {
             $('<option></option>').val(number).text(Username)
         );
     });
+}
+
+function checkAFK() {
+    if ($(".voter.player[data-afk=true]").length > 0) {
+        $("#start-vote").prop('disabled', true);
+        $("#afk-error").show();
+    } else {
+        $("#start-vote").prop('disabled', false);
+        $("#afk-error").hide();
+    }
 }
 
 function isEmpty(el) {

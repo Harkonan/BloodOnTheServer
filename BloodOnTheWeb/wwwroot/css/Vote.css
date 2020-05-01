@@ -92,20 +92,6 @@
         position: absolute;
         top: 42px;
         left: 43px; }
-        body #container.round .info-holder .voter[data-afk=true] .afk-notice {
-          display: inline-block; }
-        body #container.round .info-holder .voter[data-afk=false] .afk-notice {
-          display: none; }
-      body #container.round .info-holder .afk-notice {
-        float: unset;
-        position: absolute;
-        top: 0px;
-        left: 10px;
-        font-weight: bold;
-        font-size: 40px;
-        -webkit-text-stroke: 1px white;
-        -webkit-text-fill-color: #510909;
-        z-index: 100; }
       body #container.round .info-holder .voting {
         display: none;
         float: unset;
@@ -202,7 +188,7 @@
           margin: 0px;
           padding: 0px;
           float: unset;
-          top: -108px; }
+          top: -74px; }
   body #container.round[data-players="6"] .info-holder[data-sitting-order="1"] {
     top: -21px;
     left: 306px; }
@@ -429,6 +415,9 @@ body {
     body #admin-panel div {
       margin-top: 5px;
       margin-bottom: 5px; }
+    body #admin-panel .error {
+      display: none;
+      color: #bb0a1e; }
     body #admin-panel .title {
       font-size: 28px; }
     body #admin-panel .form-group {
@@ -554,6 +543,16 @@ body {
               width: 100px; }
             body #container .info-holder .username #my_name_display {
               width: 100px; } }
+      body #container .info-holder .afk-notice {
+        float: unset;
+        position: relative;
+        top: -100px;
+        left: 0px;
+        font-weight: bold;
+        font-size: 40px;
+        -webkit-text-stroke: 1px white;
+        -webkit-text-fill-color: #510909;
+        z-index: 100; }
       @media screen and (min-width: 400px) {
         body #container .info-holder .switches {
           line-height: 100px;
@@ -569,7 +568,8 @@ body {
           body #container .info-holder .switches #kill-switch, body #container .info-holder .switches #used-switch {
             padding-top: 2px; } }
       body #container .info-holder .switches #afk-switch {
-        cursor: pointer; }
+        cursor: pointer;
+        line-height: 32px; }
       body #container .info-holder .switches #kill-switch, body #container .info-holder .switches #used-switch {
         font-size: 23px;
         position: relative;
@@ -595,6 +595,10 @@ body {
         box-sizing: border-box;
         float: left;
         z-index: 99; }
+        body #container .info-holder .voter[data-afk=true] .afk-notice {
+          display: inline-block; }
+        body #container .info-holder .voter[data-afk=false] .afk-notice {
+          display: none; }
         body #container .info-holder .voter.player.not-ready {
           border: 1px solid #bb0a1e; }
         @media screen and (min-width: 400px) {
