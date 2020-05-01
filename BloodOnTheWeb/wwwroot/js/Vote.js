@@ -97,7 +97,6 @@ $(function () {
 
     $("#afk-switch").on("click", function () {
         var my_vote = $(".voter.me");
-        console.log("Switch");
         var current_vote = my_vote.attr("data-afk").toLowerCase() === "true";
         my_vote.attr("data-afk", !current_vote);
 
@@ -148,17 +147,34 @@ var AnalogTimer;
 
 
 
-connection.on("StartTimer", function (timePerUser, type) {
+connection.on("StartTimer", function (timePerUser, type, start) {
+
+    
+    var startSeat = $("#"+start);
+
+    
+
     $(".voting").hide();
     $(".voter").removeClass("not-ready");
-    var Voters = $(".vote:not(.used-vote)").parent(".voter.player");
+    var OriginalVoters = $(".vote:not(.used-vote)").parent(".voter.player");
+console
+    var StartIndex = OriginalVoters.index(startSeat);
+
+    var Start = OriginalVoters.splice(StartIndex);
+    var Voters = Start.concat(OriginalVoters.toArray());
+
     var TimePerUser = 0;
     var i = 0;
+
 
     clearInterval(Timer);
 
     TimePerUser = timePerUser;
-    Voters.siblings(".timer").text(timePerUser);
+    for (var n = 0; n < Voters.length; n++) {
+        $(Voters[n]).siblings(".timer").text(timePerUser);
+    }
+    
+
     $("#master-timer").text(timePerUser);
     $(Voters[i]).siblings(".voting").show();
     $("#current-voter").text($(Voters[i]).siblings(".username").text());
@@ -223,8 +239,6 @@ connection.on("ChangePlayerNumber", function (newPlayerNumber) {
         MyId = 0;
     }
 
-    console.log(PlayerNumber);
-    console.log(newPlayerNumber);
 
     if (PlayerNumber !== newPlayerNumber) {
         window.location.href = "/vote/index/" + newPlayerNumber + "/" + MyId + "/" + SessionId;

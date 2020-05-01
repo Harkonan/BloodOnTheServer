@@ -1,29 +1,20 @@
 ﻿$(function () {
     UpdateDropDown();
 
-    $("#nominated-voter").on("change", function () {
-        connection.invoke("AdminSendNominatedVoter", $(this).val(), SessionId).catch(function (err) {
-            return console.error(err.toString());
-        });
-    });
+    //$("#nominated-voter").on("change", function () {
+    //    connection.invoke("AdminSendNominatedVoter", $(this).val(), SessionId).catch(function (err) {
+    //        return console.error(err.toString());
+    //    });
+    //});
 
 
     $("#start-vote").on("click", function () {
-
-
         if ($("#ReadyCheckToggle").is(":checked")) {
             connection.invoke("AdminTriggerReadyCheck", SessionId);
         } else {
-            var Time = $("#TimePerVoter").val();
-            var Type = $("input[name='vote-type']:checked").val();
-
-            connection.invoke("AdminSendStartTimer", Time, Type, SessionId).catch(function (err) {
-                return console.error(err.toString());
-            });
+            StartVote();
         }
     });
-
-
 
     $("#change-players").on("click", function () {
         var NewPlayerNumber = $("#number-of-players").val();
@@ -61,13 +52,19 @@
 
 connection.on("PlayerReady", function (voter_id) {
     if ($(".voter.player.not-ready").length === 0) {
-        var Time = $("#TimePerVoter").val();
-        var Type = $("input[name='vote-type']:checked").val();
-        connection.invoke("AdminSendStartTimer", Time, Type, SessionId).catch(function (err) {
-            return console.error(err.toString());
-        });
+        StartVote(); 
     }
 });
+
+function StartVote() {
+    var Time = $("#TimePerVoter").val();
+    var Type = $("input[name='vote-type']:checked").val();
+    var Start = $("#nominated-voter option:selected").val();
+    console.log(Start);
+    connection.invoke("AdminSendStartTimer", Time, Type, Start, SessionId).catch(function (err) {
+        return console.error(err.toString());
+    });
+}
 
 connection.on("PlayerRequestPlayerNumber", function () {
     var NewPlayerNumber = $("#number-of-players").val();
