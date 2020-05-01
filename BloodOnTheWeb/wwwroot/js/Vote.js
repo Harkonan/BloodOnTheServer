@@ -245,21 +245,6 @@ connection.on("ChangePlayerNumber", function (newPlayerNumber) {
     }
 });
 
-connection.on("ReOrderFromServer", function (nominatedVoterId) {
-
-
-    var FirstVoter = $("#" + nominatedVoterId).parent();
-    var Preceeding = FirstVoter.prevAll();
-    $("#container").append(Preceeding.get().reverse());
-
-    var i = 0;
-    $("#container .info-holder").each(function () {
-        i++;
-        $(this).attr("data-sitting-order", i);
-    });
-
-});
-
 connection.on("GetReadyResponse", function () {
     var my_vote = $(".voter.me");
     $(".voter.player").addClass("not-ready");

@@ -1,12 +1,6 @@
 ﻿$(function () {
     UpdateDropDown();
 
-    //$("#nominated-voter").on("change", function () {
-    //    connection.invoke("AdminSendNominatedVoter", $(this).val(), SessionId).catch(function (err) {
-    //        return console.error(err.toString());
-    //    });
-    //});
-
 
     $("#start-vote").on("click", function () {
         if ($("#ReadyCheckToggle").is(":checked")) {
