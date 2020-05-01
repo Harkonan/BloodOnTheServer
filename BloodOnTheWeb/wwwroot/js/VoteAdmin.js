@@ -74,10 +74,9 @@ connection.on("PlayerRequestPlayerNumber", function () {
     });
 });
 
-function triggerRecordVote() {
+function triggerRecordVote(LastVoter) {
     if ($("#LogVoteCheck").is(":checked")) {
         var Votes = $(".vote.execute-vote").length;
-        var LastVoter = $(".username").last().text().trim();
         $("#VoteResult").val(Votes + " votes for " + LastVoter);
         $("#RecordResultDialog").dialog("open");
     }
@@ -85,7 +84,7 @@ function triggerRecordVote() {
 
 function recordVote() {
 
-    $("#viote-log").find("i").remove();
+    $("#vote-log").find("i").remove();
     $("#vote-log").append('<div><span>' + moment().toISOString() + ': </span> ' + $("#VoteResult").val() + '</div>');
     $("#RecordResultDialog").dialog("close");
     connection.invoke("AdminUpdateRecord", SessionId, $("#vote-log").html());

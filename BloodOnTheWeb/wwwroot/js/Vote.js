@@ -209,7 +209,7 @@ console
         } else {
             clearInterval(Timer);
             if ($(".voter.me").attr("data-id") === "0") {
-                triggerRecordVote();
+                triggerRecordVote($(Voters[i-1]).siblings(".username").text().trim());
             }
         }
 
