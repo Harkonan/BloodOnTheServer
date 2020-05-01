@@ -54,7 +54,11 @@ namespace BloodOnTheWeb.Controllers
                 numberOfVoters = 7;
             }
 
-            SetCookie(voteSession.ToString() + "_Seat", id.ToString(), null, true);
+            if (id != 100)
+            {
+                SetCookie(voteSession.ToString() + "_Seat", id.ToString(), null, true);
+            }
+            
 
             VotePageInfo Page = new VotePageInfo()
             {
