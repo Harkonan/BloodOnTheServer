@@ -92,6 +92,20 @@
         position: absolute;
         top: 42px;
         left: 43px; }
+        body #container.round .info-holder .voter[data-afk=true] .afk-notice {
+          display: inline-block; }
+        body #container.round .info-holder .voter[data-afk=false] .afk-notice {
+          display: none; }
+      body #container.round .info-holder .afk-notice {
+        float: unset;
+        position: absolute;
+        top: 0px;
+        left: 10px;
+        font-weight: bold;
+        font-size: 40px;
+        -webkit-text-stroke: 1px white;
+        -webkit-text-fill-color: #510909;
+        z-index: 100; }
       body #container.round .info-holder .voting {
         display: none;
         float: unset;
@@ -182,6 +196,13 @@
           padding: 0px;
           float: unset;
           background-color: white; }
+        body #container.round .info-holder .switches #afk-switch {
+          position: absolute;
+          right: 21px;
+          margin: 0px;
+          padding: 0px;
+          float: unset;
+          top: -108px; }
   body #container.round[data-players="6"] .info-holder[data-sitting-order="1"] {
     top: -21px;
     left: 306px; }
@@ -547,6 +568,8 @@ body {
           padding-top: 5px; }
           body #container .info-holder .switches #kill-switch, body #container .info-holder .switches #used-switch {
             padding-top: 2px; } }
+      body #container .info-holder .switches #afk-switch {
+        cursor: pointer; }
       body #container .info-holder .switches #kill-switch, body #container .info-holder .switches #used-switch {
         font-size: 23px;
         position: relative;

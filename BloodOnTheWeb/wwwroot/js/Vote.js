@@ -95,6 +95,15 @@ $(function () {
         SendMyStatus();
     });
 
+    $("#afk-switch").on("click", function () {
+        var my_vote = $(".voter.me");
+        console.log("Switch");
+        var current_vote = my_vote.attr("data-afk").toLowerCase() === "true";
+        my_vote.attr("data-afk", !current_vote);
+
+        SendMyStatus();
+    });
+
     $("#ReadyCheckDialog").dialog({
         autoOpen: false,
         modal: true,
@@ -260,7 +269,7 @@ connection.on("PlayerReady", function (voter_id) {
 });
 
 
-connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vote_status, health) {
+connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vote_status, health, afk_status) {
     var voter = $("#" + voter_id);
     voter.attr("data-current", new_vote);
     voter.siblings(".username.them").text(voter_name);
@@ -293,6 +302,8 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
         voter.find(".vote").removeClass("abstain-vote");
         voter.find(".vote").addClass("execute-vote");
     }
+
+    voter.attr("data-afk", afk_status);
 
     if (typeof UpdateDropDown === "function") {
         UpdateDropDown();
@@ -361,16 +372,17 @@ function StartupProcess() {
 
 function SendMyStatus() {
     var my_vote = $(".voter.me");
+
     if (my_vote.attr("data-id") !== "0") {
         var voter_id = my_vote.attr("id");
         var current_vote = my_vote.attr("data-current").toLowerCase() === "true";
         var my_name = $("#my_name").val();
         var health = my_vote.attr("data-health");
         var vote_status = my_vote.find(".vote.me").attr("data-vote");
+        var afk_status = my_vote.attr("data-afk");
 
 
-
-        connection.invoke("ClientToServerVote", voter_id, my_name, current_vote, health, vote_status, SessionId).catch(function (err) {
+        connection.invoke("ClientToServerVote", voter_id, my_name, current_vote, health, vote_status, afk_status, SessionId).catch(function (err) {
             return console.error(err.toString());
         });
 

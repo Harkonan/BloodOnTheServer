@@ -96,121 +96,124 @@
         {
             StyleClass = "me";
         }
-    <div class="info-holder" data-sitting-order="@i">
-        <div class="timer"></div>
-        @if (ContainerType == "round")
+        <div class="info-holder" data-sitting-order="@i">
+            <div class="timer"></div>
+            @if (ContainerType == "round")
             {
-        <div class="voting">
-            <div class="voting-border top-right"></div>
-            <div class="voting-border top-left"></div>
-            <div class="voting-border bottom-right"></div>
-            <div class="voting-border bottom-left"></div>
-        </div>
+                <div class="voting">
+                    <div class="voting-border top-right"></div>
+                    <div class="voting-border top-left"></div>
+                    <div class="voting-border bottom-right"></div>
+                    <div class="voting-border bottom-left"></div>
+                </div>
             }
-        <div class="voter alive @StyleClass no-select player" id="vote_@i" data-id="@i" data-current="true" data-health="alive">
-            <div class="vote @StyleClass abstain-vote" data-vote="free"></div>
-        </div>
-        @if (Model.MyVoteId == i)
+
+            <div class="voter alive @StyleClass no-select player" id="vote_@i" data-id="@i" data-current="true" data-health="alive" data-afk="false">
+                <div class="vote @StyleClass abstain-vote" data-vote="free"></div>
+                <div class="afk-notice">AFK</div>
+            </div>
+            @if (Model.MyVoteId == i)
             {
 
-        <div class="username @StyleClass">
-            <input type="text" id="my_name" autofocus />
-            <div id="my_name_display"></div>
-        </div>
+                <div class="username @StyleClass">
+                    <input type="text" id="my_name" autofocus />
+                    <div id="my_name_display"></div>
+                </div>
 
-        <div class="switches">
-            <div id="kill-switch" class="alive no-select" title="Toggle between Alive, Dead and Traveler status "></div>
-            <div id="used-switch" class="no-select" title="Toggle Vote token"></div>
-        </div>
+                <div class="switches">
+                    <div id="kill-switch" class="alive no-select" title="Toggle between Alive, Dead and Traveler status "></div>
+                    <div id="used-switch" class="no-select" title="Toggle Vote token"></div>
+                    <div id="afk-switch" class="no-select" title="AKF">AFK</div>
+                </div>
 
             }
             else
             {
-        @if (Model.MyVoteId == 0)
+                @if (Model.MyVoteId == 0)
                 {
-        <div class="seat-number">(@i)</div>
+                    <div class="seat-number">(@i)</div>
                 }
-        <div class="username @StyleClass">
-            voter_@i
-        </div>
+                <div class="username @StyleClass">
+                    voter_@i
+                </div>
             }
 
-        @if (Model.MyVoteId == 0)
+            @if (Model.MyVoteId == 0)
             {
-        <div class="join-link">
-            <a href="/vote/index/@Model.NumberOfVotes/@i/@Model.VoteSession" target="_blank">[Link to Join]</a>
-        </div>
+                <div class="join-link">
+                    <a href="/vote/index/@Model.NumberOfVotes/@i/@Model.VoteSession" target="_blank">[Link to Join]</a>
+                </div>
             }
-    </div>
+        </div>
     }
 
 
     @if (Model.MyVoteId == 0)
     {
-<div id="admin-panel">
-    <div class="title">Voting Process</div>
-    <div style="display:none">
-        <label><input type="radio" name="vote-type" value="digital" checked="checked" /> Digital</label>
-    </div>
-    <div class="form-group">
-        <div class="live-vote">
-            <label for="nominated-voter">First Voter: </label>
-            <select class="form-control" id="nominated-voter"></select>
-        </div>
+        <div id="admin-panel">
+            <div class="title">Voting Process</div>
+            <div style="display:none">
+                <label><input type="radio" name="vote-type" value="digital" checked="checked" /> Digital</label>
+            </div>
+            <div class="form-group">
+                <div class="live-vote">
+                    <label for="nominated-voter">First Voter: </label>
+                    <select class="form-control" id="nominated-voter"></select>
+                </div>
 
-        <div class="live-vote">
-            <label for="TimePerVoter">Seconds Per Voter</label>
-            <input type="text" id="TimePerVoter" value="5" class="form-control" />
-        </div>
-        <div>
-            <label for="ReadyCheckToggle">
-                <input type="checkbox" id="ReadyCheckToggle">
-                Require Ready (experimental)
-            </label>
-            <label for="LogVoteCheck">
-                <input type="checkbox" id="LogVoteCheck">
-                Log vote (experimnetal)
-            </label>
-        </div>
+                <div class="live-vote">
+                    <label for="TimePerVoter">Seconds Per Voter</label>
+                    <input type="text" id="TimePerVoter" value="5" class="form-control" />
+                </div>
+                <div>
+                    <label for="ReadyCheckToggle">
+                        <input type="checkbox" id="ReadyCheckToggle">
+                        Require Ready (experimental)
+                    </label>
+                    <label for="LogVoteCheck">
+                        <input type="checkbox" id="LogVoteCheck">
+                        Log vote (experimnetal)
+                    </label>
+                </div>
 
 
-        <div class="live-vote">
-            <input type="button" value="Start Vote" id="start-vote" />
-        </div>
-    </div>
-    <div class="title">Change number of Voters</div>
-    <div class="form-group">
-        <div>
-            <label for="number-of-players">Number of Voters</label>
-            <input type="number" id="number-of-players" class="form-control" value="@Model.NumberOfVotes" min="5" max="20" />
-        </div>
-        <div>
-            <input type="button" id="change-players" value="Update" />
-        </div>
+                <div class="live-vote">
+                    <input type="button" value="Start Vote" id="start-vote" />
+                </div>
+            </div>
+            <div class="title">Change number of Voters</div>
+            <div class="form-group">
+                <div>
+                    <label for="number-of-players">Number of Voters</label>
+                    <input type="number" id="number-of-players" class="form-control" value="@Model.NumberOfVotes" min="5" max="20" />
+                </div>
+                <div>
+                    <input type="button" id="change-players" value="Update" />
+                </div>
 
-    </div>
+            </div>
 
-    <div class="title">Swap Voters</div>
-    <div class="form-group">
-        <div>
-            <label for="swap-voter-one">First Voter</label>
-            <select class="form-control" id="swap-voter-one"></select>
-        </div>
-        <div>
-            <label for="swap-voter-two">Second Voter</label>
-            <select class="form-control" id="swap-voter-two"></select>
-        </div>
-        <div>
-            <input type="button" value="Swap" id="swap-button" />
-        </div>
-    </div>
+            <div class="title">Swap Voters</div>
+            <div class="form-group">
+                <div>
+                    <label for="swap-voter-one">First Voter</label>
+                    <select class="form-control" id="swap-voter-one"></select>
+                </div>
+                <div>
+                    <label for="swap-voter-two">Second Voter</label>
+                    <select class="form-control" id="swap-voter-two"></select>
+                </div>
+                <div>
+                    <input type="button" value="Swap" id="swap-button" />
+                </div>
+            </div>
 
-    <div class="title"><input type="button" id="clear-log" value="Clear Log" /></div>
-</div>
-    <div id="RecordResultDialog" title="Record Result">
-        <p>Would you like to record the result of this vote:</p>
-        <input type="text" id="VoteResult" value=""/>
-    </div>
+            <div class="title"><input type="button" id="clear-log" value="Clear Log" /></div>
+        </div>
+        <div id="RecordResultDialog" title="Record Result">
+            <p>Would you like to record the result of this vote:</p>
+            <input type="text" id="VoteResult" value="" />
+        </div>
 
     }
 
@@ -245,7 +248,7 @@
 
 @if (Model.MyVoteId == 0)
 {
-<script src="~/js/VoteAdmin.js"></script>
+    <script src="~/js/VoteAdmin.js"></script>
 }
 
 
