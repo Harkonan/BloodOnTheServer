@@ -35,8 +35,6 @@ $(function () {
         $("#my_name_display").text($("#my_name").val());
     });
 
-
-
     $("#my_name").on("focusout", function () {
         toggleMyName();
     });
@@ -106,9 +104,11 @@ $(function () {
         }
     });
 
-    
-
-
+    if ($("#VoteLog div").lenght > 0) {
+        $("#vote-log-container").show();
+    } else {
+        $("#vote-log-container").hide();
+    }
 });
 
 function toggleMyName() {
@@ -302,7 +302,13 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
 });
 
 connection.on("UpdateLog", function (log) {
-    $("#VoteLog").html(log);
+    $("#vote-log").html(log);
+
+    if ($("#vote-log div").length > 0) {
+        $("#vote-log-container").show();
+    } else {
+        $("#vote-log-container").hide();
+    }
 });
 
 

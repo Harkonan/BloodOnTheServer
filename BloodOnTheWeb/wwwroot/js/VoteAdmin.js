@@ -1,15 +1,15 @@
-﻿$(function() {
+﻿$(function () {
     UpdateDropDown();
 
-    $("#nominated-voter").on("change", function() {
-        connection.invoke("AdminSendNominatedVoter", $(this).val(), SessionId).catch(function(err) {
+    $("#nominated-voter").on("change", function () {
+        connection.invoke("AdminSendNominatedVoter", $(this).val(), SessionId).catch(function (err) {
             return console.error(err.toString());
         });
     });
 
 
-    $("#start-vote").on("click", function() {
-        
+    $("#start-vote").on("click", function () {
+
 
         if ($("#ReadyCheckToggle").is(":checked")) {
             connection.invoke("AdminTriggerReadyCheck", SessionId);
@@ -76,17 +76,21 @@ connection.on("PlayerRequestPlayerNumber", function () {
 });
 
 function triggerRecordVote() {
-    var Votes = $(".vote.execute-vote").length;
-    var LastVoter = $(".username").last().text().trim();
-    $("#VoteResult").val(Votes + " votes for " + LastVoter);
-    $("#RecordResultDialog").dialog("open");
+    if ($("#LogVoteCheck").is(":checked")) {
+        var Votes = $(".vote.execute-vote").length;
+        var LastVoter = $(".username").last().text().trim();
+        $("#VoteResult").val(Votes + " votes for " + LastVoter);
+        $("#RecordResultDialog").dialog("open");
+    }
 }
 
 function recordVote() {
-    $("#VoteLog").find("i").remove();
-    $("#VoteLog").append('<div><span>' + moment().toISOString()+': </span> '+ $("#VoteResult").val() + '</div>');
+
+    $("#viote-log").find("i").remove();
+    $("#vote-log").append('<div><span>' + moment().toISOString() + ': </span> ' + $("#VoteResult").val() + '</div>');
     $("#RecordResultDialog").dialog("close");
-    connection.invoke("AdminUpdateRecord", SessionId, $("#VoteLog").html());
+    connection.invoke("AdminUpdateRecord", SessionId, $("#vote-log").html());
+
 }
 
 function UpdateDropDown() {
@@ -95,13 +99,13 @@ function UpdateDropDown() {
     $("#swap-voter-two").children("option").remove();
 
     $(".username").each(function () {
-        
+
         var id = $(this).siblings(".voter").attr("id");
         var Username = id;
         var number = $(this).siblings(".voter").attr("data-id");
 
         if (!isEmpty($(this))) {
-            Username = "("+number+") " + $(this).text();
+            Username = "(" + number + ") " + $(this).text();
         }
 
         $("#nominated-voter").append(
@@ -115,7 +119,7 @@ function UpdateDropDown() {
         $("#swap-voter-two").append(
             $('<option></option>').val(number).text(Username)
         );
-});
+    });
 }
 
 function isEmpty(el) {

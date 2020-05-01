@@ -164,8 +164,12 @@
         </div>
         <div>
             <label for="ReadyCheckToggle">
-                <input type="checkbox" id="ReadyCheckToggle" checked="checked">
+                <input type="checkbox" id="ReadyCheckToggle">
                 Require Ready (experimental)
+            </label>
+            <label for="LogVoteCheck">
+                <input type="checkbox" id="LogVoteCheck">
+                Log vote (experimnetal)
             </label>
         </div>
 
@@ -211,9 +215,11 @@
     }
 
 </div>
-<h1>Recorded Votes</h1>
-<div id="VoteLog">
-    <i>No Votes Recorded</i>
+<div id="vote-log-container">
+    <h1>Recorded Votes</h1>
+    <div id="vote-log">
+        <i>No Votes Recorded</i>
+    </div>
 </div>
 
 <div id="ReadyCheckDialog" title="Ready Check">

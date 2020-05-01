@@ -8,3 +8,4 @@
  - Button on spectator view to join the game in the next seat
  - Hide admin link behidng click to show element
  - stop minus number second votes
+ - add AFK button
