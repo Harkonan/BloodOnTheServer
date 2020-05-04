@@ -5,4 +5,3 @@
 
  - Stop alive player from being able to discard vote token
  - Seporate Traveller status from alive/dead status
- - Add in option to shuffle players seats
