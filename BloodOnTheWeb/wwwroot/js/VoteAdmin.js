@@ -18,11 +18,42 @@
         });
     });
 
-    $("#swap-button").on("click", function () {
-        connection.invoke("AdminSwapPlayers", $("#swap-voter-one").val(), $("#swap-voter-two").val(), SessionId).catch(function (err) {
-            return console.error(err.toString());
-        });
+    SwapChange();
+
+    $("input[type=radio][name=swapType]").on('change', function () {
+        SwapChange();
     });
+
+    $("#swap-button").on("click", function () {
+        if ($("input[name='swapType']:checked").val() === "s") {
+
+
+            connection.invoke("AdminSwapPlayers", $("#swap-voter-one").val(), $("#swap-voter-two").val(), SessionId).catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
+        else if ($("input[name='swapType']:checked").val() === "r") {
+
+            var VotersIds = [];
+
+            $(".voter.player").each(function () {
+                VotersIds.push($(this).attr("data-id"));
+            });
+
+            var NewVotersIds = VotersIds.slice();
+            shuffle(NewVotersIds);
+
+
+            for (var i = 0; i < VotersIds.length; i++) {
+                connection.invoke("AdminSwapPlayers", VotersIds[i], NewVotersIds[i], SessionId).catch(function (err) {
+                    return console.error(err.toString());
+                });
+            }
+        }
+
+    });
+
+
 
     $("#clear-log").on("click", function () {
         connection.invoke("AdminUpdateRecord", SessionId, "<i>No Votes Recorded</i>");
@@ -43,10 +74,22 @@
     checkAFK();
 });
 
+function SwapChange() {
+    
+    if ($("input[name='swapType']:checked").val() === 's') {
+        $("#swap-voter-one").prop("disabled", false);
+        $("#swap-voter-two").prop("disabled", false);
+        $("#swap-button").val("Swap");
+    } else {
+        $("#swap-voter-one").prop("disabled", true);
+        $("#swap-voter-two").prop("disabled", true);
+        $("#swap-button").val("Shuffle");
+    }
+}
 
 connection.on("PlayerReady", function (voter_id) {
     if ($(".voter.player.not-ready").length === 0) {
-        StartVote(); 
+        StartVote();
     }
 });
 
@@ -54,7 +97,6 @@ function StartVote() {
     var Time = $("#TimePerVoter").val();
     var Type = $("input[name='vote-type']:checked").val();
     var Start = $("#nominated-voter option:selected").val();
-    console.log(Start);
     connection.invoke("AdminSendStartTimer", Time, Type, Start, SessionId).catch(function (err) {
         return console.error(err.toString());
     });
@@ -126,4 +168,17 @@ function checkAFK() {
 
 function isEmpty(el) {
     return !$.trim(el.html());
+}
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+
+        // swap elements array[i] and array[j]
+        // we use "destructuring assignment" syntax to achieve that
+        // you'll find more details about that syntax in later chapters
+        // same can be written as:
+        // let t = array[i]; array[i] = array[j]; array[j] = t
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
