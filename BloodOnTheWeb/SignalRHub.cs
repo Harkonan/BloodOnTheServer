@@ -20,51 +20,51 @@ namespace BloodOnTheWeb.Hubs
             _context = context;
         }
 
-        public async Task ClientToServerVote(string voterId, string voterName, string newVote, string health, string vote_status, string afk_status, Guid session)
+        public async Task ClientToServerVote(string voterId, string voterName, string newVote, string health, string vote_status, string afk_status, string session)
         {
             await Clients.Group(session.ToString()).SendAsync("ServerToClientVote", voterId, voterName, newVote, vote_status, health, afk_status);
         }
             
-        public async Task ClientRequestsLatest(Guid session)
+        public async Task ClientRequestsLatest(string session)
         {
             await Clients.Group(session.ToString()).SendAsync("GetCurrentClientVote");
         }
 
-        public async Task AdminUpdateRecord(Guid session, string log)
+        public async Task AdminUpdateRecord(string session, string log)
         {
             await Clients.Group(session.ToString()).SendAsync("UpdateLog", log);
         }
 
-        public async Task AdminTriggerReadyCheck(Guid session)
+        public async Task AdminTriggerReadyCheck(string session)
         {
             await Clients.Group(session.ToString()).SendAsync("GetReadyResponse");
         }
 
-        public async Task ClientReadyResponse(Guid session, string voterId){
+        public async Task ClientReadyResponse(string session, string voterId){
             await Clients.Group(session.ToString()).SendAsync("PlayerReady", voterId);
         }
 
-        public async Task AdminSendStartTimer(int timePerUser, string type, string start, Guid session)
+        public async Task AdminSendStartTimer(int timePerUser, string type, string start, string session)
         {
             await Clients.Group(session.ToString()).SendAsync("StartTimer", timePerUser, type, start);
         }
 
-        public async Task AdminSendNewPlayerCount(int newPlayerNumber, Guid session)
+        public async Task AdminSendNewPlayerCount(int newPlayerNumber, string session)
         {
             await Clients.Group(session.ToString()).SendAsync("ChangePlayerNumber", newPlayerNumber);
         }
 
-        public async Task RequestPlayerNumber(Guid session)
+        public async Task RequestPlayerNumber(string session)
         {
             await Clients.Group(session.ToString()).SendAsync("PlayerRequestPlayerNumber");
         }
 
-        public async Task AdminSwapPlayers(int voterOne, int voterTwo, Guid session)
+        public async Task AdminSwapPlayers(int voterOne, int voterTwo, string session)
         {
             await Clients.Group(session.ToString()).SendAsync("SwapPlayers", voterOne, voterTwo);
         }
 
-        public async Task JoinSession(Guid session, int playerSeat)
+        public async Task JoinSession(string session, int playerSeat)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, session.ToString());
         }
