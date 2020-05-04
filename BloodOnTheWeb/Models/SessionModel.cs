@@ -23,8 +23,9 @@ namespace BloodOnTheWeb.Models
     }
 
     public class Session{
-        public Guid SessionId { get; set; }
+        public string SessionId { get; set; }
         public ICollection<Player> Players { get; set; }
+        public DateTime LastUsed { get; set; }
     }
 
     public class Player

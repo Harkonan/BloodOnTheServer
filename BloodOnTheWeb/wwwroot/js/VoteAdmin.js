@@ -46,7 +46,7 @@
 
 connection.on("PlayerReady", function (voter_id) {
     if ($(".voter.player.not-ready").length === 0) {
-        StartVote(); 
+        StartVote();
     }
 });
 

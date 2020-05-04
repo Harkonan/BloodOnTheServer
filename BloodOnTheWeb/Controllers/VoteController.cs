@@ -20,16 +20,22 @@ namespace BloodOnTheWeb.Controllers
         }
 
         
-        public IActionResult Index(int numberOfVoters, int id,  Guid voteSession)
+        public IActionResult Index(int numberOfVoters, int id,  string voteSession)
         {
-            if (voteSession == Guid.Empty)
+            if (string.IsNullOrEmpty(voteSession))
             {
-                voteSession = Guid.NewGuid();
+                voteSession = GetIdentifier();
 
                 _context.Sessions.Add(new Session()
                 {
-                    SessionId = voteSession
+                    SessionId = voteSession,
+                    LastUsed = DateTime.Now
                 });
+                _context.SaveChanges();
+            }
+            else
+            {
+                _context.Sessions.Where(x => x.SessionId == voteSession).FirstOrDefault().LastUsed = DateTime.Now;
                 _context.SaveChanges();
             }
 
@@ -47,8 +53,6 @@ namespace BloodOnTheWeb.Controllers
                 _context.SaveChanges();
             }
 
-         
-            
             if (numberOfVoters == 0)
             {
                 numberOfVoters = 7;
@@ -64,7 +68,7 @@ namespace BloodOnTheWeb.Controllers
             {
                 MyVoteId = id,
                 NumberOfVotes = numberOfVoters,
-                VoteSession = voteSession
+                VoteSession = voteSession,
             };
 
             return View(Page);
@@ -76,7 +80,7 @@ namespace BloodOnTheWeb.Controllers
         }
 
 
-        public IActionResult Join(Guid voteSession)
+        public IActionResult Join(string voteSession)
         {
             int FirstEmptySeat = 21;
 
@@ -86,11 +90,8 @@ namespace BloodOnTheWeb.Controllers
             }
             else
             {
-
                 var DbSession = _context.Sessions.Include("Players").Where(x => x.SessionId == voteSession).FirstOrDefault();
                 var DbSessionPlayers = DbSession.Players.ToList();
-
-                
 
                 for (int i = 1; i <= 20; i++)
                 {
@@ -124,6 +125,13 @@ namespace BloodOnTheWeb.Controllers
                 option.Expires = DateTime.Now.AddDays(1);
 
             Response.Cookies.Append(key, value, option);
+        }
+
+        private string GetIdentifier()
+        {
+            var ticks = new DateTime(2020,5,4).Ticks;
+            var ans = DateTime.Now.Ticks - ticks;
+            return ans.ToString("x");
         }
 
     }

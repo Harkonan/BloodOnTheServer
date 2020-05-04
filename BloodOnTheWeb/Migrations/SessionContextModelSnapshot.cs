@@ -15,7 +15,7 @@ namespace BloodOnTheWeb.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -26,7 +26,7 @@ namespace BloodOnTheWeb.Migrations
 
                     b.Property<int>("PlayerSeat");
 
-                    b.Property<Guid?>("SessionId");
+                    b.Property<string>("SessionId");
 
                     b.HasKey("PlayerID");
 
@@ -37,8 +37,10 @@ namespace BloodOnTheWeb.Migrations
 
             modelBuilder.Entity("BloodOnTheWeb.Models.Session", b =>
                 {
-                    b.Property<Guid>("SessionId")
+                    b.Property<string>("SessionId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("LastUsed");
 
                     b.HasKey("SessionId");
 

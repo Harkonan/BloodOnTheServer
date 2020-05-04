@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BloodOnTheWeb.Migrations
 {
-    public partial class Create : Migration
+    public partial class create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,8 @@ namespace BloodOnTheWeb.Migrations
                 name: "Sessions",
                 columns: table => new
                 {
-                    SessionId = table.Column<Guid>(nullable: false)
+                    SessionId = table.Column<string>(nullable: false),
+                    LastUsed = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -24,7 +25,7 @@ namespace BloodOnTheWeb.Migrations
                 {
                     PlayerID = table.Column<Guid>(nullable: false),
                     PlayerSeat = table.Column<int>(nullable: false),
-                    SessionId = table.Column<Guid>(nullable: true)
+                    SessionId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

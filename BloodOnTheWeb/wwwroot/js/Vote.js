@@ -271,6 +271,8 @@ connection.on("PlayerReady", function (voter_id) {
 connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vote_status, health, afk_status) {
     var voter = $("#" + voter_id);
     voter.attr("data-current", new_vote);
+
+    var namechange = voter.siblings(".username.them").text().trim() !== voter_name.trim();
     voter.siblings(".username.them").text(voter_name);
 
     if (vote_status === "free") {
@@ -304,7 +306,7 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
 
     voter.attr("data-afk", afk_status);
 
-    if (typeof UpdateDropDown === "function") {
+    if (namechange && typeof UpdateDropDown === "function" ) {
         UpdateDropDown();
     }
 

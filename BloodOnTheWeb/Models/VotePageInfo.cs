@@ -9,7 +9,7 @@ namespace BloodOnTheWeb.Models
     {
         public int NumberOfVotes { get; set; }
         public int? MyVoteId { get; set; }
-        public Guid VoteSession { get; set; }
+        public string VoteSession { get; set; }
         public bool JoinLink { get; set; }
     }
 }

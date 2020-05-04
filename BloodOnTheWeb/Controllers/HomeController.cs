@@ -29,6 +29,13 @@ namespace BloodOnTheWeb.Controllers
             return View();
         }
 
+        public IActionResult Version()
+        {
+            ViewData["Message"] = "Application Versions";
+
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
