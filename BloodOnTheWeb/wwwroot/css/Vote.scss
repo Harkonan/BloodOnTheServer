@@ -857,9 +857,9 @@ body {
 
             .afk-notice {
                 float: unset;
-                position: relative;
-                top: -100px;
-                left: 0px;
+                position: absolute;
+                top: 0px;
+                left: 9px;
                 font-weight: bold;
                 font-size: 40px;
                 -webkit-text-stroke: 1px white;
@@ -930,6 +930,7 @@ body {
                 box-sizing: border-box;
                 float: left;
                 z-index: 99;
+                position: relative;
 
                 &[data-afk=true] .afk-notice {
                     display: inline-block;
