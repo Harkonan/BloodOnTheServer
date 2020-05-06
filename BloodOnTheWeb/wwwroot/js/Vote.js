@@ -46,50 +46,62 @@ $(function () {
 
     $("#kill-switch").on('click', function () {
         var my_vote = $(".voter.me");
-
-
         if (my_vote.attr("data-health") === "alive") {
+            //player is currently alive so clicking sets them as dead
             $(this).removeClass("alive");
-            $(this).removeClass("traveler");
             $(this).addClass("dead");
             my_vote.removeClass("alive");
-            my_vote.removeClass("traveler");
             my_vote.addClass("dead");
             my_vote.attr("data-health", "dead");
+            $("#traveller-switch").hide();
+            $("#used-switch").show();
         } else if (my_vote.attr("data-health") === "dead") {
+            //player is currently dead so clicking sets them as alive
             $(this).removeClass("dead");
-            $(this).removeClass("traveler");
-            $(this).addClass("traveler");
-            my_vote.removeClass("dead");
-            my_vote.removeClass("traveler");
-            my_vote.addClass("traveler");
-            my_vote.attr("data-health", "traveler");
-        } else {
-            $(this).removeClass("dead");
-            $(this).removeClass("traveler");
             $(this).addClass("alive");
             my_vote.removeClass("dead");
-            my_vote.removeClass("traveler");
             my_vote.addClass("alive");
             my_vote.attr("data-health", "alive");
-        }
+            $("#traveller-switch").show();
+            $("#used-switch").hide();
+            //return vote if its currently set as used
+            $(".vote.me").removeClass("used-vote");
+            $(".vote.me").attr("data-vote", "free");
 
+            
+        }
         SendMyStatus();
     });
 
+    $("#traveller-switch").on('click', function () {
+        var my_vote = $(".voter.me");
+        console.log(my_vote.attr("data-traveller"));
+        if (my_vote.attr("data-traveller") === "true") {
+            //player is currently a traveller so clicking sets them as not
+            $(this).removeClass("traveller");
+            my_vote.removeClass("traveller");
+            my_vote.attr("data-traveller", "false");
+        } else if (my_vote.attr("data-traveller") === "false") {
+            //player is currently a not traveller so clicking sets them as one
+            $(this).addClass("traveller");
+            my_vote.addClass("traveller");
+            my_vote.attr("data-traveller", "true");
+        }
+        SendMyStatus();
+    });
+
+
+
     $("#used-switch").on('click', function () {
         var my_vote = $(".vote.me");
-
         if (my_vote.attr("data-vote") === "free") {
-
+            //User currently has a vote so remove it
             my_vote.addClass("used-vote");
             my_vote.attr("data-vote", "used");
-
         } else {
-
+            //User currently has no vote so return it
             my_vote.removeClass("used-vote");
             my_vote.attr("data-vote", "free");
-
         }
 
         SendMyStatus();
@@ -145,8 +157,6 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/Clocktower").build
 var Timer;
 var AnalogTimer;
 
-
-
 connection.on("StartTimer", function (timePerUser, type, start) {
 
     
@@ -157,7 +167,6 @@ connection.on("StartTimer", function (timePerUser, type, start) {
     $(".voting").hide();
     $(".voter").removeClass("not-ready");
     var OriginalVoters = $(".vote:not(.used-vote)").parent(".voter.player");
-console
     var StartIndex = OriginalVoters.index(startSeat);
 
     var Start = OriginalVoters.splice(StartIndex);
@@ -268,7 +277,7 @@ connection.on("PlayerReady", function (voter_id) {
 });
 
 
-connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vote_status, health, afk_status) {
+connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vote_status, health, traveller, afk_status) {
     var voter = $("#" + voter_id);
     voter.attr("data-current", new_vote);
 
@@ -283,17 +292,16 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
 
     if (health === "alive") {
         voter.removeClass("dead");
-        voter.removeClass("traveler");
         voter.addClass("alive");
-
-    } else if (health === "traveler") {
-        voter.removeClass("alive");
-        voter.removeClass("dead");
-        voter.addClass("traveler");
     } else {
         voter.removeClass("alive");
-        voter.removeClass("traveler");
         voter.addClass("dead");
+    }
+
+    if (traveller === "true") {
+        voter.addClass("traveller");
+    } else {
+        voter.removeClass("traveller");
     }
 
     if (new_vote === "True") {
@@ -356,9 +364,8 @@ function StartupProcess() {
 
         if (getCookie(SessionId) !== null) {
             MyStatus = $.parseJSON(getCookie(SessionId));
-            UpdateStatus(MyStatus.current_vote, MyStatus.vote_status, MyStatus.health);
+            UpdateStatus(MyStatus.current_vote, MyStatus.vote_status, MyStatus.health, MyStatus.traveller);
         }
-
         if (getCookie("name") !== null) {
             MyName = getCookie("name");
             $("#my_name").val(MyName);
@@ -375,7 +382,6 @@ function StartupProcess() {
     
 }
 
-
 function SendMyStatus() {
     var my_vote = $(".voter.me");
 
@@ -384,11 +390,12 @@ function SendMyStatus() {
         var current_vote = my_vote.attr("data-current").toLowerCase() === "true";
         var my_name = $("#my_name").val();
         var health = my_vote.attr("data-health");
+        var traveller = my_vote.attr("data-traveller");
         var vote_status = my_vote.find(".vote.me").attr("data-vote");
         var afk_status = my_vote.attr("data-afk");
 
 
-        connection.invoke("ClientToServerVote", voter_id, my_name, current_vote, health, vote_status, afk_status, SessionId).catch(function (err) {
+        connection.invoke("ClientToServerVote", voter_id, my_name, current_vote, health, traveller, vote_status, afk_status, SessionId).catch(function (err) {
             return console.error(err.toString());
         });
 
@@ -396,6 +403,7 @@ function SendMyStatus() {
             MyStatus.health = health;
             MyStatus.current_vote = current_vote;
             MyStatus.vote_status = vote_status;
+            MyStatus.traveller = traveller;
 
             setCookie(SessionId, JSON.stringify(MyStatus), 14);
             setCookie("name", my_name, 14);
@@ -404,10 +412,18 @@ function SendMyStatus() {
 }
 
 
-function UpdateStatus(new_vote, vote_status, health) {
-
+function UpdateStatus(new_vote, vote_status, health, traveller) {
     $(".voter.me").attr("data-current", new_vote);
     $(".voter.me").attr("data-health", health);
+    if (health === "dead") {
+        $("#traveller-switch").hide();
+        $("#used-switch").show();
+    }
+    if (health === "alive") {
+        $("#traveller-switch").show();
+        $("#used-switch").hide();
+    }
+    $(".voter.me").attr("data-traveller", traveller);
     $(".voter.me .vote").attr("data-vote", vote_status);
     $("#my_name_display").text($("#my_name").val());
 }

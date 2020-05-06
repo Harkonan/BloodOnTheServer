@@ -87,6 +87,9 @@
 
     <div id="master-timer" class="timer">
     </div>
+    <div id="stats">
+
+    </div>
     <div id="current-voter"></div>
 
     @for (int i = 1; i <= Model.NumberOfVotes; i++)
@@ -108,7 +111,7 @@
                 </div>
             }
 
-            <div class="voter alive @StyleClass no-select player" id="vote_@i" data-id="@i" data-current="true" data-health="alive" data-afk="false">
+            <div class="voter alive @StyleClass no-select player" id="vote_@i" data-id="@i" data-current="true" data-health="alive" data-traveller="false" data-afk="false">
                 <div class="vote @StyleClass abstain-vote" data-vote="free"></div>
                 <div class="afk-notice">AFK</div>
             </div>
@@ -124,6 +127,7 @@
                     <div id="kill-switch" class="alive no-select" title="Toggle between Alive, Dead and Traveler status "></div>
                     <div id="used-switch" class="no-select" title="Toggle Vote token"></div>
                     <div id="afk-switch" class="no-select" title="AKF">AFK</div>
+                    <div id="traveller-switch" class="traveller no-select" title="Make the player a traveller or normal player"></div>
                 </div>
 
             }

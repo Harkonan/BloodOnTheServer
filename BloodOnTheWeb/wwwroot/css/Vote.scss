@@ -130,7 +130,7 @@ $SmallVoteSize: 60px;
                     left: 43px;
                 }
 
-                
+
 
                 .voting {
                     display: none;
@@ -259,6 +259,14 @@ $SmallVoteSize: 60px;
                         padding: 0px;
                         float: unset;
                         top: -74px;
+                    }
+
+                    #traveller-switch {
+                        position: absolute;
+                        left: -16px;
+                        margin: 0px;
+                        float: unset;
+                        padding: 0px;
                     }
                 }
             }
@@ -882,7 +890,7 @@ body {
                     line-height: $SmallPersonSize;
                     padding-top: 5px;
 
-                    #kill-switch, #used-switch {
+                    div {
                         padding-top: 2px;
                     }
                 }
@@ -892,7 +900,7 @@ body {
                     line-height: 32px;
                 }
 
-                #kill-switch, #used-switch {
+                #kill-switch, #used-switch, #traveller-switch {
                     font-size: 23px;
                     position: relative;
                     float: left;
@@ -906,18 +914,15 @@ body {
                     border: 1px solid black
                 }
 
+                #used-switch {
+                }
+
                 #kill-switch {
-                    &.dead {
-                        background-color: black;
-                    }
+                    background-color: black;
+                }
 
-                    &.alive {
-                        background-color: #f2d98e;
-                    }
-
-                    &.traveler {
-                        background-color: grey;
-                    }
+                #traveller-switch {
+                    background-color: lightgray;
                 }
             }
 
@@ -968,7 +973,7 @@ body {
                     background-color: black;
                 }
 
-                &.traveler {
+                &.alive.traveller {
                     background-color: grey;
                     border: 1px solid black;
                 }

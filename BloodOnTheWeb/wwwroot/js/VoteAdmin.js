@@ -55,6 +55,7 @@
 
 
 
+
     $("#clear-log").on("click", function () {
         connection.invoke("AdminUpdateRecord", SessionId, "<i>No Votes Recorded</i>");
     });

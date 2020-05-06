@@ -189,6 +189,12 @@
           padding: 0px;
           float: unset;
           top: -74px; }
+        body #container.round .info-holder .switches #traveller-switch {
+          position: absolute;
+          left: -16px;
+          margin: 0px;
+          float: unset;
+          padding: 0px; }
   body #container.round[data-players="6"] .info-holder[data-sitting-order="1"] {
     top: -21px;
     left: 306px; }
@@ -565,12 +571,12 @@ body {
         body #container .info-holder .switches {
           line-height: 80px;
           padding-top: 5px; }
-          body #container .info-holder .switches #kill-switch, body #container .info-holder .switches #used-switch {
+          body #container .info-holder .switches div {
             padding-top: 2px; } }
       body #container .info-holder .switches #afk-switch {
         cursor: pointer;
         line-height: 32px; }
-      body #container .info-holder .switches #kill-switch, body #container .info-holder .switches #used-switch {
+      body #container .info-holder .switches #kill-switch, body #container .info-holder .switches #used-switch, body #container .info-holder .switches #traveller-switch {
         font-size: 23px;
         position: relative;
         float: left;
@@ -582,12 +588,10 @@ body {
         margin-left: 5px;
         margin-right: 5px;
         border: 1px solid black; }
-      body #container .info-holder .switches #kill-switch.dead {
+      body #container .info-holder .switches #kill-switch {
         background-color: black; }
-      body #container .info-holder .switches #kill-switch.alive {
-        background-color: #f2d98e; }
-      body #container .info-holder .switches #kill-switch.traveler {
-        background-color: grey; }
+      body #container .info-holder .switches #traveller-switch {
+        background-color: lightgray; }
       body #container .info-holder .voter {
         font-size: 50px;
         text-align: center;
@@ -619,7 +623,7 @@ body {
           border: 1px solid #d0aa38; }
         body #container .info-holder .voter.dead {
           background-color: black; }
-        body #container .info-holder .voter.traveler {
+        body #container .info-holder .voter.alive.traveller {
           background-color: grey;
           border: 1px solid black; }
         body #container .info-holder .voter .vote {

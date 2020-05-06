@@ -20,9 +20,9 @@ namespace BloodOnTheWeb.Hubs
             _context = context;
         }
 
-        public async Task ClientToServerVote(string voterId, string voterName, string newVote, string health, string vote_status, string afk_status, string session)
+        public async Task ClientToServerVote(string voterId, string voterName, string newVote, string health, string traveller, string vote_status, string afk_status, string session)
         {
-            await Clients.Group(session.ToString()).SendAsync("ServerToClientVote", voterId, voterName, newVote, vote_status, health, afk_status);
+            await Clients.Group(session.ToString()).SendAsync("ServerToClientVote", voterId, voterName, newVote, vote_status, health, traveller, afk_status);
         }
             
         public async Task ClientRequestsLatest(string session)
