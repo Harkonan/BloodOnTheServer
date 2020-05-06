@@ -8,9 +8,9 @@
       display: block;
       width: 100px;
       height: 100px;
-      position: relative;
+      position: absolute;
       top: 400px;
-      left: 415px;
+      left: 400px;
       margin-left: -50px;
       margin-top: -50px; }
       body #container.round #master-timer.timer {
@@ -18,25 +18,35 @@
         font-size: 100px;
         font-family: 'Stylish', sans-serif;
         color: #bb0a1e;
-        position: relative;
+        position: absolute;
         float: left;
         cursor: pointer;
         text-align: center; }
     body #container.round #current-voter {
       display: block;
-      display: inline-block;
       width: 200px;
       height: 50px;
       font-size: 49px;
       line-height: 49px;
-      position: relative;
-      top: 500px;
-      left: 415px;
+      position: absolute;
+      top: 450px;
+      left: 300px;
       text-align: center;
-      margin-left: -150px;
-      margin-top: -50px;
       font-family: 'Stylish', sans-serif;
       color: #bb0a1e; }
+    body #container.round #stats {
+      display: block;
+      width: 300px;
+      height: 100px;
+      position: absolute;
+      top: 250px;
+      left: 250px;
+      font-size: 20px;
+      font-family: 'Stylish', sans-serif;
+      color: #bb0a1e;
+      padding: 5px; }
+      body #container.round #stats table {
+        width: 100%; }
     body #container.round .clock {
       border-radius: 50%;
       background-size: 88%;

@@ -321,6 +321,7 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
     if ($(".voter.me").attr("data-id") === "0") {
         checkAFK();
     }
+    GetStats();
 });
 
 
@@ -411,6 +412,15 @@ function SendMyStatus() {
     }
 }
 
+function GetStats() {
+    $("#stat-players").text($(".voter.player").length);
+    $("#stat-players-alive").text($(".voter.player.alive").length);
+    $("#stats-votes-all").text($(".vote[data-vote=free]").length);
+    $("#stats-votes-alive").text($(".voter.player.alive .vote[data-vote=free]").length);
+    $("#stats-votes-dead").text($(".voter.player.dead .vote[data-vote=free]").length);
+    $("#stats-min-vote").text(Math.ceil($(".voter.player.alive").length / 2));
+    $("#stats-current-votes").text($(".vote[data-vote=free].execute-vote").length);
+}
 
 function UpdateStatus(new_vote, vote_status, health, traveller) {
     $(".voter.me").attr("data-current", new_vote);
@@ -426,6 +436,8 @@ function UpdateStatus(new_vote, vote_status, health, traveller) {
     $(".voter.me").attr("data-traveller", traveller);
     $(".voter.me .vote").attr("data-vote", vote_status);
     $("#my_name_display").text($("#my_name").val());
+
+    GetStats();
 }
 
 function setCookie(name, value, days) {

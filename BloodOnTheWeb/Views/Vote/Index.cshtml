@@ -85,12 +85,30 @@
         </div>
     </article>
 
+    <div id="stats">
+        <table>
+            <tr>
+                <td>Players (Living): </td>
+                <td><span id="stat-players"></span>(<span id="stat-players-alive"></span>)</td>
+            </tr>
+            <tr>
+                <td>Votes (All/Alive/Dead): </td>
+                <td><span id="stats-votes-all"></span>/<span id="stats-votes-alive"></span>/<span id="stats-votes-dead"></span></td>
+            </tr>
+            <tr>
+                <td>Minimum Votes to Execute:</td>
+                <td><span id="stats-min-vote"></span></td>
+            </tr>
+            <tr>
+                <td>Current Votes to Execute:</td>
+                <td><span id="stats-current-votes"></span></td>
+            </tr>
+        </table>
+    </div>
     <div id="master-timer" class="timer">
     </div>
-    <div id="stats">
-
-    </div>
     <div id="current-voter"></div>
+
 
     @for (int i = 1; i <= Model.NumberOfVotes; i++)
     {
