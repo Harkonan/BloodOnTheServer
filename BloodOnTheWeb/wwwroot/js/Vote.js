@@ -11,7 +11,7 @@ var MyStatus = {
 var MyName = "";
 
 $(function () {
-
+    GetStats();
     if (window.location.href.split('/').length !== 8) {
         $("#admin-link")[0].click();
     }
