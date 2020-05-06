@@ -75,7 +75,6 @@ $(function () {
 
     $("#traveller-switch").on('click', function () {
         var my_vote = $(".voter.me");
-        console.log(my_vote.attr("data-traveller"));
         if (my_vote.attr("data-traveller") === "true") {
             //player is currently a traveller so clicking sets them as not
             $(this).removeClass("traveller");

@@ -1,4 +1,6 @@
 
+ - fix help page
+
  - only admin sets traveller status
  - Alow admin to change voters alive/dead status and remove vote token
 
