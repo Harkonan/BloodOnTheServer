@@ -13,7 +13,6 @@
  - add non count down timer
  - add player number render that doesnt require refreshing the page
 
- - Pre join page to confirm actual join
  - Admin ping to check if people are in the same seats
 
 

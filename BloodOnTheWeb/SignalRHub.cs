@@ -20,6 +20,22 @@ namespace BloodOnTheWeb.Hubs
             _context = context;
         }
 
+        public async Task AdminPing(string session, string pingId)
+        {
+            await Clients.Group(session.ToString()).SendAsync("AdminRequestPong", pingId);
+        }
+
+        public async Task ClientPong(string session, string pingId, int MySeat, string UID)
+        {
+            await Clients.Group(session.ToString()).SendAsync("AdminRecievdPong", pingId, MySeat, UID);
+        }
+
+        public async Task ResolveDuplicates(string session, string UID)
+        {
+            await Clients.Group(session.ToString()).SendAsync("ClientResolveDuplicates", UID);
+
+        }
+
         public async Task ClientToServerVote(string voterId, string voterName, string newVote, string health, string traveller, string vote_status, string afk_status, string session)
         {
             await Clients.Group(session.ToString()).SendAsync("ServerToClientVote", voterId, voterName, newVote, vote_status, health, traveller, afk_status);

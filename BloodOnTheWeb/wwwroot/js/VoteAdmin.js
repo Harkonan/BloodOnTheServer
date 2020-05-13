@@ -81,6 +81,44 @@
     checkAFK();
 });
 
+var PingRequestRunning = false;
+
+function SendPing() {
+    var PingID = Math.random().toString().slice(2);
+    PingRequestRunning = PingID;
+    connection.invoke("AdminPing", SessionId, PingID);
+}
+
+var Pongs = [];
+
+
+connection.on("AdminRecievdPong", function (PingID, Seat, UID) {
+    var details = { "PingId": PingID, "Seat": Seat, "UID": UID };
+    Pongs.push(details);
+
+    var PingIdPongs = Pongs.filter(function (item) {
+        return item.PingId === PingID;
+    });
+
+    var result = Object.values(PingIdPongs.reduce((c, v) => {
+        let k = v.Seat;
+        c[k] = c[k] || [];
+        c[k].push(v);
+        return c;
+    }, {})).reduce((c, v) => v.length > 1 ? c.concat(v) : c, []);    
+    
+    if (result.length > 0) {
+        if (PingRequestRunning === result[0].PingId) {
+            PingRequestRunning = false;
+            result.pop();
+            console.log(result);
+            for (var i = 0; i < result.length; i++) {
+                connection.invoke("ResolveDuplicates", SessionId, result[i].UID);
+            }
+        }
+    }
+});
+
 function SwapChange() {
     
     if ($("input[name='swapType']:checked").val() === 's') {

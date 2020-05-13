@@ -9,6 +9,7 @@ var MyStatus = {
 };
 
 var MyName = "";
+var MyUID = Math.random().toString().slice(2);
 
 $(function () {
     GetStats();
@@ -290,6 +291,7 @@ connection.on("PlayerReady", function (voter_id) {
 connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vote_status, health, traveller, afk_status) {
     var voter = $("#" + voter_id);
     voter.attr("data-current", new_vote);
+    voter.attr("data-occupied", true);
 
     var namechange = voter.siblings(".username.them").text().trim() !== voter_name.trim();
     voter.siblings(".username.them").text(voter_name);
@@ -329,12 +331,30 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
     }
 
     if ($(".voter.me").attr("data-id") === "0") {
+
         checkAFK();
     }
     GetStats();
 });
 
+connection.on("AdminRequestPong", function (PingId) {
 
+    var MySeat = $(".voter.me").attr("data-id");
+    if (MySeat !== "0") {
+        connection.invoke("ClientPong", SessionId, PingId, MySeat, MyUID);
+    }
+    
+});
+
+connection.on("ClientResolveDuplicates", function (UID) {
+    if (UID === MyUID) {
+        console.log("redirect");
+        console.log(getCookie(SessionId + "_Seat"));
+        eraseCookie(SessionId + "_Seat");
+        window.location.href = "/vote/join/" + SessionId;
+
+    }
+});
 
 
 connection.on("UpdateLog", function (log) {
@@ -364,11 +384,6 @@ function Reconnect() {
         return console.error(err.toString());
     });
 }
-
-
-
-
-
 
 function StartupProcess() {
     if ($(".voter.me").attr("data-id") !== "0") {
@@ -466,6 +481,7 @@ function getCookie(name) {
     }
     return null;
 }
+
 function eraseCookie(name) {
-    document.cookie = name + '=; Max-Age=-99999999;';
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
 }
