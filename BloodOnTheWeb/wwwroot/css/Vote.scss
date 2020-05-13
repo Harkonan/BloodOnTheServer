@@ -901,6 +901,7 @@ body {
             }
 
             .switches {
+                z-index:200;
                 @media screen and (min-width: 400px) {
                     line-height: $PersonSize;
                     padding-top: 34px;
