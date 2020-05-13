@@ -74,9 +74,16 @@ namespace BloodOnTheWeb.Controllers
         }
 
         [Route("/vote/spectate/{voteSession}")]
-        public IActionResult Spectate(Guid voteSession)
+        public IActionResult Spectate(string voteSession)
         {
             return RedirectToAction("index", new { id = 100, numberOfVoters = 7, voteSession = voteSession });
+        }
+
+        [Route("/vote/lobby/{voteSession}")]
+        public IActionResult Lobby(string voteSession)
+        {
+            ViewBag.Session = voteSession;
+            return View();
         }
 
         //https://localhost:44388/vote/Join/76c2c226bfe

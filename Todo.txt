@@ -1,20 +1,23 @@
 
- - fix help page
+
+- fix help page
 
  - only admin sets traveller status
  - Alow admin to change voters alive/dead status and remove vote token
  - put current voters status in the middle
-
  - Add option to change location of count down timer between centerd and by voter
  - Hide admin link behind click to show element
  - stop minus number second votes newwhat 
- - add option to clear vote
+ - add option to clear current vote 
+ - add option to reset vote tokens to abstain
  - add non count down timer
  - add player number render that doesnt require refreshing the page
 
  - Pre join page to confirm actual join
  - Admin ping to check if people are in the same seats
 
+
+ 
  - investigate shuffle not working
  - Voting stats dont account for travellers
  - loading a game with a name cookie, your name doesnt appear until you refresh for you
