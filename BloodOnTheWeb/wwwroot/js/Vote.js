@@ -12,9 +12,11 @@ var MyName = "";
 
 $(function () {
     GetStats();
-    if (window.location.href.split('/').length !== 8) {
-        $("#admin-link")[0].click();
-    }
+    //if (window.location.href.split('/').length !== 8) {
+    //    $("#admin-link")[0].click();
+    //}
+
+    CheckPlayerNumber();
 
     $(".clock").hide();
 
@@ -230,28 +232,37 @@ connection.on("SwapPlayers", function (voterOne, voterTwo) {
         var MyId = $(".voter.me").attr("data-id");
 
         if (MyId === "" + voterOne) {
-            window.location.href = "/vote/index/" + numberOfVoters + "/" + voterTwo + "/" + SessionId;
+            window.location.href = "/vote/" + numberOfVoters + "/" + voterTwo + "/" + SessionId;
         }
 
         if (MyId === "" + voterTwo) {
-            window.location.href = "/vote/index/" + numberOfVoters + "/" + voterOne + "/" + SessionId;
+            window.location.href = "/vote/" + numberOfVoters + "/" + voterOne + "/" + SessionId;
         }
     }
 });
 
 
-connection.on("ChangePlayerNumber", function (newPlayerNumber) {
-    var MyId = $(".voter.me").attr("data-id");
-
-    if (MyId === undefined) {
-        MyId = 0;
-    }
-
-
-    if (PlayerNumber !== newPlayerNumber) {
-        window.location.href = "/vote/index/" + newPlayerNumber + "/" + MyId + "/" + SessionId;
-    }
+connection.on("CheckPlayerNumber", function () {
+    CheckPlayerNumber();
 });
+
+function CheckPlayerNumber() {
+    $.ajax({
+        url: "/api/voteapi/GetSeats",
+        data: { "SessionId": SessionId},
+        success: function (newPlayerNumber) {
+            var MyId = $(".voter.me").attr("data-id");
+
+            if (MyId === undefined) {
+                MyId = 0;
+            }
+
+            if (PlayerNumber !== newPlayerNumber) {
+                window.location.href = "/vote/" + newPlayerNumber + "/" + MyId + "/" + SessionId;
+            }
+        }
+    });
+}
 
 connection.on("GetReadyResponse", function () {
     var my_vote = $(".voter.me");
@@ -376,9 +387,6 @@ function StartupProcess() {
 
     connection.invoke("JoinSession", SessionId, $(".voter.me").attr("data-id"));
     connection.invoke("ClientRequestsLatest", SessionId);
-    if ($(".voter.me").attr("data-id") !== "0") {
-        connection.invoke("RequestPlayerNumber", SessionId);
-    }
     
 }
 

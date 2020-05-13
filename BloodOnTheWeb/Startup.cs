@@ -75,31 +75,12 @@ namespace BloodOnTheWeb
                 routes.MapHub<Clocktower>("/Clocktower");
             });
 
+            
             app.UseMvc(routes =>
             {
-                
-
-                routes.MapRoute(
-                    "spectate", "vote/spectate/{voteSession?}",
-                    defaults: new { controller = "vote", action = "spectate" });
-
-                routes.MapRoute(
-                    "adminLinked", "vote/adminlinked/{numberOfVoters}/{voteSession?}",
-                    defaults: new { controller = "vote", action = "adminlinked" });
-
-                routes.MapRoute(
-                    "admin", "vote/admin/{voteSession?}",
-                    defaults: new { controller = "vote", action = "admin" });
-
-                routes.MapRoute(
-                    "join", "vote/join/{voteSession?}",
-                    defaults: new { controller = "vote", action = "join" });
-
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{numberOfVoters?}/{id?}/{voteSession?}");
-
-                
+                    template: "/{controller=Home}/{action=Index}");
 
             });
 

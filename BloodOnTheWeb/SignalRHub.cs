@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BloodOnTheWeb.Hubs
 {
-    
+
     public class Clocktower : Hub
     {
 
@@ -24,7 +24,7 @@ namespace BloodOnTheWeb.Hubs
         {
             await Clients.Group(session.ToString()).SendAsync("ServerToClientVote", voterId, voterName, newVote, vote_status, health, traveller, afk_status);
         }
-            
+
         public async Task ClientRequestsLatest(string session)
         {
             await Clients.Group(session.ToString()).SendAsync("GetCurrentClientVote");
@@ -40,7 +40,8 @@ namespace BloodOnTheWeb.Hubs
             await Clients.Group(session.ToString()).SendAsync("GetReadyResponse");
         }
 
-        public async Task ClientReadyResponse(string session, string voterId){
+        public async Task ClientReadyResponse(string session, string voterId)
+        {
             await Clients.Group(session.ToString()).SendAsync("PlayerReady", voterId);
         }
 
@@ -49,14 +50,9 @@ namespace BloodOnTheWeb.Hubs
             await Clients.Group(session.ToString()).SendAsync("StartTimer", timePerUser, type, start);
         }
 
-        public async Task AdminSendNewPlayerCount(int newPlayerNumber, string session)
+        public async Task AdminTriggerCheckPlayerCount(string session)
         {
-            await Clients.Group(session.ToString()).SendAsync("ChangePlayerNumber", newPlayerNumber);
-        }
-
-        public async Task RequestPlayerNumber(string session)
-        {
-            await Clients.Group(session.ToString()).SendAsync("PlayerRequestPlayerNumber");
+            await Clients.Group(session.ToString()).SendAsync("CheckPlayerNumber");
         }
 
         public async Task AdminSwapPlayers(int voterOne, int voterTwo, string session)

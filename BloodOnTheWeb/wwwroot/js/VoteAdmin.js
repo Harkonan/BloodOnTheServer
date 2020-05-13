@@ -13,8 +13,14 @@
     $("#change-players").on("click", function () {
         var NewPlayerNumber = $("#number-of-players").val();
 
-        connection.invoke("AdminSendNewPlayerCount", NewPlayerNumber, SessionId).catch(function (err) {
-            return console.error(err.toString());
+        $.ajax({
+            url: "/api/voteapi/SetSeats",
+            data: { "SessionId": SessionId, "NewSeats": NewPlayerNumber },
+            success: function (){
+                connection.invoke("AdminTriggerCheckPlayerCount", SessionId).catch(function (err) {
+                    return console.error(err.toString());
+                });
+            }
         });
     });
 

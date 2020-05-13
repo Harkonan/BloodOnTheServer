@@ -8,8 +8,13 @@
  - Add option to change location of count down timer between centerd and by voter
  - Hide admin link behind click to show element
  - stop minus number second votes newwhat 
+ - add option to clear vote
+ - add non count down timer
+ - add player number render that doesnt require refreshing the page
 
- - investigate people joining session with wrong number of seats
+ - Pre join page to confirm actual join
+ - Admin ping to check if people are in the same seats
+
  - investigate shuffle not working
  - Voting stats dont account for travellers
  - loading a game with a name cookie, your name doesnt appear until you refresh for you

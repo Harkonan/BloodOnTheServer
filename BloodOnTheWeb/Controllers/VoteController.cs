@@ -18,20 +18,17 @@ namespace BloodOnTheWeb.Controllers
         {
             _context = context;
         }
-
         
+   
+
+        [Route("/vote/{numberOfVoters}/{id}/{voteSession}")]
         public IActionResult Index(int numberOfVoters, int id,  string voteSession)
         {
+
+
             if (string.IsNullOrEmpty(voteSession))
             {
-                voteSession = GetIdentifier();
-
-                _context.Sessions.Add(new Session()
-                {
-                    SessionId = voteSession,
-                    LastUsed = DateTime.Now
-                });
-                _context.SaveChanges();
+                return RedirectToAction("Create");
             }
             else
             {
@@ -41,16 +38,18 @@ namespace BloodOnTheWeb.Controllers
 
             if (id > 0)
             {
-                var DbSession = _context.Sessions.Where(x => x.SessionId == voteSession).FirstOrDefault();
-                Player P = new Player()
+                var DbSession = _context.Sessions.Include(x => x.Players).Where(x => x.SessionId == voteSession).FirstOrDefault();
+                if (!DbSession.Players.Select(x => x.PlayerSeat).ToList().Contains(id))
                 {
-                    PlayerID = Guid.NewGuid(),
-                    PlayerSeat = id,
-                    Session = DbSession
-                };
-
-                _context.Players.Add(P);
-                _context.SaveChanges();
+                    Player P = new Player()
+                    {
+                        PlayerID = Guid.NewGuid(),
+                        PlayerSeat = id,
+                        Session = DbSession
+                    };
+                    _context.Players.Add(P);
+                    _context.SaveChanges();
+                }
             }
 
             if (numberOfVoters == 0)
@@ -58,11 +57,11 @@ namespace BloodOnTheWeb.Controllers
                 numberOfVoters = 7;
             }
 
+
             if (id != 100)
             {
                 SetCookie(voteSession.ToString() + "_Seat", id.ToString(), null, true);
             }
-            
 
             VotePageInfo Page = new VotePageInfo()
             {
@@ -74,19 +73,21 @@ namespace BloodOnTheWeb.Controllers
             return View(Page);
         }
 
+        [Route("/vote/spectate/{voteSession}")]
         public IActionResult Spectate(Guid voteSession)
         {
             return RedirectToAction("index", new { id = 100, numberOfVoters = 7, voteSession = voteSession });
         }
 
-
+        //https://localhost:44388/vote/Join/76c2c226bfe
+        [Route("/vote/join/{voteSession}")]
         public IActionResult Join(string voteSession)
         {
             int FirstEmptySeat = 21;
 
             if (Request.Cookies.ContainsKey(voteSession.ToString() + "_seat"))
             {
-                FirstEmptySeat =Convert.ToInt32(Request.Cookies[voteSession.ToString() + "_seat"]);
+                FirstEmptySeat = Convert.ToInt32(Request.Cookies[voteSession.ToString() + "_seat"]);
             }
             else
             {
@@ -102,12 +103,27 @@ namespace BloodOnTheWeb.Controllers
                     }
                 }
 
-                SetCookie(voteSession.ToString() + "_Seat", FirstEmptySeat.ToString(), null, true);
+                
             }
+
+            SetCookie(voteSession.ToString() + "_Seat", FirstEmptySeat.ToString(), null, true);
             return RedirectToAction("index", new { id = FirstEmptySeat, numberOfVoters = 7, voteSession = voteSession });
         }
 
+        [Route("/vote/create")]
+        public IActionResult Create()
+        {
+            string voteSession = GetIdentifier();
+            _context.Sessions.Add(new Session()
+            {
+                SessionId = voteSession,
+                LastUsed = DateTime.Now,
+                Seats = 7
+            });
+            _context.SaveChanges();
 
+            return RedirectToAction("index", new { id = 0, numberOfVoters = 7, voteSession = voteSession });
+        }
 
         public IActionResult Help()
         {
