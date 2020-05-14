@@ -156,12 +156,9 @@ var Timer;
 var AnalogTimer;
 
 connection.on("StartTimer", function (timePerUser, type, start) {
+    var startSeat = $("#" + start);
 
-    
-    var startSeat = $("#"+start);
-
-    
-
+    console.log(start);
     $(".voting").hide();
     $(".voter").removeClass("not-ready");
     var OriginalVoters = $(".vote:not(.used-vote)").parent(".voter.player");
@@ -169,6 +166,10 @@ connection.on("StartTimer", function (timePerUser, type, start) {
 
     var Start = OriginalVoters.splice(StartIndex);
     var Voters = Start.concat(OriginalVoters.toArray());
+
+    var Nominated = Voters[Voters.length - 1];
+    $(".nominated").remove();
+    $(Nominated).append("<div class='nominated'></div>");
 
     var TimePerUser = 0;
     var i = 0;
@@ -210,6 +211,7 @@ connection.on("StartTimer", function (timePerUser, type, start) {
                 } else {
                     MasterTimer.text("");
                     $("#current-voter").text("");
+                    $(".nominated").remove();
                 }
             }
 
@@ -438,13 +440,15 @@ function SendMyStatus() {
 }
 
 function GetStats() {
-    $("#stat-players").text($(".voter.player").length);
+    $("#stat-players").text($(".voter.player:not(.traveller)").length);
     $("#stat-players-alive").text($(".voter.player.alive").length);
+    $("#stats-travellers").text($(".voter.player.alive.traveller").length);
     $("#stats-votes-all").text($(".vote[data-vote=free]").length);
     $("#stats-votes-alive").text($(".voter.player.alive .vote[data-vote=free]").length);
     $("#stats-votes-dead").text($(".voter.player.dead .vote[data-vote=free]").length);
     $("#stats-min-vote").text(Math.ceil($(".voter.player.alive").length / 2));
     $("#stats-current-votes").text($(".vote[data-vote=free].execute-vote").length);
+    
 }
 
 function UpdateStatus(new_vote, vote_status, health, traveller) {

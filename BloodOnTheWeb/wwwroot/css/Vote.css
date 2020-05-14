@@ -616,6 +616,15 @@ body {
         float: left;
         z-index: 99;
         position: relative; }
+        body #container .info-holder .voter .nominated {
+          width: 100px;
+          height: 100px;
+          background-image: url(../images/PitchforkCrowd.png);
+          background-size: cover;
+          position: absolute;
+          top: 0px;
+          background-position-y: 21px;
+          background-repeat: no-repeat; }
         body #container .info-holder .voter[data-afk=true] .afk-notice {
           display: inline-block; }
         body #container .info-holder .voter[data-afk=false] .afk-notice {

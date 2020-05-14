@@ -726,15 +726,14 @@ body {
         }
 
         #stats {
-            
             font-size: 20px;
             font-family: 'Stylish', sans-serif;
             color: #bb0a1e;
             padding: 5px;
 
-            table{
-                width:100%;
-                max-width:300px;
+            table {
+                width: 100%;
+                max-width: 300px;
             }
         }
 
@@ -901,7 +900,8 @@ body {
             }
 
             .switches {
-                z-index:200;
+                z-index: 200;
+
                 @media screen and (min-width: 400px) {
                     line-height: $PersonSize;
                     padding-top: 34px;
@@ -962,6 +962,17 @@ body {
                 float: left;
                 z-index: 99;
                 position: relative;
+
+                .nominated {
+                    width: 100px;
+                    height: 100px;
+                    background-image: url(../images/PitchforkCrowd.png);
+                    background-size: cover;
+                    position: absolute;
+                    top: 0px;
+                    background-position-y: 21px;
+                    background-repeat: no-repeat;
+                }
 
                 &[data-afk=true] .afk-notice {
                     display: inline-block;

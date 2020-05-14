@@ -1,10 +1,12 @@
 ﻿$(function () {
     UpdateDropDown();
     $("#start-vote").on("click", function () {
-        if ($("#ReadyCheckToggle").is(":checked")) {
-            connection.invoke("AdminTriggerReadyCheck", SessionId);
-        } else {
-            StartVote();
+        if ($("#TimePerVoter").val() >= 0) {
+            if ($("#ReadyCheckToggle").is(":checked")) {
+                connection.invoke("AdminTriggerReadyCheck", SessionId);
+            } else {
+                StartVote();
+            }
         }
     });
 

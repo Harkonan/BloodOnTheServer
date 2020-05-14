@@ -29,7 +29,7 @@
     @if (Model.MyVoteId == 0)
     {
         ContainerClass = "admin";
-        <h1>You are admin for this session and cannot participate</h1>
+        <h1>You are admin for this sesIsion and cannot participate</h1>
         <div class="voter me" style="display:none" data-id="0"></div>
         <div>
             <p>
@@ -87,8 +87,8 @@
     <div id="stats">
         <table>
             <tr>
-                <td>Players (Living): </td>
-                <td><span id="stat-players"></span>(<span id="stat-players-alive"></span>)</td>
+                <td>Players/Travellers (Living): </td>
+                <td><span id="stat-players"></span>/<span id="stats-travellers"></span> (<span id="stat-players-alive"></span>)</td>
             </tr>
             <tr>
                 <td>Votes (All/Alive/Dead): </td>
@@ -131,6 +131,7 @@
             <div class="voter alive @StyleClass no-select player" id="vote_@i" data-occupied="false" data-id="@i" data-current="true" data-health="alive" data-traveller="false" data-afk="false">
                 <div class="vote @StyleClass abstain-vote" data-vote="free"></div>
                 <div class="afk-notice">AFK</div>
+                <div class="nominated"></div>
             </div>
             @if (Model.MyVoteId == i)
             {
@@ -184,7 +185,7 @@
 
                 <div class="live-vote">
                     <label for="TimePerVoter">Seconds Per Voter</label>
-                    <input type="text" id="TimePerVoter" value="5" class="form-control" />
+                    <input type="text" id="TimePerVoter" value="5" class="form-control"/>
                 </div>
                 <div>
                     <label for="ReadyCheckToggle">
