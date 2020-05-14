@@ -18,7 +18,6 @@ $(function () {
 
     $(".clock").hide();
 
-    $("#my_name_display").hide();
     $("#my_name_display").text($("#my_name").val());
 
     $(".voter.me").on('click', function () {
@@ -392,7 +391,15 @@ function StartupProcess() {
         if (getCookie("name") !== null) {
             MyName = getCookie("name");
             $("#my_name").val(MyName);
-            toggleMyName();
+            $("#my_name_display").text(MyName);
+            console.log(MyName.length);
+            if (MyName.length > 0) {
+                $("#my_name").hide();
+                $("#my_name_display").show();
+            } else {
+                $("#my_name").show();
+                $("#my_name_display").hide();
+            }
         }
     }
 

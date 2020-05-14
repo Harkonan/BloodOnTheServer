@@ -1,7 +1,5 @@
 ﻿$(function () {
     UpdateDropDown();
-
-
     $("#start-vote").on("click", function () {
         if ($("#ReadyCheckToggle").is(":checked")) {
             connection.invoke("AdminTriggerReadyCheck", SessionId);
