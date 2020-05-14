@@ -14,10 +14,22 @@ namespace BloodOnTheWeb.Hubs
     {
 
         private readonly SessionContext _context;
+        private string ConnectedUID;
 
         public Clocktower(SessionContext context)
         {
             _context = context;
+        }
+
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            //remove player from DB so seat can be re allocated
+            //need either their seat or their player ID which is currently transient
+            Guid PlayerUID = new Guid(Context.Items["UID"].ToString());
+            var Player = _context.Players.Where(x => x.PlayerID == PlayerUID);
+            _context.RemoveRange(Player);
+            _context.SaveChanges();
+            return base.OnDisconnectedAsync(exception);
         }
 
         public async Task AdminPing(string session, string pingId)
@@ -75,8 +87,10 @@ namespace BloodOnTheWeb.Hubs
             await Clients.Group(session.ToString()).SendAsync("SwapPlayers", voterOne, voterTwo);
         }
 
-        public async Task JoinSession(string session, int playerSeat)
+        public async Task JoinSession(string session, int playerSeat, string MyUID)
         {
+
+            Context.Items.Add("UID", MyUID);
             await Groups.AddToGroupAsync(Context.ConnectionId, session.ToString());
             await Clients.Group(session.ToString()).SendAsync("AdminTriggerPing");
         }

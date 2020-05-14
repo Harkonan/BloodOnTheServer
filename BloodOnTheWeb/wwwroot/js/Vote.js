@@ -9,13 +9,10 @@ var MyStatus = {
 };
 
 var MyName = "";
-var MyUID = Math.random().toString().slice(2);
+
 
 $(function () {
     GetStats();
-    //if (window.location.href.split('/').length !== 8) {
-    //    $("#admin-link")[0].click();
-    //}
 
     CheckPlayerNumber();
 
@@ -399,8 +396,7 @@ function StartupProcess() {
         }
     }
 
-
-    connection.invoke("JoinSession", SessionId, $(".voter.me").attr("data-id"));
+    connection.invoke("JoinSession", SessionId, $(".voter.me").attr("data-id"), MyUID);
     connection.invoke("ClientRequestsLatest", SessionId);
     
 }

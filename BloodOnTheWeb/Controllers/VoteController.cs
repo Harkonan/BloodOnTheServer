@@ -24,7 +24,7 @@ namespace BloodOnTheWeb.Controllers
         [Route("/vote/{numberOfVoters}/{id}/{voteSession}")]
         public IActionResult Index(int numberOfVoters, int id,  string voteSession)
         {
-
+            Guid PlayerID = GetOrSetPlayerID(voteSession);
 
             if (string.IsNullOrEmpty(voteSession))
             {
@@ -38,14 +38,26 @@ namespace BloodOnTheWeb.Controllers
 
             if (id > 0)
             {
-                var DbSession = _context.Sessions.Include(x => x.Players).Where(x => x.SessionId == voteSession).FirstOrDefault();
-                if (!DbSession.Players.Select(x => x.PlayerSeat).ToList().Contains(id))
+                var Players = _context.Players.Where(x => x.Session.SessionId == voteSession).ToList();
+
+                //if this player is aready recorded in a seat other than the current seat, remove them from it
+                if (Players.Any(x => x.PlayerID == PlayerID && x.PlayerSeat != id))
+                {
+                    foreach (var player in Players.Where(x => x.PlayerID == PlayerID && x.PlayerSeat != id))
+                    {
+                        Players.Remove(player);
+                        _context.SaveChanges();
+                    }
+                }
+                
+                //if this player is not already added in as using the current seat, add them
+                if (!Players.Any(x => x.PlayerID == PlayerID && x.PlayerSeat == id))
                 {
                     Player P = new Player()
                     {
-                        PlayerID = Guid.NewGuid(),
+                        PlayerID = PlayerID,
                         PlayerSeat = id,
-                        Session = DbSession
+                        Session = _context.Sessions.Where(x => x.SessionId == voteSession).FirstOrDefault()
                     };
                     _context.Players.Add(P);
                     _context.SaveChanges();
@@ -65,6 +77,7 @@ namespace BloodOnTheWeb.Controllers
 
             VotePageInfo Page = new VotePageInfo()
             {
+                PlayerId = PlayerID.ToString(),
                 MyVoteId = id,
                 NumberOfVotes = numberOfVoters,
                 VoteSession = voteSession,
@@ -109,13 +122,13 @@ namespace BloodOnTheWeb.Controllers
                         break;
                     }
                 }
-
-                
             }
 
             SetCookie(voteSession.ToString() + "_Seat", FirstEmptySeat.ToString(), null, true);
             return RedirectToAction("index", new { id = FirstEmptySeat, numberOfVoters = 7, voteSession = voteSession });
         }
+
+
 
         [Route("/vote/create")]
         public IActionResult Create()
@@ -155,6 +168,21 @@ namespace BloodOnTheWeb.Controllers
             var ticks = new DateTime(2020,5,4).Ticks;
             var ans = DateTime.Now.Ticks - ticks;
             return ans.ToString("x");
+        }
+
+        private Guid GetOrSetPlayerID(string SessionId)
+        {
+            Guid PlayerID = new Guid();
+            if (Request.Cookies.ContainsKey(SessionId+ "_PlayerID"))
+            {
+                PlayerID = new Guid(Request.Cookies[SessionId + "_PlayerID"]);
+            }
+            else
+            {
+                PlayerID = Guid.NewGuid();
+                SetCookie(SessionId+ "_PlayerID", PlayerID.ToString(), null, true);
+            }
+            return PlayerID;    
         }
 
     }

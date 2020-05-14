@@ -7,6 +7,7 @@ namespace BloodOnTheWeb.Models
 {
     public class VotePageInfo
     {
+        public string PlayerId { get; set; }
         public int NumberOfVotes { get; set; }
         public int? MyVoteId { get; set; }
         public string VoteSession { get; set; }
