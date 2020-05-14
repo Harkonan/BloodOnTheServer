@@ -91,6 +91,9 @@ function SendPing() {
 
 var Pongs = [];
 
+connection.on("AdminTriggerPing", function () {
+    SendPing();
+});
 
 connection.on("AdminRecievdPong", function (PingID, Seat, UID) {
     var details = { "PingId": PingID, "Seat": Seat, "UID": UID };

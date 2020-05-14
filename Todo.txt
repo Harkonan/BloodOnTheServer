@@ -13,10 +13,6 @@
  - add non count down timer
  - add player number render that doesnt require refreshing the page
 
- - Admin ping to check if people are in the same seats
-
-
- 
  - investigate shuffle not working
  - Voting stats dont account for travellers
  - loading a game with a name cookie, your name doesnt appear until you refresh for you

@@ -33,7 +33,6 @@ namespace BloodOnTheWeb.Hubs
         public async Task ResolveDuplicates(string session, string UID)
         {
             await Clients.Group(session.ToString()).SendAsync("ClientResolveDuplicates", UID);
-
         }
 
         public async Task ClientToServerVote(string voterId, string voterName, string newVote, string health, string traveller, string vote_status, string afk_status, string session)
@@ -79,6 +78,7 @@ namespace BloodOnTheWeb.Hubs
         public async Task JoinSession(string session, int playerSeat)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, session.ToString());
+            await Clients.Group(session.ToString()).SendAsync("AdminTriggerPing");
         }
     }
 }
