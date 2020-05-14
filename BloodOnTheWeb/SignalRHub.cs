@@ -21,7 +21,7 @@ namespace BloodOnTheWeb.Hubs
             _context = context;
         }
 
-        public override Task OnDisconnectedAsync(Exception exception)
+        public async override Task OnDisconnectedAsync(Exception exception)
         {
             //remove player from DB so seat can be re allocated
             //need either their seat or their player ID which is currently transient
@@ -29,7 +29,8 @@ namespace BloodOnTheWeb.Hubs
             var Player = _context.Players.Where(x => x.PlayerID == PlayerUID);
             _context.RemoveRange(Player);
             _context.SaveChanges();
-            return base.OnDisconnectedAsync(exception);
+            await ClientToServerVote("vote_"+Context.Items["Seat"].ToString(), "voter_" + Context.Items["Seat"].ToString(), "True", "alive", "false", "free", "false", Context.Items["Session"].ToString());
+            await base.OnDisconnectedAsync(exception);
         }
 
         public async Task AdminPing(string session, string pingId)
@@ -91,6 +92,8 @@ namespace BloodOnTheWeb.Hubs
         {
 
             Context.Items.Add("UID", MyUID);
+            Context.Items.Add("Session", session);
+            Context.Items.Add("Seat", playerSeat);
             await Groups.AddToGroupAsync(Context.ConnectionId, session.ToString());
             await Clients.Group(session.ToString()).SendAsync("AdminTriggerPing");
         }
