@@ -16,3 +16,5 @@ Requested Features:
 Tasks: 
     - fix help page
     - investigate shuffle not working
+    - error when swapping seats
+    - error on joining session
