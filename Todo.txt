@@ -1,6 +1,10 @@
 
 Bugs:
-
+    - Changing the number of players in a game causes some kind of infinate loop of duplicate rooms
+    - Spectator mode sends the player to the admin page
+        - Suspect that dupe check is getting multiple nulls and redirecting everyone to a new seat (not sure why it sends them to admin)
+    - Shuffle still isn't working (Everyone is getting suffled twice!)
+    
 Requested Features:
     - only admin sets traveller status
     - Alow admin to change voters alive/dead status and remove vote token
@@ -16,5 +20,3 @@ Requested Features:
 Tasks: 
     - fix help page
     - investigate shuffle not working
-    - error when swapping seats
-    - error on joining session
