@@ -344,16 +344,13 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
 });
 
 connection.on("AdminRequestPong", function (PingId) {
-
-    if (MySeatId !== "0" && MySeatId !== "100") {
+    if (MySeatId !== 0 && MySeatId !== 100) {
         connection.invoke("ClientPong", SessionId, PingId, MySeatId, MyUID);
     }
-    
 });
 
 connection.on("ClientResolveDuplicates", function (UID) {
     if (UID === MyUID) {
-        console.log(getCookie(SessionId + "_Seat"));
         eraseCookie(SessionId + "_Seat");
         window.location.href = "/vote/join/" + SessionId;
 
@@ -390,7 +387,7 @@ function Reconnect() {
 }
 
 function StartupProcess() {
-    if (MySeatId !== 0) {
+    if (MySeatId !== 0 && MySeatId !== 100) {
 
         if (getCookie(SessionId) !== null) {
             MyStatus = $.parseJSON(getCookie(SessionId));
