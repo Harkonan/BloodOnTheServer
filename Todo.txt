@@ -18,4 +18,3 @@ Requested Features:
 
 Tasks: 
     - fix help page
-    - investigate shuffle not working

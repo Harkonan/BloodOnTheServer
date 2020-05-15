@@ -66,9 +66,7 @@
     @{
         var ContainerType = "round";
         if (
-            Model.NumberOfVotes == 13 ||
-            Model.NumberOfVotes == 14 ||
-            Model.NumberOfVotes == 15)
+            Model.NumberOfVotes > 15)
         {
             ContainerType = "list";
         }

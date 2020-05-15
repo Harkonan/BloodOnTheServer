@@ -414,7 +414,133 @@
     left: 27px; }
   body #container.round[data-players="12"] .info-holder[data-sitting-order="12"] {
     top: 24px;
-    left: 145px; } }
+    left: 145px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="1"] {
+    top: -44px;
+    left: 306px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="2"] {
+    top: 2px;
+    left: 474px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="3"] {
+    top: 104px;
+    left: 589px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="4"] {
+    top: 250px;
+    left: 647px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="5"] {
+    top: 419px;
+    left: 631px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="6"] {
+    top: 561px;
+    left: 535px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="7"] {
+    top: 635px;
+    left: 400px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="8"] {
+    top: 638px;
+    left: 225px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="9"] {
+    left: 84px;
+    top: 567px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="10"] {
+    top: 435px;
+    left: -14px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="11"] {
+    top: 265px;
+    left: -37px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="12"] {
+    top: 112px;
+    left: 17px; }
+  body #container.round[data-players="13"] .info-holder[data-sitting-order="13"] {
+    top: 0px;
+    left: 137px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="1"] {
+    top: -44px;
+    left: 306px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="2"] {
+    top: -5px;
+    left: 463px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="3"] {
+    top: 87px;
+    left: 577px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="4"] {
+    top: 220px;
+    left: 641px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="5"] {
+    top: 378px;
+    left: 643px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="6"] {
+    top: 514px;
+    left: 579px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="7"] {
+    top: 614px;
+    left: 455px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="8"] {
+    top: 648px;
+    left: 307px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="9"] {
+    left: 160px;
+    top: 614px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="10"] {
+    top: 514px;
+    left: 33px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="11"] {
+    top: 378px;
+    left: -33px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="12"] {
+    top: 220px;
+    left: -29px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="13"] {
+    top: 87px;
+    left: 35px; }
+  body #container.round[data-players="14"] .info-holder[data-sitting-order="14"] {
+    top: -5px;
+    left: 148px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="1"] {
+    top: -44px;
+    left: 306px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="2"] {
+    top: -13px;
+    left: 449px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="3"] {
+    top: 70px;
+    left: 562px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="4"] {
+    top: 191px;
+    left: 633px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="5"] {
+    top: 338px;
+    left: 650px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="6"] {
+    top: 474px;
+    left: 605px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="7"] {
+    top: 578px;
+    left: 514px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="8"] {
+    top: 639px;
+    left: 381px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="9"] {
+    left: 233px;
+    top: 640px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="10"] {
+    top: 582px;
+    left: 103px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="11"] {
+    top: 474px;
+    left: 6px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="12"] {
+    top: 338px;
+    left: -38px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="13"] {
+    top: 191px;
+    left: -21px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="14"] {
+    top: 70px;
+    left: 49px; }
+  body #container.round[data-players="15"] .info-holder[data-sitting-order="15"] {
+    top: -16px;
+    left: 170px; } }
 
 body {
   min-width: 257px; }
