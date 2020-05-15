@@ -1,11 +1,7 @@
 
 Bugs:
     - Changing the number of players in a game causes some kind of infinate loop of duplicate rooms- Fixed?
-
-    - Name input can get hidden behind other elements in high number games
-    - If you put open the game twice it will loop thinking two people are in the same seat.
-    - cant spectate if you have already taken a seat
-    - first spectator is fine, second gets pushed to join the game
+    - If you put open the game twice it will loop thinking two people are in the same seat. - Fixed
     
 Requested Features:
     - only admin sets traveller status

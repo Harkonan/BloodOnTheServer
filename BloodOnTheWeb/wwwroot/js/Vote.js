@@ -397,7 +397,7 @@ function StartupProcess() {
             MyName = getCookie("name");
             $("#my_name").val(MyName);
             $("#my_name_display").text(MyName);
-            console.log(MyName.length);
+
             if (MyName.length > 0) {
                 $("#my_name").hide();
                 $("#my_name_display").show();

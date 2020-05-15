@@ -40,8 +40,8 @@ namespace BloodOnTheWeb.Controllers
             {
                 var Players = _context.Players.Where(x => x.Session.SessionId == voteSession).ToList();
 
-                //if this player is aready recorded in a seat other than the current seat, remove them from it
-                if (Players.Any(x => x.PlayerID == PlayerID && x.PlayerSeat != id))
+                //remove all instances of this player having a seat already
+                if (Players.Any(x => x.PlayerID == PlayerID))
                 {
 
                     _context.RemoveRange(Players.Where(x => x.PlayerID == PlayerID && x.PlayerSeat != id));

@@ -1117,6 +1117,7 @@ body {
                 float: left;
                 padding-left: 10px;
                 font-family: 'Stylish', sans-serif;
+                z-index: 300;
 
                 @media screen and (min-width: 500px) {
                     font-size: 33px;
@@ -1158,7 +1159,7 @@ body {
             }
 
             .switches {
-                z-index: 200;
+                z-index: 301;
 
                 @media screen and (min-width: 400px) {
                     line-height: $PersonSize;

@@ -697,7 +697,8 @@ body {
         position: relative;
         float: left;
         padding-left: 10px;
-        font-family: 'Stylish', sans-serif; }
+        font-family: 'Stylish', sans-serif;
+        z-index: 300; }
         @media screen and (min-width: 500px) {
           body #container .info-holder .username {
             font-size: 33px; }
@@ -725,7 +726,7 @@ body {
         -webkit-text-fill-color: #510909;
         z-index: 100; }
       body #container .info-holder .switches {
-        z-index: 200; }
+        z-index: 301; }
         @media screen and (min-width: 400px) {
           body #container .info-holder .switches {
             line-height: 100px;
