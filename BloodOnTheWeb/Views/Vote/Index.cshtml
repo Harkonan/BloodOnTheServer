@@ -20,6 +20,7 @@
     @:Joiner = true;
 
 }
+    var MySeatId = @Model.MyVoteId;
     var PlayerNumber = @Model.NumberOfVotes;
     var MyUID = "@Model.PlayerId";
 </script>
@@ -34,7 +35,7 @@
         <div>
             <p>
                 Your link for this session is:
-                <a id="admin-link" href="/vote/@Model.NumberOfVotes/0/@Model.VoteSession">Link</a>
+                <a id="admin-link" href="/vote/0/@Model.VoteSession">Link</a>
                 (Dont give this out!)
             </p>
             <p>
@@ -162,7 +163,7 @@
             @if (Model.MyVoteId == 0)
             {
                 <div class="join-link">
-                    <a href="/vote/@Model.NumberOfVotes/@i/@Model.VoteSession" target="_blank">[Link to Join]</a>
+                    <a href="/vote/@i/@Model.VoteSession" target="_blank">[Link to Join]</a>
                 </div>
             }
         </div>

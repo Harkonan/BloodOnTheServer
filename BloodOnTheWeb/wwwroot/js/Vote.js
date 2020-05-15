@@ -227,19 +227,25 @@ connection.on("StartTimer", function (timePerUser, type, start) {
 
 connection.on("SwapPlayers", function (voterOne, voterTwo) {
 
-    if ($(".voter.me").attr("data-id") !== "0") {
-        var MyId = $(".voter.me").attr("data-id");
+    if (MySeatId !== 0 && MySeatId !== 100) {
 
-        if (MyId === "" + voterOne) {
-            window.location.href = "/vote/" + numberOfVoters + "/" + voterTwo + "/" + SessionId;
+        if (MySeatId === voterOne) {
+            window.location.href = "/vote/" + voterTwo + "/" + SessionId;
         }
 
-        if (MyId === "" + voterTwo) {
-            window.location.href = "/vote/" + numberOfVoters + "/" + voterOne + "/" + SessionId;
+        if (MySeatId  === voterTwo) {
+            window.location.href = "/vote/" + voterOne + "/" + SessionId;
         }
     }
 });
 
+connection.on("ChangeSeat", function (oldSeat, newSeat) {
+    if (MySeatId !== 0 && MySeatId !== 100) {
+        if (MySeatId === oldSeat) {
+            window.location.href = "/vote/" + newSeat + "/" + SessionId;
+        }
+    }
+});
 
 connection.on("CheckPlayerNumber", function () {
     CheckPlayerNumber();
@@ -257,7 +263,7 @@ function CheckPlayerNumber() {
             }
 
             if (PlayerNumber !== newPlayerNumber) {
-                window.location.href = "/vote/" + newPlayerNumber + "/" + MyId + "/" + SessionId;
+                window.location.href = "/vote/" + MyId + "/" + SessionId;
             }
         }
     });
@@ -337,16 +343,14 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
 
 connection.on("AdminRequestPong", function (PingId) {
 
-    var MySeat = $(".voter.me").attr("data-id");
-    if (MySeat !== "0") {
-        connection.invoke("ClientPong", SessionId, PingId, MySeat, MyUID);
+    if (MySeatId !== "0" && MySeatId !== "100") {
+        connection.invoke("ClientPong", SessionId, PingId, MySeatId, MyUID);
     }
     
 });
 
 connection.on("ClientResolveDuplicates", function (UID) {
     if (UID === MyUID) {
-        console.log("redirect");
         console.log(getCookie(SessionId + "_Seat"));
         eraseCookie(SessionId + "_Seat");
         window.location.href = "/vote/join/" + SessionId;
@@ -384,7 +388,7 @@ function Reconnect() {
 }
 
 function StartupProcess() {
-    if ($(".voter.me").attr("data-id") !== "0") {
+    if (MySeatId !== 0) {
 
         if (getCookie(SessionId) !== null) {
             MyStatus = $.parseJSON(getCookie(SessionId));
@@ -405,7 +409,7 @@ function StartupProcess() {
         }
     }
 
-    connection.invoke("JoinSession", SessionId, $(".voter.me").attr("data-id"), MyUID);
+    connection.invoke("JoinSession", SessionId, MySeatId, MyUID);
     connection.invoke("ClientRequestsLatest", SessionId);
     
 }
@@ -413,7 +417,7 @@ function StartupProcess() {
 function SendMyStatus() {
     var my_vote = $(".voter.me");
 
-    if (my_vote.attr("data-id") !== "0") {
+    if (MySeatId !== 0 && MySeatId !== 100) {
         var voter_id = my_vote.attr("id");
         var current_vote = my_vote.attr("data-current").toLowerCase() === "true";
         var my_name = $("#my_name").val();

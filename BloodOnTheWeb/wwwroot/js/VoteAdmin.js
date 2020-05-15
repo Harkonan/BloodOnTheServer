@@ -51,7 +51,7 @@
 
 
             for (var i = 0; i < VotersIds.length; i++) {
-                connection.invoke("AdminSwapPlayers", VotersIds[i], NewVotersIds[i], SessionId).catch(function (err) {
+                connection.invoke("AdminMovePlayer", VotersIds[i], NewVotersIds[i], SessionId).catch(function (err) {
                     return console.error(err.toString());
                 });
             }

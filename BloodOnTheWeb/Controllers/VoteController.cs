@@ -18,11 +18,11 @@ namespace BloodOnTheWeb.Controllers
         {
             _context = context;
         }
-        
-   
 
-        [Route("/vote/{numberOfVoters}/{id}/{voteSession}")]
-        public IActionResult Index(int numberOfVoters, int id,  string voteSession)
+
+
+        [Route("/vote/{id}/{voteSession}")]
+        public IActionResult Index( int id, string voteSession)
         {
             Guid PlayerID = GetOrSetPlayerID(voteSession);
 
@@ -39,18 +39,14 @@ namespace BloodOnTheWeb.Controllers
             if (id > 0)
             {
                 var Players = _context.Players.Where(x => x.Session.SessionId == voteSession).ToList();
-               
+
                 //if this player is aready recorded in a seat other than the current seat, remove them from it
                 if (Players.Any(x => x.PlayerID == PlayerID && x.PlayerSeat != id))
                 {
-                    foreach (var player in Players.Where(x => x.PlayerID == PlayerID && x.PlayerSeat != id))
-                    {
 
-                        Players.Remove(player);
-                        _context.SaveChanges();
-                    }
+                    _context.RemoveRange(Players.Where(x => x.PlayerID == PlayerID && x.PlayerSeat != id));
                 }
-                
+
                 //if this player is not already added in as using the current seat, add them
                 if (!Players.Any(x => x.PlayerID == PlayerID && x.PlayerSeat == id))
                 {
@@ -65,13 +61,10 @@ namespace BloodOnTheWeb.Controllers
                 }
             }
 
-            if (numberOfVoters == 0)
-            {
-                numberOfVoters = 7;
-            }
+            var numberOfVoters = _context.Sessions.Where(x => x.SessionId == voteSession).FirstOrDefault().Seats;
 
 
-            if (id != 100)
+            if (id != 100 && id != 0)
             {
                 SetCookie(voteSession.ToString() + "_Seat", id.ToString(), null, true);
             }
@@ -90,7 +83,7 @@ namespace BloodOnTheWeb.Controllers
         [Route("/vote/spectate/{voteSession}")]
         public IActionResult Spectate(string voteSession)
         {
-            return RedirectToAction("index", new { id = 100, numberOfVoters = 7, voteSession = voteSession });
+            return RedirectToAction("index", new { id = 100, voteSession });
         }
 
         [Route("/vote/lobby/{voteSession}")]
@@ -126,7 +119,7 @@ namespace BloodOnTheWeb.Controllers
             }
 
             SetCookie(voteSession.ToString() + "_Seat", FirstEmptySeat.ToString(), null, true);
-            return RedirectToAction("index", new { id = FirstEmptySeat, numberOfVoters = 7, voteSession = voteSession });
+            return RedirectToAction("index", new { id = FirstEmptySeat, voteSession });
         }
 
 
@@ -143,7 +136,7 @@ namespace BloodOnTheWeb.Controllers
             });
             _context.SaveChanges();
 
-            return RedirectToAction("index", new { id = 0, numberOfVoters = 7, voteSession = voteSession });
+            return RedirectToAction("index", new { id = 0, voteSession });
         }
 
         public IActionResult Help()
@@ -166,7 +159,7 @@ namespace BloodOnTheWeb.Controllers
 
         private string GetIdentifier()
         {
-            var ticks = new DateTime(2020,5,4).Ticks;
+            var ticks = new DateTime(2020, 5, 4).Ticks;
             var ans = DateTime.Now.Ticks - ticks;
             return ans.ToString("x");
         }
@@ -174,16 +167,16 @@ namespace BloodOnTheWeb.Controllers
         private Guid GetOrSetPlayerID(string SessionId)
         {
             Guid PlayerID = new Guid();
-            if (Request.Cookies.ContainsKey(SessionId+ "_PlayerID"))
+            if (Request.Cookies.ContainsKey(SessionId + "_PlayerID"))
             {
                 PlayerID = new Guid(Request.Cookies[SessionId + "_PlayerID"]);
             }
             else
             {
                 PlayerID = Guid.NewGuid();
-                SetCookie(SessionId+ "_PlayerID", PlayerID.ToString(), null, true);
+                SetCookie(SessionId + "_PlayerID", PlayerID.ToString(), null, true);
             }
-            return PlayerID;    
+            return PlayerID;
         }
 
     }
