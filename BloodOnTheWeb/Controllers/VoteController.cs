@@ -13,6 +13,7 @@ namespace BloodOnTheWeb.Controllers
     public class VoteController : Controller
     {
         private readonly SessionContext _context;
+        private string _theme;
 
         public VoteController(SessionContext context)
         {
@@ -24,6 +25,16 @@ namespace BloodOnTheWeb.Controllers
         [Route("/vote/{id}/{voteSession}")]
         public IActionResult Index( int id, string voteSession)
         {
+            if (Request.Cookies.ContainsKey("theme"))
+            {
+                _theme = Request.Cookies["theme"];
+            }
+            else
+            {
+                _theme = "light";
+            }
+            ViewBag.theme = _theme;
+
             Guid PlayerID = GetOrSetPlayerID(voteSession);
 
             if (string.IsNullOrEmpty(voteSession))
@@ -141,6 +152,15 @@ namespace BloodOnTheWeb.Controllers
 
         public IActionResult Help()
         {
+            if (Request.Cookies.ContainsKey("theme"))
+            {
+                _theme = Request.Cookies["theme"];
+            }
+            else
+            {
+                _theme = "light";
+            }
+            ViewBag.theme = _theme;
             return View();
         }
 

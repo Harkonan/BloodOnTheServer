@@ -7,9 +7,11 @@ $(function () {
     var theme = getCookie("theme");
     if (theme === "dark") {
         $("body").addClass("dark");
+        $("body").removeClass("light");
         $("#theme-toggle").html("Light Mode");
     } else {
         $("body").removeClass("dark");
+        $("body").addClass("light");
         $("#theme-toggle").html("Dark Mode");
     }
 

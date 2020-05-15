@@ -10,8 +10,19 @@ namespace BloodOnTheWeb.Controllers
 {
     public class HomeController : Controller
     {
+        private string _theme;
+
         public IActionResult Index()
         {
+            if (Request.Cookies.ContainsKey("theme"))
+            {
+                _theme = Request.Cookies["theme"];
+            }
+            else
+            {
+                _theme = "light";
+            }
+            ViewBag.theme = _theme;
             return View();
         }
 
@@ -31,6 +42,16 @@ namespace BloodOnTheWeb.Controllers
 
         public IActionResult Version()
         {
+            if (Request.Cookies.ContainsKey("theme"))
+            {
+                _theme = Request.Cookies["theme"];
+            }
+            else
+            {
+                _theme = "light";
+            }
+            ViewBag.theme = _theme;
+            
             ViewData["Message"] = "Application Versions";
 
             return View();
@@ -38,6 +59,16 @@ namespace BloodOnTheWeb.Controllers
 
         public IActionResult Privacy()
         {
+            if (Request.Cookies.ContainsKey("theme"))
+            {
+                _theme = Request.Cookies["theme"];
+            }
+            else
+            {
+                _theme = "light";
+            }
+            ViewBag.theme = _theme;
+
             return View();
         }
 

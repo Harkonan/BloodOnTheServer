@@ -5,6 +5,11 @@ body {
     padding-bottom: 20px;
 }
 
+    body.dark {
+        background-color: #282828;
+        color: #808080;
+    }
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
