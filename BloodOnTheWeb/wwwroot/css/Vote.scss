@@ -900,7 +900,7 @@ body {
             color: #b76770;
         }
 
-        
+
 
         #admin-panel {
             background-color: #282828;
@@ -1089,6 +1089,7 @@ body {
 
 
         .info-holder {
+            position: relative;
 
             @media screen and (min-width: 400px) {
                 height: $PersonSize;
@@ -1206,8 +1207,15 @@ body {
                 z-index: 100;
             }
 
+
+
             .switches {
                 z-index: 301;
+                padding: 0px;
+                position: absolute;
+                bottom: 12px;
+                width: 189px;
+
 
                 @media screen and (min-width: 400px) {
                     line-height: $PersonSize;
@@ -1215,6 +1223,8 @@ body {
                 }
 
                 @media screen and ( max-width: 400px) and (min-width:350px) {
+                    bottom: 30px;
+                    left: -25px;
                     line-height: $SmallPersonSize;
                     padding-top: 25px;
                 }
@@ -1222,25 +1232,56 @@ body {
                 @media screen and ( max-width: 350px) {
                     line-height: $SmallPersonSize;
                     padding-top: 5px;
+                    bottom: 30px;
+                    left: -25px;
 
                     div {
                         padding-top: 2px;
                     }
                 }
 
+                #kill-switch {
+                    position: absolute;
+                    left: 22px;
+                    top: -17px;
+                    margin: 0px;
+                    padding: 0px;
+                    border: 1px solid white;
+                }
+
+                #used-switch {
+                    position: absolute;
+                    right: 109px;
+                    top: 16px;
+                    margin: 0px;
+                    padding: 0px;
+                    float: unset;
+                    background-color: white;
+                }
+
+                #traveller-switch {
+                    position: absolute;
+                    left: 38px;
+                    top: -51px;
+                    margin: 0px;
+                    float: unset;
+                    padding: 0px;
+                }
+
+
                 #afk-switch {
-                    cursor: pointer;
-                    line-height: 32px;
-                    font-size: 23px;
-                    position: relative;
-                    float: left;
-                    padding-left: 5px;
+                    position: absolute;
+                    right: 40px;
+                    top: -48px;
+                    margin: 0px;
+                    padding: 0px;
                     cursor: pointer;
                     width: 16px;
                     height: 16px;
                     border-radius: 8px;
                     margin-left: 5px;
                     margin-right: 5px;
+                    border: 1px solid white;
 
                     &.home {
                         background-color: #0c400d;
@@ -1252,9 +1293,6 @@ body {
                 }
 
                 #kill-switch, #used-switch, #traveller-switch {
-                    font-size: 23px;
-                    position: relative;
-                    float: left;
                     padding-left: 5px;
                     cursor: pointer;
                     width: 32px;
@@ -1262,8 +1300,9 @@ body {
                     border-radius: 16px;
                     margin-left: 5px;
                     margin-right: 5px;
-                    border: 1px solid black
                 }
+
+
 
                 #used-switch {
                 }

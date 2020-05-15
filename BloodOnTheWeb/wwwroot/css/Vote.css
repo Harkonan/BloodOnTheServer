@@ -664,6 +664,7 @@ body {
       body #container {
         padding: 3px; } }
     body #container .info-holder {
+      position: relative;
       min-width: 265px;
       margin-top: 5px;
       margin-bottom: 5px; }
@@ -748,50 +749,76 @@ body {
         -webkit-text-fill-color: #510909;
         z-index: 100; }
       body #container .info-holder .switches {
-        z-index: 301; }
+        z-index: 301;
+        padding: 0px;
+        position: absolute;
+        bottom: 12px;
+        width: 189px; }
         @media screen and (min-width: 400px) {
           body #container .info-holder .switches {
             line-height: 100px;
             padding-top: 34px; } }
         @media screen and (max-width: 400px) and (min-width: 350px) {
           body #container .info-holder .switches {
+            bottom: 30px;
+            left: -25px;
             line-height: 80px;
             padding-top: 25px; } }
         @media screen and (max-width: 350px) {
           body #container .info-holder .switches {
             line-height: 80px;
-            padding-top: 5px; }
+            padding-top: 5px;
+            bottom: 30px;
+            left: -25px; }
             body #container .info-holder .switches div {
               padding-top: 2px; } }
+        body #container .info-holder .switches #kill-switch {
+          position: absolute;
+          left: 22px;
+          top: -17px;
+          margin: 0px;
+          padding: 0px;
+          border: 1px solid white; }
+        body #container .info-holder .switches #used-switch {
+          position: absolute;
+          right: 109px;
+          top: 16px;
+          margin: 0px;
+          padding: 0px;
+          float: unset;
+          background-color: white; }
+        body #container .info-holder .switches #traveller-switch {
+          position: absolute;
+          left: 38px;
+          top: -51px;
+          margin: 0px;
+          float: unset;
+          padding: 0px; }
         body #container .info-holder .switches #afk-switch {
-          cursor: pointer;
-          line-height: 32px;
-          font-size: 23px;
-          position: relative;
-          float: left;
-          padding-left: 5px;
+          position: absolute;
+          right: 40px;
+          top: -48px;
+          margin: 0px;
+          padding: 0px;
           cursor: pointer;
           width: 16px;
           height: 16px;
           border-radius: 8px;
           margin-left: 5px;
-          margin-right: 5px; }
+          margin-right: 5px;
+          border: 1px solid white; }
           body #container .info-holder .switches #afk-switch.home {
             background-color: #0c400d; }
           body #container .info-holder .switches #afk-switch.away {
             background-color: #510909; }
         body #container .info-holder .switches #kill-switch, body #container .info-holder .switches #used-switch, body #container .info-holder .switches #traveller-switch {
-          font-size: 23px;
-          position: relative;
-          float: left;
           padding-left: 5px;
           cursor: pointer;
           width: 32px;
           height: 32px;
           border-radius: 16px;
           margin-left: 5px;
-          margin-right: 5px;
-          border: 1px solid black; }
+          margin-right: 5px; }
         body #container .info-holder .switches #kill-switch {
           background-color: black; }
         body #container .info-holder .switches #traveller-switch {
