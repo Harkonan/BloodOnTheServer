@@ -65,7 +65,7 @@
     }
     @{
         var ContainerType = "round";
-        if (Model.NumberOfVotes == 5 ||
+        if (
             Model.NumberOfVotes == 13 ||
             Model.NumberOfVotes == 14 ||
             Model.NumberOfVotes == 15)
@@ -144,7 +144,7 @@
                 <div class="switches">
                     <div id="kill-switch" class="alive no-select" title="Toggle between Alive, Dead and Traveler status "></div>
                     <div id="used-switch" class="no-select" title="Toggle Vote token"></div>
-                    <div id="afk-switch" class="no-select" title="AKF">AFK</div>
+                    <div id="afk-switch" class="no-select home" title="Toggle your away status"></div>
                     <div id="traveller-switch" class="traveller no-select" title="Make the player a traveller or normal player"></div>
                 </div>
 

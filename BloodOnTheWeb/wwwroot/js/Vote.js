@@ -109,6 +109,8 @@ $(function () {
         var my_vote = $(".voter.me");
         var current_vote = my_vote.attr("data-afk").toLowerCase() === "true";
         my_vote.attr("data-afk", !current_vote);
+        $(this).toggleClass("home");
+        $(this).toggleClass("away");
 
         SendMyStatus();
     });

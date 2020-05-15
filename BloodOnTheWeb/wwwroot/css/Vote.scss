@@ -60,7 +60,7 @@ $SmallVoteSize: 60px;
                 position: absolute;
                 top: 200px;
                 left: 250px;
-                
+
 
                 table {
                     width: 100%;
@@ -225,18 +225,24 @@ $SmallVoteSize: 60px;
                     padding: 0px;
                     position: relative;
                     top: 145px;
-                    height: 45px;
+                    height: 35px;
                     line-height: 25px;
                     text-align: center;
+                    right: -23px;
+                    width: 134px;
 
                     input[type="text"] {
                         text-align: center;
-                        width: 189px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        width: 100%;
                     }
 
                     #my_name_display {
-                        width: 189px;
                         text-align: center;
+                        width: 100%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
                 }
 
@@ -250,15 +256,18 @@ $SmallVoteSize: 60px;
 
                     #kill-switch {
                         position: absolute;
-                        left: 18px;
+                        left: 22px;
+                        top: -32px;
                         margin: 0px;
                         float: unset;
                         padding: 0px;
+                        border: 1px solid white;
                     }
 
                     #used-switch {
                         position: absolute;
-                        right: 18px;
+                        right: 120px;
+                        top: 0px;
                         margin: 0px;
                         padding: 0px;
                         float: unset;
@@ -267,21 +276,50 @@ $SmallVoteSize: 60px;
 
                     #afk-switch {
                         position: absolute;
-                        right: 21px;
+                        right: 38px;
                         margin: 0px;
                         padding: 0px;
                         float: unset;
-                        top: -74px;
+                        top: -23px;
                     }
 
                     #traveller-switch {
                         position: absolute;
-                        left: -16px;
+                        left: 38px;
+                        top: -66px;
                         margin: 0px;
                         float: unset;
                         padding: 0px;
                     }
                 }
+            }
+        }
+
+        #container.round[data-players="5"] {
+
+            .info-holder[data-sitting-order="1"] {
+                top: -21px;
+                left: 306px;
+            }
+
+            .info-holder[data-sitting-order="2"] {
+                top: 202px;
+                left: 611px;
+            }
+
+            .info-holder[data-sitting-order="3"] {
+                top: 561px;
+                left: 496px;
+            }
+
+            .info-holder[data-sitting-order="4"] {
+                top: 561px;
+                left: 118px;
+            }
+
+            .info-holder[data-sitting-order="5"] {
+                top: 202px;
+                left: 1px;
             }
         }
 
@@ -716,7 +754,7 @@ body {
         position: relative;
         box-sizing: border-box;
         background-image: url('../images/parchment.jpg');
-        //background-image: url('../images/Backgrounds/12 Player Layout.png');
+        //background-image: url('../images/Backgrounds/5 Player Layout.png');
         #master-timer {
             display: none;
         }
@@ -924,6 +962,24 @@ body {
                 #afk-switch {
                     cursor: pointer;
                     line-height: 32px;
+                    font-size: 23px;
+                    position: relative;
+                    float: left;
+                    padding-left: 5px;
+                    cursor: pointer;
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 8px;
+                    margin-left: 5px;
+                    margin-right: 5px;
+
+                    &.home {
+                        background-color: #0c400d;
+                    }
+
+                    &.away {
+                        background-color: #510909;
+                    }
                 }
 
                 #kill-switch, #used-switch, #traveller-switch {

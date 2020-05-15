@@ -161,15 +161,21 @@
         padding: 0px;
         position: relative;
         top: 145px;
-        height: 45px;
+        height: 35px;
         line-height: 25px;
-        text-align: center; }
+        text-align: center;
+        right: -23px;
+        width: 134px; }
         body #container.round .info-holder .username input[type="text"] {
           text-align: center;
-          width: 189px; }
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%; }
         body #container.round .info-holder .username #my_name_display {
-          width: 189px;
-          text-align: center; }
+          text-align: center;
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis; }
       body #container.round .info-holder .switches {
         padding: 0px;
         position: absolute;
@@ -177,30 +183,49 @@
         width: 189px; }
         body #container.round .info-holder .switches #kill-switch {
           position: absolute;
-          left: 18px;
+          left: 22px;
+          top: -32px;
           margin: 0px;
           float: unset;
-          padding: 0px; }
+          padding: 0px;
+          border: 1px solid white; }
         body #container.round .info-holder .switches #used-switch {
           position: absolute;
-          right: 18px;
+          right: 120px;
+          top: 0px;
           margin: 0px;
           padding: 0px;
           float: unset;
           background-color: white; }
         body #container.round .info-holder .switches #afk-switch {
           position: absolute;
-          right: 21px;
+          right: 38px;
           margin: 0px;
           padding: 0px;
           float: unset;
-          top: -74px; }
+          top: -23px; }
         body #container.round .info-holder .switches #traveller-switch {
           position: absolute;
-          left: -16px;
+          left: 38px;
+          top: -66px;
           margin: 0px;
           float: unset;
           padding: 0px; }
+  body #container.round[data-players="5"] .info-holder[data-sitting-order="1"] {
+    top: -21px;
+    left: 306px; }
+  body #container.round[data-players="5"] .info-holder[data-sitting-order="2"] {
+    top: 202px;
+    left: 611px; }
+  body #container.round[data-players="5"] .info-holder[data-sitting-order="3"] {
+    top: 561px;
+    left: 496px; }
+  body #container.round[data-players="5"] .info-holder[data-sitting-order="4"] {
+    top: 561px;
+    left: 118px; }
+  body #container.round[data-players="5"] .info-holder[data-sitting-order="5"] {
+    top: 202px;
+    left: 1px; }
   body #container.round[data-players="6"] .info-holder[data-sitting-order="1"] {
     top: -21px;
     left: 306px; }
@@ -591,7 +616,21 @@ body {
               padding-top: 2px; } }
         body #container .info-holder .switches #afk-switch {
           cursor: pointer;
-          line-height: 32px; }
+          line-height: 32px;
+          font-size: 23px;
+          position: relative;
+          float: left;
+          padding-left: 5px;
+          cursor: pointer;
+          width: 16px;
+          height: 16px;
+          border-radius: 8px;
+          margin-left: 5px;
+          margin-right: 5px; }
+          body #container .info-holder .switches #afk-switch.home {
+            background-color: #0c400d; }
+          body #container .info-holder .switches #afk-switch.away {
+            background-color: #510909; }
         body #container .info-holder .switches #kill-switch, body #container .info-holder .switches #used-switch, body #container .info-holder .switches #traveller-switch {
           font-size: 23px;
           position: relative;
