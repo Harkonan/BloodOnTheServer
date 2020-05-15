@@ -4,6 +4,7 @@ Bugs:
     - If you put open the game twice it will loop thinking two people are in the same seat. - Fixed
     
 Requested Features:
+    - Dark theme
     - only admin sets traveller status
     - Alow admin to change voters alive/dead status and remove vote token
     - put current voters status in the middle

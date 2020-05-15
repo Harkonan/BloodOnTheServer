@@ -9,6 +9,9 @@ $SmallVoteSize: 60px;
 
 @media screen and (min-width: 700px) {
     body {
+
+
+
         #container.round {
             background-size: contain;
             width: 800px;
@@ -236,7 +239,6 @@ $SmallVoteSize: 60px;
                         overflow: hidden;
                         text-overflow: ellipsis;
                         width: 100%;
-                        
                     }
 
                     #my_name_display {
@@ -884,6 +886,52 @@ $SmallVoteSize: 60px;
 
 body {
     //background-color: #dbdbdb;#
+    &.dark {
+        background-color: #282828;
+        color: #808080;
+
+        .form-control {
+            background-color: #808080;
+            color: white;
+        }
+
+        h1, h2, h3, h4, .title {
+            font-family: 'Dancing Script', cursive;
+            color: #b76770;
+        }
+
+        
+
+        #admin-panel {
+            background-color: #282828;
+        }
+
+        #container {
+            background-image: url('../images/Parchment-Dark.jpg');
+
+            .border {
+                filter: invert(70%);
+            }
+
+            .info-holder {
+                .voter {
+                    .vote.abstain-vote {
+                        background-color: #a8a8a8;
+                    }
+                }
+
+                .voter.alive {
+                    background-color: #826c2b;
+                    border: 1px solid #645322;
+                }
+            }
+
+            #stats {
+                color: #808080
+            }
+        }
+    }
+
     h1, h2, h3, h4, .title {
         font-family: 'Dancing Script', cursive;
         color: #bb0a1e;

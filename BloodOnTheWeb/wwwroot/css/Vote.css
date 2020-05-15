@@ -544,6 +544,28 @@
 
 body {
   min-width: 257px; }
+  body.dark {
+    background-color: #282828;
+    color: #808080; }
+    body.dark .form-control {
+      background-color: #808080;
+      color: white; }
+    body.dark h1, body.dark h2, body.dark h3, body.dark h4, body.dark .title {
+      font-family: 'Dancing Script', cursive;
+      color: #b76770; }
+    body.dark #admin-panel {
+      background-color: #282828; }
+    body.dark #container {
+      background-image: url("../images/Parchment-Dark.jpg"); }
+      body.dark #container .border {
+        filter: invert(70%); }
+      body.dark #container .info-holder .voter .vote.abstain-vote {
+        background-color: #a8a8a8; }
+      body.dark #container .info-holder .voter.alive {
+        background-color: #826c2b;
+        border: 1px solid #645322; }
+      body.dark #container #stats {
+        color: #808080; }
   body h1, body h2, body h3, body h4, body .title {
     font-family: 'Dancing Script', cursive;
     color: #bb0a1e; }
