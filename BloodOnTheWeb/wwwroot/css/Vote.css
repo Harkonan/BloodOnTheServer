@@ -573,6 +573,18 @@ body {
       body.dark .ui-dialog .note-dialog.ui-dialog-content textarea {
         background-color: #808080;
         color: white; }
+  body #AddNoteButton {
+    border: 1px solid #510909;
+    background-color: #808080;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 200px;
+    text-align: center;
+    padding: 2px;
+    cursor: pointer; }
   body .ui-dialog .note-dialog.ui-dialog-content {
     overflow: hidden; }
     body .ui-dialog .note-dialog.ui-dialog-content textarea {

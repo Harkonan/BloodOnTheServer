@@ -935,8 +935,8 @@ body {
         .ui-dialog {
             background-color: #282828;
 
-            .ui-dialog-titlebar{
-                background-color:#808080;
+            .ui-dialog-titlebar {
+                background-color: #808080;
             }
 
             .note-dialog.ui-dialog-content {
@@ -946,6 +946,20 @@ body {
                 }
             }
         }
+    }
+
+    #AddNoteButton {
+        border: 1px solid #510909;
+        background-color: #808080;
+        color: white;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        width: 200px;
+        text-align: center;
+        padding: 2px;
+        cursor:pointer;
     }
 
     .ui-dialog {
