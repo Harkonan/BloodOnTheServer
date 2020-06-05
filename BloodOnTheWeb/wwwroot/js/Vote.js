@@ -42,6 +42,10 @@ $(function () {
         toggleMyName();
     });
 
+    $("#AddNoteButton").on("click", function () {
+        addNote();
+        
+    });
 
     $("#kill-switch").on('click', function () {
         var my_vote = $(".voter.me");
@@ -67,7 +71,7 @@ $(function () {
             $(".vote.me").removeClass("used-vote");
             $(".vote.me").attr("data-vote", "free");
 
-            
+
         }
         SendMyStatus();
     });
@@ -129,6 +133,8 @@ $(function () {
     } else {
         $("#vote-log-container").hide();
     }
+
+    loadNotes();
 });
 
 function toggleMyName() {
@@ -183,7 +189,7 @@ connection.on("StartTimer", function (timePerUser, type, start) {
     for (var n = 0; n < Voters.length; n++) {
         $(Voters[n]).siblings(".timer").text(timePerUser);
     }
-    
+
 
     $("#master-timer").text(timePerUser);
     $(Voters[i]).siblings(".voting").show();
@@ -220,7 +226,7 @@ connection.on("StartTimer", function (timePerUser, type, start) {
         } else {
             clearInterval(Timer);
             if ($(".voter.me").attr("data-id") === "0") {
-                triggerRecordVote($(Voters[i-1]).siblings(".username").text().trim());
+                triggerRecordVote($(Voters[i - 1]).siblings(".username").text().trim());
             }
         }
 
@@ -235,7 +241,7 @@ connection.on("SwapPlayers", function (voterOne, voterTwo) {
             window.location.href = "/vote/" + voterTwo + "/" + SessionId;
         }
 
-        if (MySeatId  === voterTwo) {
+        if (MySeatId === voterTwo) {
             window.location.href = "/vote/" + voterOne + "/" + SessionId;
         }
     }
@@ -256,7 +262,7 @@ connection.on("CheckPlayerNumber", function () {
 function CheckPlayerNumber() {
     $.ajax({
         url: "/api/voteapi/GetSeats",
-        data: { "SessionId": SessionId},
+        data: { "SessionId": SessionId },
         success: function (newPlayerNumber) {
             var MyId = $(".voter.me").attr("data-id");
 
@@ -332,7 +338,7 @@ connection.on("ServerToClientVote", function (voter_id, voter_name, new_vote, vo
 
     voter.attr("data-afk", afk_status);
 
-    if (namechange && typeof UpdateDropDown === "function" ) {
+    if (namechange && typeof UpdateDropDown === "function") {
         UpdateDropDown();
     }
 
@@ -410,7 +416,7 @@ function StartupProcess() {
 
     connection.invoke("JoinSession", SessionId, MySeatId, MyUID);
     connection.invoke("ClientRequestsLatest", SessionId);
-    
+
 }
 
 function SendMyStatus() {
@@ -451,7 +457,7 @@ function GetStats() {
     $("#stats-votes-dead").text($(".voter.player.dead .vote[data-vote=free]").length);
     $("#stats-min-vote").text(Math.ceil($(".voter.player.alive").length / 2));
     $("#stats-current-votes").text($(".vote[data-vote=free].execute-vote").length);
-    
+
 }
 
 function UpdateStatus(new_vote, vote_status, health, traveller) {
@@ -481,6 +487,82 @@ function setCookie(name, value, days) {
     }
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
+
+
+function addNote(position, width=300, height=200, text="", NoteID) {
+    if (NoteID === undefined) {
+        NoteID = Math.random().toString().slice(2);
+    }
+
+    var $DialogHolder = $("#noteDialogs");
+    
+    var template = '<div id="dialog_' + NoteID + '" class="note-dialog"><textarea data-id=' + NoteID + '>'+text+'</textarea></div>';
+    $DialogHolder.append(template);
+
+    $("#dialog_" + NoteID).dialog({
+        width: width+35,
+        height: height + 38,
+        dragStop: function () {
+            saveDialog($("#dialog_" + NoteID + " textarea"));
+        },
+        resize: function () {
+            saveDialog($("#dialog_" + NoteID + " textarea"));
+        },
+        close: function () {
+            var data;
+            if (getCookie(SessionId + "_dialogs") !== null) {
+                data = $.parseJSON(getCookie(SessionId + "_dialogs"));
+            } else {
+                data = { [NoteID]: null };
+            }
+
+            delete data[NoteID];
+            setCookie(SessionId + "_dialogs", JSON.stringify(data));
+        }
+    });
+
+
+    if (position !== undefined) {
+        $("#dialog_" + NoteID).dialog({
+            position: {
+                my: 'left top', at: 'left+' + position.left + ' top+'+ position.top, of:window } });
+    }
+   
+
+    $("#dialog_" + NoteID + " textarea").on("change", function () {
+        saveDialog($(this));
+    });
+}
+
+function saveDialog(dialog) {
+    var data;
+
+
+    if (getCookie(SessionId + "_dialogs") !== null) {
+        data = $.parseJSON(getCookie(SessionId + "_dialogs"));
+    } else {
+        data = { [$(dialog).attr("data-id")]: null };
+    }
+
+    data[$(dialog).attr("data-id")] = {
+        text: $(dialog).val(),
+        position: $("#dialog_" + $(dialog).attr("data-id")).offset(),
+        width: $("#dialog_" + $(dialog).attr("data-id")).width(),
+        height: $("#dialog_" + $(dialog).attr("data-id")).height()
+    };
+    setCookie(SessionId + "_dialogs", JSON.stringify(data));
+}
+
+function loadNotes() {
+    if (getCookie(SessionId + "_dialogs") !== null) {
+        var data = $.parseJSON(getCookie(SessionId + "_dialogs"));
+        for (var i in data) {
+
+            addNote(data[i].position, data[i].width, data[i].height, data[i].text, i);
+        }
+    }
+}
+
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -495,3 +577,4 @@ function getCookie(name) {
 function eraseCookie(name) {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
 }
+

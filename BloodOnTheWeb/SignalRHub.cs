@@ -1,5 +1,6 @@
 ﻿using BloodOnTheWeb.Models;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace BloodOnTheWeb.Hubs
             _context = context;
         }
 
+
         public async override Task OnDisconnectedAsync(Exception exception)
         {
             //remove player from DB so seat can be re allocated
@@ -32,6 +34,9 @@ namespace BloodOnTheWeb.Hubs
             await ClientToServerVote("vote_"+Context.Items["Seat"].ToString(), "voter_" + Context.Items["Seat"].ToString(), "True", "alive", "false", "free", "false", Context.Items["Session"].ToString());
             await base.OnDisconnectedAsync(exception);
         }
+
+
+
 
         public async Task AdminPing(string session, string pingId)
         {
@@ -95,10 +100,40 @@ namespace BloodOnTheWeb.Hubs
 
         public async Task JoinSession(string session, int playerSeat, string MyUID)
         {
-
             Context.Items.Add("UID", MyUID);
-            Context.Items.Add("Session", session);
+            Context.Items.Add("Session", MyUID);
             Context.Items.Add("Seat", playerSeat);
+
+            Guid localUID = new Guid(MyUID);
+
+            if (playerSeat > 0)
+            {
+                var Players = _context.Players.Where(x => x.Session.SessionId == MyUID).ToList();
+
+                //remove all instances of this player having a seat already
+                if (Players.Any(x => x.PlayerID == localUID))
+                {
+                    _context.RemoveRange(Players.Where(x => x.PlayerID == localUID && x.PlayerSeat != playerSeat));
+                }
+
+                _context.SaveChanges();
+
+                Players = _context.Players.Where(x => x.Session.SessionId == MyUID).ToList();
+                //if this player is not already added in as using the current seat, add them
+                if (!Players.Any(x => x.PlayerID == localUID && x.PlayerSeat == playerSeat))
+                {
+                    Player P = new Player()
+                    {
+                        PlayerID = localUID,
+                        PlayerSeat = playerSeat,
+                        Session = _context.Sessions.Where(x => x.SessionId == session).FirstOrDefault()
+                    };
+                    _context.Players.Add(P);
+                    _context.Entry(P).State = EntityState.Added;
+                    _context.SaveChanges();
+                }
+            }
+
             await Groups.AddToGroupAsync(Context.ConnectionId, session.ToString());
             await Clients.Group(session.ToString()).SendAsync("AdminTriggerPing");
         }

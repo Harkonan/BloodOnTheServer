@@ -2,9 +2,9 @@
 Bugs:
     - Changing the number of players in a game causes some kind of infinate loop of duplicate rooms- Fixed?
     - If you put open the game twice it will loop thinking two people are in the same seat. - Fixed
+    - stop showing 0 when counting down
     
 Requested Features:
-    - Dark theme
     - only admin sets traveller status
     - Alow admin to change voters alive/dead status and remove vote token
     - put current voters status in the middle

@@ -47,30 +47,33 @@ namespace BloodOnTheWeb.Controllers
                 _context.SaveChanges();
             }
 
-            if (id > 0)
-            {
-                var Players = _context.Players.Where(x => x.Session.SessionId == voteSession).ToList();
+            //if (id > 0)
+            //{
+            //    var Players = _context.Players.Where(x => x.Session.SessionId == voteSession).ToList();
 
-                //remove all instances of this player having a seat already
-                if (Players.Any(x => x.PlayerID == PlayerID))
-                {
+            //    //remove all instances of this player having a seat already
+            //    if (Players.Any(x => x.PlayerID == PlayerID))
+            //    {
+            //        _context.RemoveRange(Players.Where(x => x.PlayerID == PlayerID && x.PlayerSeat != id));
+            //    }
 
-                    _context.RemoveRange(Players.Where(x => x.PlayerID == PlayerID && x.PlayerSeat != id));
-                }
+            //    _context.SaveChanges();
 
-                //if this player is not already added in as using the current seat, add them
-                if (!Players.Any(x => x.PlayerID == PlayerID && x.PlayerSeat == id))
-                {
-                    Player P = new Player()
-                    {
-                        PlayerID = PlayerID,
-                        PlayerSeat = id,
-                        Session = _context.Sessions.Where(x => x.SessionId == voteSession).FirstOrDefault()
-                    };
-                    _context.Players.Add(P);
-                    _context.SaveChanges();
-                }
-            }
+            //    Players = _context.Players.Where(x => x.Session.SessionId == voteSession).ToList();
+            //    //if this player is not already added in as using the current seat, add them
+            //    if (!Players.Any(x => x.PlayerID == PlayerID && x.PlayerSeat == id))
+            //    {
+            //        Player P = new Player()
+            //        {
+            //            PlayerID = PlayerID,
+            //            PlayerSeat = id,
+            //            Session = _context.Sessions.Where(x => x.SessionId == voteSession).FirstOrDefault()
+            //        };
+            //        _context.Players.Add(P);
+            //        _context.Entry(P).State = EntityState.Added;
+            //        _context.SaveChanges();
+            //    }
+            //}
 
             var numberOfVoters = _context.Sessions.Where(x => x.SessionId == voteSession).FirstOrDefault().Seats;
 
@@ -87,7 +90,7 @@ namespace BloodOnTheWeb.Controllers
                 NumberOfVotes = numberOfVoters,
                 VoteSession = voteSession,
             };
-
+            _context.SaveChanges();
             return View(Page);
         }
 
